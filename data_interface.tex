@@ -1,0 +1,39 @@
+\subsection{Conduit: A foundation for in-memory data exchange}
+
+\subsection{Mesh Blueprint: An in-memory mesh description interface co-designed with simulation applications
+System Architecture}
+
+The flexibility of the Conduit Node allows it to be used to represent a
+wide range of scientific data.
+%
+Unconstrained, this flexibly can lead to
+many application specific choices for common types of data that could
+potentially be shared between applications.
+
+The goal of Blueprint is to help facilite a set of shared higher-level
+conventions for using Conduit Nodes to hold common simulation data structures.
+%
+The Blueprint library in Conduit provides methods to verify if a Conduit
+Node instance conforms to known conventions, which we call protocols.
+%
+It also provides property and transform methods that can be used on conforming Nodes.
+
+Many taxonomies and concrete mesh data models have been developed to allow
+computational meshes to be used in software.
+%
+Blueprint’s conventions for representing mesh data were formed by negotiating
+with simulation application teams at LLNL and from a survey of existing
+projects that provide scientific mesh-related APIs including: ADIOS, Damaris,
+EAVL, MFEM, Silo, VTK, VTKm, and Xdmf.
+%
+Blueprint’s mesh conventions are not a replacement for existing mesh data
+models or APIs.
+%
+Our explicit goal is to outline a comprehensive, but small set of options
+for describing meshes in-core that simplifies the process of adapting data
+to several existing mesh-aware APIs.
+
+\subsection{DataObject}
+
+I feel like we should list the different data models we currenlty support and how we
+move from one to the other.
