@@ -1,5 +1,49 @@
 \subsection{Flow: A data-type agonistic data-flow based architecture}
-\cite{flow_reference}
+\fix{
+This text is essentially from the ISAV paper.
+%
+At Ascent's core is a simple data-flow library, named Flow, to efficiently compose
+and execute filters.
+%
+Ascent’s Flow library is a C++ evolution of a Python data flow network
+infrastructure~\cite{flow_reference}.
+%
+Flow supports declaration and execution of directed acyclic graphs
+(DAGs) of filters.
+%
+Filters declare a minimal interface, which includes the number of
+expected inputs and outputs, and a set of default parameters.
+%
+Flow uses a topological sort to ensure proper filter execution order,
+tracks all intermediate results, and provides basic memory management capabilities.
+}
+
+There are three main components to Flow:
+\begin{itemize}
+  \item \textbf{Registry}: manages the lifetime of intermediate filter results
+  \item \textbf{Graph}: contains the filter graph and manages the adding of filters
+  \item \textbf{Workspace}: container for both the registry and filter graph
+\end{itemize}
+
+\paragraph{Registry}
+The registry is a key-value data store used to manage the intermediate
+results of filters inside the data-flow network.
+%
+Keys within the registry are reference counted, and data contained
+inside the registry is deleted when the reference counts reach zero.
+%
+While the data associated with a key can be a pointer to any type,
+the majority of the data stored in the registry are Conduit nodes
+or VTK-m data sets.
+
+\paragraph{Graph}
+The graph.
+
+\paragraph{Workspace}
+The workspace.
+
+\paragraph{Flow Filters}
+There are fitlers.
 
 \subsection{Node-level parallelism? Words to describe VTK-m and other components}
 
