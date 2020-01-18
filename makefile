@@ -4,11 +4,11 @@ SHELL = /bin/sh
 all: ascent.pdf
 
 #ascent.pdf: *.tex *.bib *.inc images/*.png
-ascent.pdf: *.tex
+ascent.pdf: *.tex *.bib
 	export TEXINPUTS=./newtx/:$TEXINPUTS
 	pdflatex book
 	pdflatex book
-#	bibtex book
+	bibtex book
 	touch book.tex
 	pdflatex book
 	pdflatex book
