@@ -56,6 +56,29 @@ Inside Ascent, typical inputs and outputs are data sets.
 Additionally, filters are passed a set of parameters inside of a Conduit
 node.
 %
+Filters are registered with the workspace and can then be added to the
+graph by name.
+
+
+\subsection{Runtime}
+The Ascent runtime exists on top of Flow and is resposible for
+handling applicaiton-facing API calls and translating user-facing
+``actions`` into a data-flow network.
+%
+Built-in functionality is registered internally with the Ascent runtime,
+but externally defined filters can also be registered with registered
+with Ascent, allowing for simulations to execute custom code within Ascent.
+%
+Filters can be registers as either a ``transform'' or a ``extract''.
+%
+Transforms are intermediate nodes in the data-flow network and transform
+data sets.
+%
+An example of transforms is a iso-contour, where a volume is converted
+into a surface.
+%
+Extracts are terminal nodes in the data-flow network, and extracts
+are the main mechanism for software interoperability inside of Ascent.
 
 \subsection{Node-level parallelism? Words to describe VTK-m and other components}
 
