@@ -1,24 +1,15 @@
 \subsection{Flow: A data-type agonistic data-flow based architecture}
-\fix{
-This text is essentially from the ISAV paper.
+At Ascent's core is a simple data-flow library, called Flow, that
+composes and executes filters, the basic unit of execution in Ascent.
 %
-At Ascent's core is a simple data-flow library, named Flow, to efficiently compose
-and execute filters.
+Flow is an evolution of a Python data-flow network
+~\cite{flow_reference}, but unlike its ancestor, Flow is a C++
+library.
 %
-Ascent’s Flow library is a C++ evolution of a Python data flow network
-infrastructure~\cite{flow_reference}.
-%
-Flow supports declaration and execution of directed acyclic graphs
-(DAGs) of filters.
-%
-Filters declare a minimal interface, which includes the number of
-expected inputs and outputs, and a set of default parameters.
-%
-Flow uses a topological sort to ensure proper filter execution order,
-tracks all intermediate results, and provides basic memory management capabilities.
-}
+Flow supports composing and executing directed acyclic graphs
+(DAGs) composed of filters~\cite{LarsenAscent}.
 
-There are three main components to Flow:
+There are three components to Flow:
 \begin{itemize}
   \item \textbf{Registry}: manages the lifetime of intermediate filter results
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
@@ -37,13 +28,34 @@ the majority of the data stored in the registry are Conduit nodes
 or VTK-m data sets.
 
 \paragraph{Graph}
-The graph.
+The graph interface supports main operations: adding filters
+and connecting filters together.
+%
 
 \paragraph{Workspace}
-The workspace.
+The workspace is a container for both the graph and the registry,
+and the workspace is responsible for creating an execution for plan
+for the DAG.
+%
+\fix{Cyrus: make sure these words are true.}
+Flow uses a topological sort to ensure proper filter execution order,
+tracks all intermediate results, and provides basic memory management capabilities.
+%
+Multiple workspaces can co-exist, and in fact, Ascent uses a Flow workspace
+to evaluate expressions within the Ascent runtime.
 
 \paragraph{Flow Filters}
-There are fitlers.
+Flow filters are the basic unit of execution inside of Ascent, and
+almost all functionality inside of Ascent is implemented as a Flow filter.
+%
+Filters declare an interface, i.e., how many inputs a filter has and
+if there is an output.
+%
+Inside Ascent, typical inputs and outputs are data sets.
+%
+Additionally, filters are passed a set of parameters inside of a Conduit
+node.
+%
 
 \subsection{Node-level parallelism? Words to describe VTK-m and other components}
 
