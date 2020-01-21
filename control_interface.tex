@@ -1,12 +1,190 @@
-Ascent Actions: A declarative interface supporting multiple programing
-languages and file-based user control
+Ascent's control interface consists of two main components:
+the API and actions.
+%
+The API is primaraly for getting data in and out of Ascent,
+and the actions describe what to do with the simulation data
+and what the simulation expects in return.
 
-\subsection{Transforms}
+\subsection{Ascent API}
+Ascent's front facing API consistst of five calls:
+open, pushlish, execute, info, and close.
+%
+Ascent supports multiple language binding including C, C++,
+Fortran, and Python.
 
-\subsection{Scenes}
+%\begin{itemize}
+%  \item open: initializes Ascent
+%  \item publish: set the simulaiton data set
+%  \item execute: performs a set of actions on the data set
+%  \item info: returns information back to the simulation
+%  \item close: cleans up Ascent
+%\end{itemize}
 
-\subsection{Extracts}
+\begin{lstlisting}[language=C++,caption={This cool caption}]
+conduit::Node options, actions, data_set, info;
+// fill options, actions, and data_set
+ascent::Ascent ascent;
+ascent.open(options);
+ascent.pubish(data_set);
+ascent.exectute(actions);
+ascent.info(info);
+ascent.close();
+\end{lstlisting}
 
-\subsection{Queries}
+``open'' initializes ascent with a number of options including the
+MPI communicator, exception handling, and the actions file name.
+%
+``publish'' takes in a Conduit Node containing the computational
+mesh described using Blueprint.
+%
+``execute'' also takes in a conduit node containing the actions to
+perform.
+%
+Typically, the parameters to ``exectute'' are overrided with a user provided
+file, which allows actions to be changed without re-compiling the simulation.
+%
+``info'' is the mechanism for getting data out from Ascent into the simulation.
+%
+The Node passed to ``info'' is populated with data that includes the results
+of queries, allowing the the simulation to take actions based on the results.
+%
+``close'' directs Ascent to finalize execution.
 
-\subsection{Triggers}
+
+\subsection{Ascent Actions}
+In Ascent, actions are a declarative interface that enables users to
+control Ascent's exectution using five high-level concepts:
+Pipelines, Scenes, Extracts, Queries, and Triggers.
+%
+Pipelines describe a series of data tranfomations, e.g.,
+clipping and contouring.
+%
+Scenes describe the images to be rendered, consisting of one or more
+plots (e.g., pseudocolor or volume rendering).
+%
+Extracts are a way to to get data out of Ascent and into other softeware
+ecosystems, such as python.
+%
+Queries are a way to ask questions about the simulation data over time, and
+the results are available to the simulation.
+%
+Triggers describe conditional actions based on simulation state and are a way
+to create adaptive workflows inside of Ascent.
+
+Under the hood, tools like ParaView and VisIt construct data-flow networks
+to execute commands issued by the user through the GUI.
+%
+Abstractly, Ascents actions are a level below a GUI but at a higher level
+than assembling a data flow network from scratch.
+%
+Constructing actions provides the user greater control and understanding
+of exactly what is executing in situ, while still affording a higher level of
+useability than programming directly in somnething like VTK.
+%
+Additionally, many filters in Ascent provide \textit{relative}
+parameters so the user doesn't need to explicitly know filter parameter values
+before the simulation executes.
+%
+For example, the slice filter accepts \textit{relative} offsets from the
+center of the data set, i.e., a value of $(0,0,0)$ would place the origin
+of the slice plane a the center of the data set bounding box.
+
+\subsubsection{Pipelines}
+Pipelines allows users to describe a series of data transformations, also known as
+filters, to execute on simulation data.
+%
+An example pipeline could be to create an isovolume of a field
+and clip the results in half.
+%
+In Ascent, users can define as many pipelines as needed.
+%
+By default, all actions consume the default pipeline, which is the data
+published by the simulation, but pipelines and all other actions can consume
+the results of pipelines.
+
+\subsubsection{Scenes}
+Scenes allow users to specify how images are rendered.
+%
+Each scene consists of one or more plots, and Ascent supports volume,
+pseudocolor, and mesh plots.
+%
+Plot types contain parameters such scalar fields, color tables, and scalar ranges,
+in addition to the name of the pipeline to consume.
+%
+Scenes also can contain zero or more \textit{renders}, which contain
+camera specifications, image dimensions, background and
+forground colors, annotation controls.
+%
+Ascent creates a default camera based on bounding box of the data set and
+is always facing the data set.
+%
+Renders inherit the default camera parameters, which simplifies creating
+cameras that actually looks at the data set.
+%
+Ascent also provides simple controls to rotate the camera on the
+sphere circumscribing the data set, although the user is free to set all
+camera parameters explicitly.
+%
+Additionally, scenes can create Cinema~\cite{AhrensCinema} databases that
+create a large set of images that can be explored after the simulation.
+
+\subsubsection{Extracts}
+Extracts are an escape hatch in Ascent that enable data to be sent
+outside of Ascent.
+%
+Extracts can be a simple a saving data to HDF5 files or can be a gateway
+to a larger workflow(e.g., ADIOS).
+%
+Ascent supports connections to the Python ecosystem through the Python and
+Jupyter extracts~\cite{CyrusISAV}.
+%
+Python extracts execute custom analysis code provided by the user, and the
+Jupyter extracts allow for incoming connections of Jupyter notebooks from a web
+browser.
+%
+
+Jupyter notebooks is a promising direction for in situ.
+%
+One of in situ's greatest weaknesses is the it's reliance on a priori
+knowledge, and one strategy to mitagate this weakness is interactivity.
+%
+Through the Jupyter notebook interface, uses can pause a running simulation
+and interact with the data.
+%
+Additionally, Jupyter widgets enable fast prototyping of domain specific
+GUIs.
+
+\fix{Cyrus add more wisdom and python stuff.}
+
+\subsubsection{Queries}
+Queries in Ascent allow users to ask questions about simulation data,
+or data from pipelines, through a Python like language.
+%
+The expression language that backs queries can perform math operations,
+call functions, conditionals, and store the results into named variables.
+%
+Listing~\ref{simple_query} shows the declaration of a query that returns
+the current simulation cycle and stores it into a variable name \textit{cycle},
+and Listing~\ref{complex_query} shows a more complex example of a query that
+calculates the entropy of a simulation field.
+%
+Subsequent queries can refence the previous results, and using this,
+more complex queries can be created.
+%
+Queries are executed each time Ascent is called, and the resulting time
+history can be saved or a accessed by the simulation.
+
+\begin{lstlisting}[language=Python,caption={Examples of querying the simulation cycle}, label={simple_query}]
+# add a simple query expression (q1)
+queries["q1/params/expression"] = "cycle()"
+queries["q1/params/name"] = "cycle"
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python,caption={A more complex example of queries in Ascent}, label={complex_query}]
+# add a more complex query expression (q2)
+queries["q2/params/expression"] = "entropy(histogram(field('gyre'), num_bins=128))"
+queries["q2/params/name"] = "entropy_of_gyre"
+\end{lstlisting}
+
+
+\subsubsection{Triggers}
