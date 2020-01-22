@@ -157,6 +157,7 @@ GUIs.
 \fix{Cyrus add more wisdom and python stuff.}
 
 \subsubsection{Queries}
+\label{action_queries}
 Queries in Ascent allow users to ask questions about simulation data,
 or data from pipelines, through a Python like language.
 %
@@ -164,7 +165,7 @@ The expression language that backs queries can perform math operations,
 call functions, conditionals, and store the results into named variables.
 %
 Listing~\ref{simple_query} shows the declaration of a query that returns
-the current simulation cycle and stores it into a variable name \textit{cycle},
+the current simulation cycle and stores it into a variable identifier \textit{cycle},
 and Listing~\ref{complex_query} shows a more complex example of a query that
 calculates the entropy of a simulation field.
 %
@@ -172,7 +173,8 @@ Subsequent queries can refence the previous results, and using this,
 more complex queries can be created.
 %
 Queries are executed each time Ascent is called, and the resulting time
-history can be saved or a accessed by the simulation.
+history can be saved, accessed by the simulation, or accessed in other
+expressions.
 
 \begin{lstlisting}[language=Python,caption={Examples of querying the simulation cycle}, label={simple_query}]
 # add a simple query expression (q1)
@@ -186,5 +188,34 @@ queries["q2/params/expression"] = "entropy(histogram(field('gyre'), num_bins=128
 queries["q2/params/name"] = "entropy_of_gyre"
 \end{lstlisting}
 
+\paragraph{The History Function}
+The history function enables direct access to the time history of identifier.
+%
+
+
 
 \subsubsection{Triggers}
+Traditional in situ actions execute every $X$ simulation cycles, this presents
+two related problems.
+%
+First, if the analysis is expensive, then the total cost of the action may exceed
+what a user is willing to pay, e.g., adding a 50\% overhead on top of the simulation.
+%
+Second, if the analysis called infrequently, then the feature or event that the analysis is
+trying to capture could easily be missed.
+%
+Triggers address these issues by coupling inspection routines with analysis, and a
+potentially costly analysis only executes when user defined precondition is met.
+%
+Ideally, inpection routines are cheap and can be called every cycle, while the analysis
+that are ``triggered'' can cost more.
+
+Ascent triggers builds on the queries and expression support introduced in
+Section~\ref{action_queries}, and the trigger condition can be any conditional
+expression.
+%
+When the condition evaluates to true, the trigger fires, executing a user provided
+set of actions, which can be any Ascent action.
+%
+
+

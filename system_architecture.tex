@@ -1,3 +1,6 @@
+This section discusses Ascent's system architecture starting at its inner layer, Flow,
+and moving outward to the API and actions.ke .
+
 \subsection{Flow: A data-type agonistic data-flow based architecture}
 At Ascent's core is a simple data-flow library, called Flow, that
 composes and executes filters, the basic unit of execution in Ascent.
@@ -80,17 +83,30 @@ into a surface.
 Extracts are terminal nodes in the data-flow network, and extracts
 are the main mechanism for software interoperability inside of Ascent.
 
-\subsection{Node-level parallelism? Words to describe VTK-m and other components}
-
-Component based architecture? Components include VTK-m, Devil Ray, perhaps things like ADIOS and other extracts.
-
-\subsection{Distributed-Memory Execution}
+\paragraph{MPI}
 The main point of this is to get across the following.
 Within Ascent, all MPI ranks execute the same graph, meaning
 that all flow filters execute on all ranks.
 %
 Within a filter, you can do whatever you want, including creating asynchronous
 tasks.
+
+\subsection{Components built into the runtime}
+Dray, python, vtkm, ADIOS, Jupyter,
+
+\subsubsection{Data Representations stragegy}
+
+Multi Domain. Empty domains.
+
+Blueprint support multi-topo vtkm does not, add wrapper. this
+
+
+Dataobject
+
+\subsection{Node-level parallelism? Words to describe VTK-m and other components}
+
+Component based architecture? Components include VTK-m, Devil Ray, perhaps things like ADIOS and other extracts.
+
 %
 
 \subsection{Extracts: optional python environment}
