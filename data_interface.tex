@@ -37,20 +37,3 @@ Our explicit goal is to outline a comprehensive, but small set of options
 for describing meshes in-core that simplifies the process of adapting data
 to several existing mesh-aware APIs.
 
-\subsection{DataObject}
-
-I feel like we should list the different data models we currenlty support and how we
-move from one to the other.
-%
-This might go into system architecture.
-
-Ascent supports mutliple data representations, including Blueprint (both low
-order and high order meshes), and VTK-m.
-%
-The Data Object is an abstraction that encapsulates data adapter code in order
-to freely convert between compatible representations.
-%
-Filters in Ascent can ask for whatever data representation that they
-support.
-
-

@@ -83,30 +83,73 @@ into a surface.
 Extracts are terminal nodes in the data-flow network, and extracts
 are the main mechanism for software interoperability inside of Ascent.
 
-\paragraph{MPI}
-The main point of this is to get across the following.
-Within Ascent, all MPI ranks execute the same graph, meaning
+\subsubsection{Parallism in Ascent}
+Ascent is a hybrid-parallel library, meaning that it uses both
+distributed-memory(e.g., MPI) and shared-memory parallelism
+(e.g., CUDA and OpenMP), and Ascent is primiary
+tightly-coupled with simulations.
+%
+In this paradigm, simulations control how parallelism is used, so
+it is imperitive that Ascent's functinality be capable of running
+on the same architectures using the same types of parallism as the
+simulations.
+%
+Ascent supports many different parallel configurations including
+one MPI rank per core(i.e., no shared-memory parallism), one rank
+per GPU, and one rank per node.
+%
+While Ascent does internally leverage shared-memory parallelism
+for expressions, the majority of the shared-memory parallelism comes
+from Ascent's components such as VTK-m and Devil Ray.
+
+\paragraph{Distributed-Memory Parallelism}
+Within Ascent, all MPI ranks recieve the same set of actions.
+%
+Since the actions are the same, all MPI ranks create and execute the same graph,
+meaning
 that all flow filters execute on all ranks.
 %
-Within a filter, you can do whatever you want, including creating asynchronous
-tasks.
+Filter are free to use MPI and anyway they see fit, including
+creating asynchronous tasks.
+
+\paragraph{Shared-Memory Parallelism}
+Ascent's main components use portable performance abstraction layers to
+take advantage of the different types of shared-memory parallism on
+modern supercomputers.
+%
+For example, VTK-m is itself a portable performance layer designed specifially
+for visualization and currently supports OpenMP, CUDA, and TBB.
+%
+Devil Ray, while not itself a portalble performance layer, uses RAJA to execute
+on different architectures, supporting OpenMP, CUDA, HIP, and TBB.
 
 \subsection{Components built into the runtime}
 Dray, python, vtkm, ADIOS, Jupyter,
 
-\subsubsection{Data Representations stragegy}
+\subsubsection{Data Set Representations}
+Ascent uses a data abstraction, called the data object, as the input
+and outputs of filters.
+%
+The data object is resposible for transforming data from one format
+to another without unnessecary copies.
+%
+By using this abstraction, filters can ask for whatever data set
+representation they need.
+%
 
-Multi Domain. Empty domains.
-
-Blueprint support multi-topo vtkm does not, add wrapper. this
-
-
-Dataobject
-
-\subsection{Node-level parallelism? Words to describe VTK-m and other components}
-
-Component based architecture? Components include VTK-m, Devil Ray, perhaps things like ADIOS and other extracts.
-
+To support multiple data set representations, there must be a common
+set of supported features, but not all data models Ascent uses
+supports the same set of features.
+%
+Since Ascent uses Blueprint as its data interface to simulations,
+all other data models must sometimes be adapted to support additional
+features.
+%
+For example, Blueprint supports multiple topologies in the same data set
+but VTK-m only supports a single topology.
+%
+To handle this correctly within Ascent, we wrap the data sets in a container
+that treats each topology as individual VTK-m data sets.
 %
 
 \subsection{Extracts: optional python environment}
