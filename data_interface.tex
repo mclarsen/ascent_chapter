@@ -1,9 +1,138 @@
 \subsection{Conduit: A foundation for in-memory data exchange}
-Everything is a conduit node.
+Conduit is a library that provides an intuitive model for describing
+hierarchical scientific data in C++, C, Fortran, and Python.
+%
+The API is a JSON-inspired data model for describing hierarchical
+in-core scientific data.
+%
+While primarily used for data coupling between packages in-core,
+Conduit also provides easy access to serialization and I/O functions.
+%
+In this section, we will discuss some of the basics of Conduit
+and describe the concepts needed to couple simulation mesh
+data structures using Conduit's Mesh Blueprint.
+
+\fix{At the end, we should mention how simulations codes are using conduit as
+a central data store, and for checkpoints. It also might be nice to
+illustrate some other interesting use cases like neurons, or diffing nodes
+to update rendering states in wolf vision. The limits of using using Conduit
+are only bounded by the imagination of the person who wields Conduit.}
 
 \subsubsection{Conduit Basics}
+The primary Conduit data structure is a Node.
 %
+Nodes stores data through a key-value interface.
+%
+Figure~\ref{ex:1} shows how to store a string ``value'' into a Node
+with the key ``key''.
 
+\begin{figure}
+%\begin{tabular}{p{0.5\textwidth}p{0.5\textwidth}}
+\begin{tabular}{cc}
+  \begin{minipage}{.5\textwidth}
+  \centering
+    \begin{lstlisting}[language=C++]
+Node n;
+n["key"] = "value";
+n.print();
+    \end{lstlisting}
+  \end{minipage}
+  &
+  \begin{minipage}{.5\textwidth}
+  \centering
+  \begin{lstlisting}[language=C++]
+{
+  "key": "value"
+}
+  \end{lstlisting}
+  \end{minipage}
+\end{tabular}
+\caption{\label{ex:1}On the left, an example of storing a string inside a Conduit Node. On the right, the JSON equivalent.}
+\end{figure}
+
+Data in Nodes can be created and accessed through hierarchical keys,
+and the key string looks much like a UNIX directory structure.
+%
+Key paths are completely up to the user.
+%
+Figure~\ref{ex:2} illustrates creating a Node hierarchy
+and storing a floating point value in a leaf Node.
+%
+In this example, several Nodes are actually created with parent child
+relationships defined by the key.
+%
+Node $n$ has a child Node $dir1$, which in turn has a child $dir2$,
+and the tree ends at the leaf Node $val1$, which stores the data.
+%
+Nodes can contain many basic data types such as strings,
+floating point values, and integers.
+
+\begin{figure}
+\begin{tabular}{cc}
+  \begin{minipage}{.5\textwidth}
+  \centering
+    \begin{lstlisting}[language=C++]
+Node n;
+n["dir1/dir2/val1"] = 100.5;
+n.print();
+    \end{lstlisting}
+  \end{minipage}
+  &
+  \begin{minipage}{.5\textwidth}
+  \centering
+  \begin{lstlisting}[language=C++]
+{
+  "dir1" :
+  {
+    "dir2" :
+    {
+      "val1": 100.5
+    }
+  }
+}
+  \end{lstlisting}
+  \end{minipage}
+\end{tabular}
+\caption{\label{ex:2}On the left, an example of using a hierarchical key to store a number. On the right, the JSON equivalent.}
+\end{figure}
+
+Nodes can also contain arrays, and the $set$ method
+copies the values from an array into a Node.
+%
+Figure~\ref{ex:3} shows how to set a Node to the contents of an array.
+%
+Alternatively, the $set_external$ copies only the pointer(i.e., a shallow copy),
+and any change to the underlying array would be reflected in both the original
+array and the data contained inside the Node.
+%
+Using $set_external$ is desirable for large data, such as simulation mesh data,
+and in environments where memory is constrained.
+
+\begin{figure}
+\begin{tabular}{cc}
+  \begin{minipage}{.5\textwidth}
+  \centering
+    \begin{lstlisting}[language=C++]
+const int size = 4;
+int A[size] = {0, 1, 2, 3};
+Node n;
+n["my_array"].set(A, size);
+n.print();
+    \end{lstlisting}
+  \end{minipage}
+  &
+  \begin{minipage}{.5\textwidth}
+  \centering
+  \begin{lstlisting}[language=C++]
+{
+  "my_array" : [0, 1, 2, 3]
+}
+  \end{lstlisting}
+  \end{minipage}
+\end{tabular}
+
+\caption{\label{ex:3}On the left, an example of setting the value of a Node to an Array. On the right, the JSON equivalent.}
+\end{figure}
 \subsection{Mesh Blueprint: An in-memory mesh description interface co-designed with simulation applications
 System Architecture}
 
@@ -14,7 +143,7 @@ Unconstrained, this flexibly can lead to
 many application specific choices for common types of data that could
 potentially be shared between applications.
 
-The goal of Blueprint is to help facilite a set of shared higher-level
+The goal of Blueprint is to help facilitate a set of shared higher-level
 conventions for using Conduit Nodes to hold common simulation data structures.
 %
 The Blueprint library in Conduit provides methods to verify if a Conduit
