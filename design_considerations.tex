@@ -56,6 +56,31 @@ Ascent targets exascale architectures.
 VTK-m, devil ray
 
 \subsection{Provide simple and flexible data and control interfaces}
+Ascent uses Conduit[] to describe its data and control information. Conduit
+provides a simple json like mechanism for describing in memory data.
+%
+Both the data and control interface follow the principle that simple things
+should be simple and complex things can be complex.
+%
+The data interface contains a simple mesh and field model similar to ones
+in common use today, like VTK[] and XDMF[], while also having a more advanced
+data model that builds on the simple data model for simulation codes that
+need it.
+%
+This results in an interface that matches an individual simulation codes
+level of complexity and allows them to describe their data in a manner that
+they are already familiar with.
+%
+
+Image of a json file describing a simple mesh
+
+%
+The control interface has a simple pipeline-based model for processing
+data that is easy to understand, yet also has a more complex graph based
+model for processing data when the extra complexity is necessary.
+%
+
+Image of a json file describing a simple action
 
 \subsection{Create tools to address in situ resource constraints , e.g., a flexible trigger system that allows users to express what is important}
 
