@@ -6,7 +6,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\motto{Use the template \emph{chapter.tex} to style the various elements of your chapter content.}
-\chapter{Chapter Heading}
+\chapter{Ascent: A Flyweight In Situ Library for Exascale Simulations}
 \label{ascent} % Always give a unique label
 % use \chaptermark{}
 % to alter or adjust the chapter heading in the running head
@@ -34,11 +34,50 @@ architectures.
 In this paper, we will discuss in detail Ascent's design considerations, data and control interfaces, system architecture, and success stories.
 }
 
+This chapter describes the Ascent library for in situ visualization
+and analysis.
+%
+Ascent was designed to deliver on two goals which are often in tension:
+ (1) minimize encumbrance on simulation codes that incorporate Ascent,
+i.e., a ``flyweight'' design, and 
+(2) deliver maximum capability, especially for modern supercomputers,
+%
+In addition, Ascent built for production use --- it has documentation, 
+examples, engages in modern software engineering practices, etc.
+
+In terms of flyweight design, Ascent aims to minimize 
+execution time, memory usage, binary size, and code integrations.
+%
+The first two, execution time and memory usage, benefit from directly
+incorporating VTK-m~\cite{VTK-m} into Ascent.  
+%
+VTK-m's data model supports many array layouts (e.g., row major versus 
+column major, array of structures versus structures of arrays) 
+in a zero-copy manner.
+%
+Further, VTK-m provides native support for many-core architectures,
+including Nvidia GPUs, various Intel architectures, 
+and planned support for AMD GPUs.
+%
+As a result, Ascent is able to perform its algorithms very quickly,
+since it can make full use of the underlying hardware architecture.
+%
+Statement about binary size.
+%
+Statement about code integrations that references API section.
+
+Statement about capabilities.  Emphasis on being an integrator.
+This is where Jupyter, triggers, etc. get mentioned.  Also emphasize
+exascale.
+Statement about Devil Ray, but a forward reference a section in success stories --- success as an integrator.
+
+
+
 \section{The Ascent In Situ Infrastructure}
 \label{ascent_overview}
-Use the template \emph{chapter.tex} together with the document class SVMono (monograph-type books) or SVMult (edited books) to style the various elements of your chapter content conformable to the Springer Nature layout.
+%Use the template \emph{chapter.tex} together with the document class SVMono (monograph-type books) or SVMult (edited books) to style the various elements of your chapter content conformable to the Springer Nature layout.
 
-List how ascent makes things easy.
+%List how ascent makes things easy.
 
 \section{Design Considerations}
 \label{ascent_design_considerations}
