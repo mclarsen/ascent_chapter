@@ -1,5 +1,8 @@
+In the previous section, we described Ascent's high level abstractions and
+capabilities.
+%
 This section discusses Ascent's system architecture starting at its inner layer, Flow,
-and moving outward to the API and actions.ke .
+and moving outward.
 
 \subsection{Flow: A data-type agonistic data-flow based architecture}
 At Ascent's core is a simple data-flow library, called Flow, that
@@ -14,10 +17,39 @@ Flow supports composing and executing directed acyclic graphs
 
 There are three components to Flow:
 \begin{itemize}
-  \item \textbf{Registry}: manages the lifetime of intermediate filter results
+  \item \textbf{Filter}: basic unit of exectution
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
+  \item \textbf{Registry}: manages the lifetime of intermediate filter results
   \item \textbf{Workspace}: container for both the registry and filter graph
 \end{itemize}
+
+\paragraph{Flow Filters}
+Flow filters are the basic unit of execution inside of Ascent, and
+almost all functionality inside of Ascent is implemented as a Flow filter.
+%
+Adding new capabilites to Ascent means wrapping that functionality inside
+a flow filter.
+%
+Filters declare an interface, i.e., how many inputs a filter has and
+if there is an output, and filters are passed a set of parameters inside
+of a Conduit
+node.
+%
+In terms of Ascent actions, pipeline filters are part of a chain of
+data transformations and would minimally have an input
+data set and an output data set, while scenes and extracts
+are sinks that have an input data set and no output.
+%
+
+\paragraph{Graph}
+The graph is a series of Flow filters connected together into
+a DAG.
+%
+The graph is responsible for storing filters and connections
+between filters.
+%
+The primary graph interface supports adding filters and connecting
+filter ports(e.g., inputs and outputs) together.
 
 \paragraph{Registry}
 The registry is a key-value data store used to manage the intermediate
@@ -30,15 +62,16 @@ While the data associated with a key can be a pointer to any type,
 the majority of the data stored in the registry are Conduit nodes
 or VTK-m data sets.
 
-\paragraph{Graph}
-The graph interface supports main operations: adding filters
-and connecting filters together.
-%
 
 \paragraph{Workspace}
 The workspace is a container for both the graph and the registry,
 and the workspace is responsible for creating an execution for plan
 for the DAG.
+%
+Additionally, the workspace manages the list on known filter.
+%
+A filter must be registered with the workspace in order to be added to the
+graph, and once registered, a filter can be added to the graph by name.
 %
 \fix{Cyrus: make sure these words are true.}
 Flow uses a topological sort to ensure proper filter execution order,
@@ -46,33 +79,27 @@ tracks all intermediate results, and provides basic memory management capabiliti
 %
 Multiple workspaces can co-exist, and in fact, Ascent uses a Flow workspace
 to evaluate expressions within the Ascent runtime.
-
-\paragraph{Flow Filters}
-Flow filters are the basic unit of execution inside of Ascent, and
-almost all functionality inside of Ascent is implemented as a Flow filter.
 %
-Filters declare an interface, i.e., how many inputs a filter has and
-if there is an output.
-%
-Inside Ascent, typical inputs and outputs are data sets.
-%
-Additionally, filters are passed a set of parameters inside of a Conduit
-node.
-%
-Filters are registered with the workspace and can then be added to the
-graph by name.
-
 
 \subsection{Runtime}
-The Ascent runtime exists on top of Flow and is responsible for
-handling applicaiton-facing API calls and translating user-facing
-``actions`` into a data-flow network.
+The Ascent runtime has two main responsibities:
+interface with the simulation and exectue actions.
 %
+First, simulations use the runtime to configure Ascent(e.g., set MPI communicators and
+exception handling options, publish thier mesh data structures, set actions,
+and get results out of Ascent.
+%
+Second, Ascent translates user-facing ``actions`` into a data-flow network, using Flow,
+to execute the requested visualization and analysis.
+%
+
+\fix{Insert something on the simulation role???}
+
 Built-in functionality is registered internally with the Ascent runtime,
 but externally defined filters can also be registered with Ascent,
 allowing for the execution of custom code within Ascent.
 %
-Filters can be registers as either a ``transform'' or a ``extract''.
+The runtime ma Filters can be registers as either a ``transform'' or a ``extract''.
 %
 Transforms are intermediate nodes in the data-flow network and transform
 data sets.
@@ -82,6 +109,10 @@ into a surface.
 %
 Extracts are terminal nodes in the data-flow network, and extracts
 are the main mechanism for software interoperability inside of Ascent.
+
+Filters enable Ascent's modular architecture.
+%
+To add
 
 \subsubsection{Parallism in Ascent}
 Ascent is a hybrid-parallel library, meaning that it uses both
