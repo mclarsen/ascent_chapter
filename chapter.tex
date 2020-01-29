@@ -39,24 +39,24 @@ and analysis.
 %
 Ascent was designed to deliver on two goals which are often in tension:
  (1) minimize encumbrance on simulation codes that incorporate Ascent,
-i.e., a ``flyweight'' design, and 
+i.e., a ``flyweight'' design, and
 (2) deliver maximum capability, especially for modern supercomputers,
 %
-In addition, Ascent built for production use --- it has documentation, 
+In addition, Ascent built for production use --- it has documentation,
 examples, engages in modern software engineering practices, etc.
 
-In terms of flyweight design, Ascent aims to minimize 
+In terms of flyweight design, Ascent aims to minimize
 execution time, memory usage, binary size, and code integrations.
 %
 The first two, execution time and memory usage, benefit from directly
-incorporating VTK-m~\cite{VTK-m} into Ascent.  
+incorporating VTK-m~\cite{VTK-m} into Ascent.
 %
-VTK-m's data model supports many array layouts (e.g., row major versus 
-column major, array of structures versus structures of arrays) 
+VTK-m's data model supports many array layouts (e.g., row major versus
+column major, array of structures versus structures of arrays)
 in a zero-copy manner.
 %
 Further, VTK-m provides native support for many-core architectures,
-including Nvidia GPUs, various Intel architectures, 
+including Nvidia GPUs, various Intel architectures,
 and planned support for AMD GPUs.
 %
 As a result, Ascent is able to perform its algorithms very quickly,
@@ -96,6 +96,9 @@ Statement about Devil Ray, but a forward reference a section in success stories 
 \label{ascent_design_considerations}
 \input{design_considerations}
 
+\section{Ascent Does Stuff}
+\label{ascent_does_stuff}
+\input{ascent_does_stuff}
 
 \section{Data Interface}
 \label{ascent_data}
