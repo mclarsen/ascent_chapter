@@ -17,7 +17,7 @@ Flow supports composing and executing directed acyclic graphs
 
 There are three components to Flow:
 \begin{itemize}
-  \item \textbf{Filter}: basic unit of exectution
+  \item \textbf{Filter}: basic unit of execution
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
   \item \textbf{Registry}: manages the lifetime of intermediate filter results
   \item \textbf{Workspace}: container for both the registry and filter graph
@@ -27,7 +27,7 @@ There are three components to Flow:
 Flow filters are the basic unit of execution inside of Ascent, and
 almost all functionality inside of Ascent is implemented as a Flow filter.
 %
-Adding new capabilites to Ascent means wrapping that functionality inside
+Adding new capabilities to Ascent means wrapping that functionality inside
 a flow filter.
 %
 Filters declare an interface, i.e., how many inputs a filter has and
@@ -60,7 +60,7 @@ inside the registry is deleted when the reference counts reach zero.
 %
 While the data associated with a key can be a pointer to any type,
 the majority of the data stored in the registry are Conduit nodes
-or VTK-m data sets.
+or VTK-h data sets.
 
 
 \paragraph{Workspace}
@@ -68,7 +68,7 @@ The workspace is a container for both the graph and the registry,
 and the workspace is responsible for creating an execution for plan
 for the DAG.
 %
-Additionally, the workspace manages the list on known filter.
+Additionally, the workspace manages the lists of known filters.
 %
 A filter must be registered with the workspace in order to be added to the
 graph, and once registered, a filter can be added to the graph by name.
@@ -82,15 +82,14 @@ to evaluate expressions within the Ascent runtime.
 %
 
 \subsection{Runtime}
-The Ascent runtime has two main responsibities:
-interface with the simulation and exectue actions.
+The Ascent runtime builds on top of Flow, and has two main responsibilities:
+interface with the simulation and execute actions.
 %
-First, simulations use the runtime to configure Ascent(e.g., set MPI communicators and
-exception handling options, publish thier mesh data structures, set actions,
+First, simulations use the runtime to configure Ascent (e.g., set MPI communicators and
+exception handling options), publish their mesh data structures, set actions,
 and get results out of Ascent.
 %
-Second, Ascent translates user-facing ``actions`` into a data-flow network, using Flow,
-to execute the requested visualization and analysis.
+Second, Ascent translates user-facing ``actions`` into a data-flow network that executes the requested visualization and analysis.
 %
 
 \fix{Insert something on the simulation role???}
@@ -99,7 +98,7 @@ Built-in functionality is registered internally with the Ascent runtime,
 but externally defined filters can also be registered with Ascent,
 allowing for the execution of custom code within Ascent.
 %
-The runtime ma Filters can be registers as either a ``transform'' or a ``extract''.
+The runtime Filters can be registers as either a ``transform'' or a ``extract''.
 %
 Transforms are intermediate nodes in the data-flow network and transform
 data sets.
@@ -117,16 +116,16 @@ To add
 \subsubsection{Parallism in Ascent}
 Ascent is a hybrid-parallel library, meaning that it uses both
 distributed-memory(e.g., MPI) and shared-memory parallelism
-(e.g., CUDA and OpenMP), and Ascent is primiary
+(e.g., CUDA and OpenMP), and Ascent is primarily  
 tightly-coupled with simulations.
 %
-In this paradigm, simulations control how parallelism is used, so
-it is imperitive that Ascent's functinality be capable of running
-on the same architectures using the same types of parallism as the
+In the tightly-coupled paradigm, simulations control how parallelism is used, so
+it is imperative that Ascent's functionality be capable of running
+on the same architectures using the same types of parallelism as the
 simulations.
 %
 Ascent supports many different parallel configurations including
-one MPI rank per core(i.e., no shared-memory parallism), one rank
+one MPI rank per core(i.e., no shared-memory parallelism), one rank
 per GPU, and one rank per node.
 %
 While Ascent does internally leverage shared-memory parallelism
@@ -134,24 +133,24 @@ for expressions, the majority of the shared-memory parallelism comes
 from Ascent's components such as VTK-m and Devil Ray.
 
 \paragraph{Distributed-Memory Parallelism}
-Within Ascent, all MPI ranks recieve the same set of actions.
+Within Ascent, all MPI ranks receive the same set of actions.
 %
 Since the actions are the same, all MPI ranks create and execute the same graph,
 meaning
 that all flow filters execute on all ranks.
 %
-Filter are free to use MPI and anyway they see fit, including
+Filters are free to use MPI and anyway they see fit, including
 creating asynchronous tasks.
 
 \paragraph{Shared-Memory Parallelism}
 Ascent's main components use portable performance abstraction layers to
-take advantage of the different types of shared-memory parallism on
+take advantage of the different types of shared-memory parallelism on
 modern supercomputers.
 %
-For example, VTK-m is itself a portable performance layer designed specifially
+For example, VTK-m is itself a portable performance layer designed specifically
 for visualization and currently supports OpenMP, CUDA, and TBB.
 %
-Devil Ray, while not itself a portalble performance layer, uses RAJA to execute
+Devil Ray, while not itself a portable performance layer, uses RAJA to execute
 on different architectures, supporting OpenMP, CUDA, HIP, and TBB.
 
 \subsection{Components built into the runtime}
@@ -161,8 +160,8 @@ Dray, python, vtkm, ADIOS, Jupyter,
 Ascent uses a data abstraction, called the data object, as the input
 and outputs of filters.
 %
-The data object is resposible for transforming data from one format
-to another without unnessecary copies.
+The data object is responsible for transforming data from one format
+to another without unnecessary copies.
 %
 By using this abstraction, filters can ask for whatever data set
 representation they need, however, the converions between data
