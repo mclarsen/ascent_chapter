@@ -39,31 +39,31 @@ and analysis.
 %
 Ascent was designed to deliver on two goals which are often in tension:
  (1) minimize encumbrance on simulation codes that incorporate Ascent,
-i.e., a ``flyweight'' design, and 
-(2) deliver diverse and powerful capabilities, 
+i.e., a ``flyweight'' design, and
+(2) deliver diverse and powerful capabilities,
 especially for modern supercomputers.
 %
 In addition, Ascent is built for production use by computational
-simulation codes --- it has documentation, 
+simulation codes --- it has documentation,
 examples, engages in modern software engineering practices, etc.
 
-In terms of flyweight design, Ascent aims to minimize 
+In terms of flyweight design, Ascent aims to minimize
 execution time, memory usage, binary size, and integration effort.
 %
 The first two, execution time and memory usage, benefit from directly
-incorporating VTK-m~\cite{Moreland:CGA2016} into Ascent.  
+incorporating VTK-m~\cite{Moreland:CGA2016} into Ascent.
 %
 For minizing memory,
-VTK-m's data model supports many array layouts (e.g., row major versus 
-column major, array of structures versus structures of arrays) 
+VTK-m's data model supports many array layouts (e.g., row major versus
+column major, array of structures versus structures of arrays)
 in a zero-copy manner.
 %
 In most cases, the majority of the memory needed by Ascent is only for
 storing intermediate results.
 %
-To minimize execution time, 
+To minimize execution time,
 VTK-m provides native support for many-core architectures,
-including Nvidia GPUs, various Intel architectures, 
+including Nvidia GPUs, various Intel architectures,
 and planned support for AMD GPUs.
 %
 Further, Ascent complements VTK-m's shared-memory parallelism with
@@ -82,11 +82,11 @@ Integrations can be as short as ten lines of code.
 %
 This topic is explored more in \S\ref{sec:API}.
 
-In terms of delivering diverse and powerful capabilities, 
-Ascent employs multiple approaches: 
+In terms of delivering diverse and powerful capabilities,
+Ascent employs multiple approaches:
 integration with many technologies,
 supporting both visualization and analysis routines,
-algorithms specifically designed for in situ processing, 
+algorithms specifically designed for in situ processing,
 and providing support for modern supercomputers.
 %
 Ascent's strongest component for delivering capabilities is likely
@@ -97,7 +97,7 @@ Ascent is able to produce Cinema and HDF5 files, interact with
 ADIOS and Catalyst, and, as previously mentioned, utilizes VTK-m
 directly for much of its data model and visualization algorithms.
 %
-It also provides many options for integration, including 
+It also provides many options for integration, including
 bindings
 for controlling Ascent with  C, C++, Python and Fortan.
 %
@@ -105,16 +105,16 @@ Further, it provides options for controlling Ascent via its code API,
 via YAML files (which can be changed dynamically at runtime), and via
 a Jupyter notebook integration \fix{cite ISAV19}.
 %
-Finally, Ascent is able to integrate arbitrary code, including 
+Finally, Ascent is able to integrate arbitrary code, including
 Python scripts and C/C++ code.
 %
-This pathway also enables access to 
+This pathway also enables access to
 machine learning infrastructures, such as TensorFlow and PyTorch.
 %
-This is more than proof of concept, 
+This is more than proof of concept,
 as Ascent recently utilized a distributed-memory Random Forest.
 %
-\S\ref{sec:DevilRay} describes a success story regarding integrating 
+\S\ref{sec:DevilRay} describes a success story regarding integrating
 code,
 namely incorporating the DevilRay code for ray-tracing higher order
 elements.
@@ -151,11 +151,12 @@ The remainder of this chapter focuses on key elements of Ascent:
 key abstractions.
 \item \S\ref{sec:API} discusses Ascent's APIs for sharing simulation
 data and for controlling execution.
-\item \S\ref{sec:success} discusses success stories using Ascent. 
+\item \S\ref{sec:success} discusses success stories using Ascent.
 \end{itemize}
 
 \section{Key Abstractions for Ascent --- Matt}
 \label{sec:capabilities}
+\input{ascent_does_stuff}
 
 \section{System Architecture --- Matt}
 \label{sec:design}
