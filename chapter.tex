@@ -40,7 +40,8 @@ and analysis.
 Ascent was designed to deliver on two goals which are often in tension:
  (1) minimize encumbrance on simulation codes that incorporate Ascent,
 i.e., a ``flyweight'' design, and 
-(2) deliver maximum capability, especially for modern supercomputers.
+(2) deliver diverse and powerful capabilities, 
+especially for modern supercomputers.
 %
 In addition, Ascent is built for production use by computational
 simulation codes --- it has documentation, 
@@ -81,6 +82,99 @@ Integrations can be as short as ten lines of code.
 %
 This topic is explored more in \S\ref{sec:API}.
 
+In terms of delivering diverse and powerful capabilities, 
+Ascent employs multiple approaches: 
+integration with many technologies,
+supporting both visualization and analysis routines,
+algorithms specifically designed for in situ processing, 
+and providing support for modern supercomputers.
+%
+Ascent's strongest component for delivering capabilities is likely
+through integrating many additional technologies.
+%
+In terms of integrations with other visualization and I/O products,
+Ascent is able to produce Cinema and HDF5 files, interact with
+ADIOS and Catalyst, and, as previously mentioned, utilizes VTK-m
+directly for much of its data model and visualization algorithms.
+%
+It also provides many options for integration, including 
+bindings
+for controlling Ascent with  C, C++, Python and Fortan.
+%
+Further, it provides options for controlling Ascent via its code API,
+via YAML files (which can be changed dynamically at runtime), and via
+a Jupyter notebook integration \fix{cite ISAV19}.
+%
+Finally, Ascent is able to integrate arbitrary code, including 
+Python scripts and C/C++ code.
+%
+This pathway also enables access to 
+machine learning infrastructures, such as TensorFlow and PyTorch.
+%
+This is more than proof of concept, 
+as Ascent recently utilized a distributed-memory Random Forest.
+%
+\S\ref{sec:DevilRay} describes a success story regarding integrating 
+code,
+namely incorporating the DevilRay code for ray-tracing higher order
+elements.
+%
+Moving to another approach, Ascent has embraced analysis alongside
+visualization.
+%
+Noteworthy analysis examples include simulated radiographs and its
+query infrastructure to get quantitative results such as volumes,
+surfaces areas, and integrated quantities.
+%
+Of course, Ascent supports typical visualization algorithms, such as
+slicing, isosurfacing, volume rendering, and multiple plot types.
+%
+With respect to algorithms specifically for in situ processing, Ascent
+has a significant investment in its ``trigger'' system~\cite{Larsen:ISAV18},
+which adapts when visualization and analysis routines are executed,
+based on the conditions in the system.
+%
+Ascent also has algorithms for extracting reduced forms of the data,
+such as a module for extracting Lagrangian flow~\cite{Agranovsky:LDAV2014,Sane:EGPGV19} and the
+aforementioned Cinema output.
+%
+Finally, Ascent has been designed from the beginning with modern
+supercomputers in mind.
+%
+Especially because of the integration of VTK-m, Ascent is able to
+run efficiently on these architectures.
+
+The remainder of this chapter focuses on key elements of Ascent:
+\begin{itemize}
+\item \S\ref{sec:capabilities} discusses the key abstractions for using Ascent.
+\item \S\ref{sec:design} discusses Ascent's design.
+key abstractions.
+\item \S\ref{sec:API} discusses Ascent's APIs for sharing simulation
+data and for controlling execution.
+\item \S\ref{sec:success} discusses success stories using Ascent. 
+\end{itemize}
+
+\section{Key Abstractions for Ascent --- Matt}
+\label{sec:capabilities}
+
+\section{System Architecture --- Matt}
+\label{sec:design}
+
+\section{Ascent APIs --- Hank}
+\label{sec:API}
+
+\section{Success Stories --- Matt}
+\label{sec:success}
+
+\subsection{Devil Ray Rendering}
+\label{sec:DevilRay}
+
+\fix{EVERYTHING BELOW THIS POINT IS CURRENTLY ORPHANED.  AUTHORS
+SHOULD PULL INFORMATION FROM THE BELOW AS THEY POPULATE THE SECTIONS
+ABOVE.}
+
+
+\if 0
 Statement about capabilities.  Emphasis on being an integrator.
 This is where Jupyter, triggers, etc. get mentioned.  Also emphasize
 exascale.
@@ -98,7 +192,7 @@ Ascent has a rich feature set and integrates with other ecosystems.
 \end{itemize}
 
 Statement about Devil Ray, but a forward reference a section in success stories --- success as an integrator.
-
+\fi
 
 
 \section{The Ascent In Situ Infrastructure}
