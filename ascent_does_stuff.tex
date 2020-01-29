@@ -24,14 +24,22 @@ In this section, we will go over Ascent's abstractions and capabilities.
 Pipelines allows users to describe a series of data transformations, also known as
 filters, to execute on simulation data.
 %
-An example pipeline could be to create an isovolume of a field
-and clip the results in half.
+Figure~\ref{img:pipelines} shows two examples of pipelines.
+%
+Pipeline \#1 creates contours from a simulation field, and pipeline \#2
+thresholds cells that are within a scalar range then applies a clipping operation.
 %
 In Ascent, users can define as many pipelines as needed.
 %
 The default source of pipelines, and all other actions, is the data
 published by the simulation, but all actions can consume the resutls
 of declared pipelines, including other pipelines.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{images/pipelines}
+\caption{\label{img:pipelines} Examples pipelines that transforms simulation data via visualization operators.}
+\end{figure}
 
 \subsubsection{Scenes}
 Scenes allow users to specify how images are rendered.
@@ -159,7 +167,7 @@ a file when invalid values are found) or rendering images when a large
 change is found(i.e., when the max value of a field exceeds a threshold from the
 previous value).
 %
-When an even can be expressed in these terms, triggers are a powerful tool for
+When an event can be expressed in these terms, triggers are a powerful tool for
 maximizing constrained resources in situ.
 
 

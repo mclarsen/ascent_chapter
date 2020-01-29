@@ -1,0 +1,48 @@
+digraph {
+  add_plot_p1_s1 [label="Add Plot"];
+  create_scene_s1 [label="Create Scene"];
+  exec_s1 [label="Render Images"];
+  p1_s1 [label="Create Plot"];
+  p1_s1_bounds [label="Spatial Bounds"];
+  pl1_0_vtkh_marchingcubes [label="Contour"];
+
+  s1_renders [label="s1_renders(default_render)"];
+  source [label="Simulation Data"];
+
+  source -> pl1_0_vtkh_marchingcubes;
+  
+  p1_s1_bounds -> s1_renders;
+  add_plot_p1_s1 -> exec_s1[ label="scene" ];
+  s1_renders -> exec_s1[ label="renders" ];
+  pl1_0_vtkh_marchingcubes -> p1_s1[ label="a" ];
+
+  pl1_0_vtkh_marchingcubes -> p1_s1_bounds[ label="in" ];
+  create_scene_s1 -> add_plot_p1_s1[ label="scene" ];
+  p1_s1 -> add_plot_p1_s1[ label="plot" ];
+}
+
+No labels
+
+digraph {
+  add_plot_p1_s1 [label="Add Plot"];
+  create_scene_s1 [label="Create Scene"];
+  exec_s1 [label="Render Images"];
+  p1_s1 [label="Create Plot"];
+  p1_s1_bounds [label="Spatial Bounds"];
+  pl1_0_vtkh_marchingcubes [label="Contour"];
+
+  s1_renders [label="s1_renders(default_render)"];
+  source [label="Simulation Data"];
+
+  source -> pl1_0_vtkh_marchingcubes;
+  
+  p1_s1_bounds -> s1_renders;
+  add_plot_p1_s1 -> exec_s1[ label="" ];
+  s1_renders -> exec_s1[ label="" ];
+  pl1_0_vtkh_marchingcubes -> p1_s1[ label="" ];
+
+  pl1_0_vtkh_marchingcubes -> p1_s1_bounds[ label="" ];
+  create_scene_s1 -> add_plot_p1_s1[ label="" ];
+  p1_s1 -> add_plot_p1_s1[ label="" ];
+}
+

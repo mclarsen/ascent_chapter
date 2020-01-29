@@ -6,10 +6,10 @@ and moving outward.
 
 \subsection{Flow: A data-type agonistic data-flow based architecture}
 Ascent uses a graph-based data-flow architecture.
-The data-flow architecture allows Ascent to track, re-use, and cleanup intermediate 
-results efficiently while implementing complex visualization pipelines. 
+The data-flow architecture allows Ascent to track, re-use, and cleanup intermediate
+results efficiently while implementing complex visualization pipelines.
 The design also abstracts how we register and execute operations,
-which simplifies adding new features. 
+which simplifies adding new features.
 
 At Ascent's core is a simple data-flow library, called Flow, that
 composes and executes filters, the basic unit of execution in Ascent.
@@ -26,7 +26,7 @@ There are three components to Flow:
   \item \textbf{Filter}: basic unit of execution
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
   \item \textbf{Registry}: manages the lifetime of intermediate filter results
-  \item \textbf{Workspace}: contains both the registry and filter graph, coordinates graph execution 
+  \item \textbf{Workspace}: contains both the registry and filter graph, coordinates graph execution
 \end{itemize}
 
 \paragraph{Flow Filters}
@@ -92,41 +92,62 @@ to evaluate expressions within the Ascent runtime.
 %
 
 \subsection{Runtime}
-The Ascent runtime builds on top of Flow, and has two main responsibilities:
-interface with the simulation and execute actions.
+The Ascent runtime builds on top of Flow, and the main responsibility of the
+runtime is to translate users actions into data flow networks.
 %
-First, simulations use the runtime to configure Ascent (e.g., set MPI communicators and
-exception handling options), publish their mesh data structures, set actions,
-and get results out of Ascent.
+For example, when a user describes a series of data transformations inside of a pipeline,
+the runtime adds the corresponding filter for each transformation to
+the internal Flow graph.
 %
-Second, Ascent translates user-facing ``actions`` into a data-flow network that executes the requested visualization and analysis.
+Some actions, like the contour filter, have exactly one filter that the runtime
+adds when translating actions, while other actions add more than one fitler to the runtime's
+Flow graph.
+%
+Figure~\ref{img:flow_graph} shows a simplified example of a data flow network constructed by the
+runtime to create contours of a simulation field and rendering an image of the result.
 %
 
-\fix{Insert something on the simulation role???}
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{images/flow_graph}
+\caption{\label{img:flow_graph} An example data flow network using Flow assembled by the Ascent runtime.}
+\end{figure}
 
-Built-in functionality is registered internally with the Ascent runtime,
-but externally defined filters can also be registered with Ascent,
-allowing for the execution of custom code within Ascent.
+Internally, the runtime maintians a list of registered filters to map
+user-facing API names to the corresponding Flow filters which are hidden
+from the user.
 %
-The runtime Filters can be registers as either a ``transform'' or a ``extract''.
+In addition to mapping API calls to Flow fitlers, the filter map also speficies
+in what actions a filter can be used.
 %
-Transforms are intermediate nodes in the data-flow network and transform
-data sets.
+Runtime Filters can be registers as either a ``transform'' or a ``extract''.
 %
-An example of transforms is a iso-contour, where a volume is converted
-into a surface.
+Transforms are only callable inside of pipelines and extracts can only be called inside of
+extracts.
 %
-Extracts are terminal nodes in the data-flow network, and extracts
-are the main mechanism for software interoperability inside of Ascent.
+Built-in functionality is registered internally with the Ascent runtime when Ascent is initialized.
 
-Filters enable Ascent's modular architecture.
+
+The design of the runtime allows for a component based architecture.
 %
-To add
+Simulations, or other analysis libaries, are free to register custom capability at
+runtime, and this allows outside functionality to build off the capability that Ascent provides.
+%
+When connecting Ascent to other ecosystems like Python, an custom extract allows new code to either
+directly connect with simulation data or consume the results of a pipeline.
+
+The other responsibitlity of the runtime is to interface with the simulation through Ascent's
+main API calls.
+%
+The runtime consumes configuration options like MPI communicators, exception handling, what
+backends (e.g., OpenMP or CUDA) to execute code on.
+%
+Additionally, the simulation's mesh data and the actions are all passed to the runtime.
 
 \subsubsection{Parallism in Ascent}
 Ascent is a hybrid-parallel library, meaning that it uses both
 distributed-memory(e.g., MPI) and shared-memory parallelism
-(e.g., CUDA and OpenMP), and Ascent is primarily  
+(e.g., CUDA and OpenMP), and Ascent is primarily
 tightly-coupled with simulations.
 %
 In the tightly-coupled paradigm, simulations control how parallelism is used, so
@@ -163,9 +184,6 @@ for visualization and currently supports OpenMP, CUDA, and TBB.
 Devil Ray, while not itself a portable performance layer, uses RAJA to execute
 on different architectures, supporting OpenMP, CUDA, HIP, and TBB.
 
-\subsection{Components built into the runtime}
-Dray, python, vtkm, ADIOS, Jupyter,
-
 \subsubsection{Data Set Representations}
 Ascent uses a data abstraction, called the data object, as the input
 and outputs of filters.
@@ -192,6 +210,3 @@ but VTK-m only supports a single topology.
 To handle this correctly within Ascent, we wrap the data sets in a container
 that treats each topology as individual VTK-m data sets.
 %
-
-\subsection{Extracts: optional python environment}
-I feel like this subsection is about the ways to get to other things.
