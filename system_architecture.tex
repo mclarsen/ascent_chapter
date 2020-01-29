@@ -5,6 +5,12 @@ This section discusses Ascent's system architecture starting at its inner layer,
 and moving outward.
 
 \subsection{Flow: A data-type agonistic data-flow based architecture}
+Ascent uses a graph-based data-flow architecture.
+The data-flow architecture allows Ascent to track, re-use, and cleanup intermediate 
+results efficiently while implementing complex visualization pipelines. 
+The design also abstracts how we register and execute operations,
+which simplifies adding new features. 
+
 At Ascent's core is a simple data-flow library, called Flow, that
 composes and executes filters, the basic unit of execution in Ascent.
 %
@@ -20,7 +26,7 @@ There are three components to Flow:
   \item \textbf{Filter}: basic unit of execution
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
   \item \textbf{Registry}: manages the lifetime of intermediate filter results
-  \item \textbf{Workspace}: container for both the registry and filter graph
+  \item \textbf{Workspace}: contains both the registry and filter graph, coordinates graph execution 
 \end{itemize}
 
 \paragraph{Flow Filters}
@@ -35,10 +41,13 @@ if there is an output, and filters are passed a set of parameters inside
 of a Conduit
 node.
 %
-In terms of Ascent actions, pipeline filters are part of a chain of
+Filter inputs are tracked as arbitrary pointers and runtime features allow
+filters to identify and obtain concrete types for processing.
+%
+In terms of Ascent actions, pipeline filters become part of a chain of
 data transformations and would minimally have an input
 data set and an output data set, while scenes and extracts
-are sinks that have an input data set and no output.
+become sinks that have an input data set and no output.
 %
 
 \paragraph{Graph}
@@ -60,7 +69,7 @@ inside the registry is deleted when the reference counts reach zero.
 %
 While the data associated with a key can be a pointer to any type,
 the majority of the data stored in the registry are Conduit nodes
-or VTK-h data sets.
+or VTK-m data sets.
 
 
 \paragraph{Workspace}
@@ -73,9 +82,10 @@ Additionally, the workspace manages the lists of known filters.
 A filter must be registered with the workspace in order to be added to the
 graph, and once registered, a filter can be added to the graph by name.
 %
-\fix{Cyrus: make sure these words are true.}
 Flow uses a topological sort to ensure proper filter execution order,
 tracks all intermediate results, and provides basic memory management capabilities.
+During execution the workspace provides the registry with reference counts that reflect graph connections, allowing intermediate results to be efficiently managed.
+
 %
 Multiple workspaces can co-exist, and in fact, Ascent uses a Flow workspace
 to evaluate expressions within the Ascent runtime.
@@ -160,7 +170,7 @@ Dray, python, vtkm, ADIOS, Jupyter,
 Ascent uses a data abstraction, called the data object, as the input
 and outputs of filters.
 %
-The data object is responsible for transforming data from one format
+The data object is responsible for transforming data from one in-memory format
 to another without unnecessary copies.
 %
 By using this abstraction, filters can ask for whatever data set
