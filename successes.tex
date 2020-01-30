@@ -29,12 +29,29 @@ This is a important use case due to the impending tiny box invasion.
 \caption{\label{img:radkh_xray}Simulated radiograph of a comically sized lazer destroying a small box.}
 \end{figure}
 
-\subsection{Ares: Milk-Chocolate Mixing (Colorized)}
+\subsection{In situ visualization of an Inertial Confinement Fusion (ICF) simulation}
 
-The image in Figure~\ref{img:icf} was created in situ using
-Ascent, which performed its tasks using
-the same resources as the simulation code, in this
-case 4096 nodes and 16,384 GPUs.
+Ascent was used to visualize the results of an unprecedented 3D simulation
+of two-fluid mixing in a spherical geometry to better understand hydrodynamic
+instability and the transition to turbulence process that is important to
+the field of inertial confinement fusion and High Energy Density (HED)
+Physics. High resolution simulations of instability growth are not practical
+for routine use, so high resolution simulations like this help guide the
+development of sub-grid models that capture instability effects with much
+less computational cost, which are used for ICF calculations.
+
+The simulation was run on the Lawrence Livermore National Laboratories
+Sierra system, a 125 Petaflop peak system from IBM that has 4,320 nodes,
+each with 2 IBM POWER9 processors, 4 NVIDIA Tesla V100 GPUs, 320 GiB of
+fast memory (256 GiB DDR4 memory and 64 GiB HBM4), and 1.6TB of NVMe
+memory. The specific simulation was a 97.8 billion element simulation
+run across 16,384 GPUs on 4,096 compute nodes. The simulation application
+used CUDA via RAJA to run on the GPUs. The time-varying evolution of the
+mixing was visualized in situ with Ascent, also leveraging 16,384 GPUs.
+The last time step was also exported by Ascent to the parallel file
+system for detailed post-hoc visualization using VisIt. The simulation
+data was accessed by Ascent directly from the GPU memory, eliminating any
+extra data copies.
 
 \begin{figure}
 \centering
