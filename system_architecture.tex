@@ -103,7 +103,7 @@ Some actions, like the contour filter, have exactly one filter that the runtime
 adds when translating actions, while other actions add more than one fitler to the runtime's
 Flow graph.
 %
-Figure~\ref{img:flow_graph} shows a simplified example of a data flow network constructed by the
+Figure~\ref{img:flow_graph} shows a simplified of a data flow network constructed by the
 runtime to create contours of a simulation field and rendering an image of the result.
 %
 
@@ -139,7 +139,7 @@ directly connect with simulation data or consume the results of a pipeline.
 The other responsibitlity of the runtime is to interface with the simulation through Ascent's
 main API calls.
 %
-The runtime consumes configuration options like MPI communicators, exception handling, and what
+The runtime consumes configuration options like MPI communicators, exception handling, what
 backends (e.g., OpenMP or CUDA) to execute code on.
 %
 Additionally, the simulation's mesh data and the actions are all passed to the runtime.
