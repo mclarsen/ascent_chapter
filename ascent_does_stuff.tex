@@ -41,6 +41,27 @@ of declared pipelines, including other pipelines.
 \caption{\label{img:pipelines} Examples pipelines that transforms simulation data via visualization operators.}
 \end{figure}
 
+Currently supported filters include:
+\begin{multicols}{2}
+\begin{itemize}
+\item Clipping
+\item Contour
+\item Gradient
+\item Vorticity
+\item Divergence
+\item Qcriterion
+\item Histogram
+\item Isovolume
+\item Logarithm
+\item Lagrangian Flow
+\item Particle Advection
+\item Sampling
+\item Statistics
+\item Slice
+\item Threshold
+\item Vector Magnitude
+\end{itemize}
+\end{multicols}
 \subsubsection{Scenes}
 Scenes allow users to specify how images are rendered.
 %
@@ -67,13 +88,31 @@ camera parameters explicitly.
 Additionally, scenes can create Cinema~\cite{AhrensCinema} databases that
 create a large set of images that can be explored after the simulation.
 
+Currently supported plots include:
+\begin{itemize}
+\item Psuedocolor
+\item Mesh
+\item Volume
+\item Radiograph
+\end{itemize}
+
 \subsubsection{Extracts}
 Extracts are an escape hatch in Ascent that enables data to be sent
 outside of Ascent.
 %
 Extracts can be as simple a saving data to HDF5 files or can be a gateway
-to a larger workflow (e.g., ADIOS).
+to a larger workflow.
+Extracts provide a means to link codes intergrated with Ascent to other tools.
 %
+While, Ascent visualization covers many visualization use cases,
+Ascent does not have the long tail of support of tools like ParaView which
+is backed by many years of development.
+%
+Through extracts, Ascent can pass data directly to ParaView Catalyst.
+%
+Another exmaple of using extracts to provide additional functionality is the
+ADIOS extract, which allows ascent to link to in-transit workflows.
+
 Ascent supports connections to the Python ecosystem through the Python and
 Jupyter extracts~\cite{CyrusISAV}.
 %
@@ -92,7 +131,16 @@ and interact with the data.
 Additionally, Jupyter widgets enable fast prototyping of domain specific
 GUIs.
 
-\fix{Cyrus add more wisdom and python stuff.}
+\fix{mention babel-flow}
+
+Currently supported extracts include:
+\begin{itemize}
+\item ADIOS (beta)
+\item Babel Flow
+\item Jupyter Notebooks
+\item ParaView Catalyst
+\item Python
+\end{itemize}
 
 \subsubsection{Queries}
 \label{action_queries}
@@ -120,6 +168,12 @@ call functions, and conditionals.
 Since queries are stored into named identifiers, subsequent queires
 can build on the results of other queries, allowing for complex combinations.
 
+Examples of queries include:
+\begin{itemize}
+\item $cycle()$
+\item $max(field('pressure'))$
+\item $entropy(histogram(field('gyre'), num\_bins=128))$
+\end{itemize}
 %Listing~\ref{simple_query} shows the declaration of a query that returns
 %the current simulation cycle and stores it into a variable identifier \textit{cycle},
 %and Listing~\ref{complex_query} shows a more complex example of a query that
@@ -170,4 +224,9 @@ previous value).
 When an event can be expressed in these terms, triggers are a powerful tool for
 maximizing constrained resources in situ.
 
-
+Example of triggers include:
+\begin{itemize}
+\item $cycle() > 100 and cycle() < 200$
+\item $max(field('pressure')) > 100.0$
+\item $magnitude(max(field('braid')).position - vector(0,0,0)) > 0$
+\end{itemize}
