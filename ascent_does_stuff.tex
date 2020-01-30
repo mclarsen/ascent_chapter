@@ -1,6 +1,6 @@
 The Ascent interface and capabilities are centered around five uses uses:
 transforming data, creating images, capturing data, answering questions,
-and adpative actions.
+and adapting actions.
 %
 %
 Pipelines describe how to transform data from one form to another.
@@ -11,14 +11,14 @@ Extracts describe how to get data out of Ascent.
 %
 Queries describe what questions to answer.
 %
-Triggers decribe conditions, that when satisfied, execute analysis.
+Triggers describe conditions, that when satisfied, execute analysis.
 %
 Ascent refers to these high-level concepts as \textbf{actions},
 i.e., tasks to execute in situ.
-In this section, we will go over Ascent's abstractions and capabilities.
+In this section, we describe Ascent's abstractions and capabilities.
 
 \fix{I feel like this section should take the following form:
-1) what the concept is and 2) what are our current capabilties}
+1) what the concept is and 2) what are our current capabilities}
 
 \subsubsection{Pipelines}
 Pipelines allows users to describe a series of data transformations, also known as
@@ -32,7 +32,7 @@ thresholds cells that are within a scalar range then applies a clipping operatio
 In Ascent, users can define as many pipelines as needed.
 %
 The default source of pipelines, and all other actions, is the data
-published by the simulation, but all actions can consume the resutls
+published by the simulation, but all actions can consume the results
 of declared pipelines, including other pipelines.
 
 \begin{figure}
@@ -73,13 +73,13 @@ in addition to the name of the pipeline to consume.
 %
 Scenes also can contain zero or more \textit{renders}, which contain
 camera specifications, image dimensions, background and
-forground colors, annotation controls.
+foreground colors, annotation controls.
 %
 Ascent creates a default camera based on bounding box of the data set and
 is always facing the data set.
 %
 Renders inherit the default camera parameters, which simplifies creating
-cameras that actually looks at the data set.
+cameras that actually look at the data set.
 %
 Ascent also provides simple controls to rotate the camera on the
 sphere circumscribing the data set, although the user is free to set all
@@ -102,22 +102,22 @@ outside of Ascent.
 %
 Extracts can be as simple a saving data to HDF5 files or can be a gateway
 to a larger workflow.
-Extracts provide a means to link codes intergrated with Ascent to other tools.
+Extracts provide a means to link codes integrated with Ascent to other tools.
 %
 While, Ascent visualization covers many visualization use cases,
-Ascent does not have the long tail of support of tools like ParaView which
-is backed by many years of development.
+Ascent does not have the long tail of functionality that tools like ParaView or VisIt provide, which
+were built over many years of development.
 %
 Through extracts, Ascent can pass data directly to ParaView Catalyst.
 %
-Another exmaple of using extracts to provide additional functionality is the
+Another example of using extracts to provide additional functionality is the
 ADIOS extract, which allows ascent to link to in-transit workflows.
 
 Ascent supports connections to the Python ecosystem through the Python and
 Jupyter extracts~\cite{CyrusISAV}.
 %
 Python extracts execute custom analysis code provided by the user, and the
-Jupyter extracts allow for incoming Jupyter notebooks connnections from a web
+Jupyter extracts allow for incoming Jupyter notebooks connections from a web
 browser.
 
 Jupyter notebooks is a promising direction for in situ.
@@ -163,9 +163,9 @@ and storing it into a variable.
 More complex queries can calculate the amount of entropy of a field.
 %
 The expression language that backs queries can perform math operations,
-call functions, and conditionals.
+call functions, and evaluate conditionals.
 %
-Since queries are stored into named identifiers, subsequent queires
+Since queries are stored into named identifiers, subsequent queries
 can build on the results of other queries, allowing for complex combinations.
 
 Examples of queries include:
@@ -206,7 +206,7 @@ trying to capture could easily be missed.
 Triggers address these issues by coupling inspection routines with analysis, and a
 potentially costly analysis only executes when user defined precondition is met.
 %
-Ideally, inpection routines are cheap and can be called every cycle, while the analysis
+Ideally, inspection routines are cheap and can be called every cycle, while the analysis
 that are ``triggered'' can cost more.
 
 Ascent triggers builds on the queries and expression support introduced in
@@ -216,7 +216,7 @@ expression.
 When the condition evaluates to true, the trigger fires, executing a user provided
 set of actions, which can be any Ascent action.
 %
-Triggers can be use to execute actions for debugging purposes(i.e., saving data to
+Triggers can be used to execute actions for debugging purposes(i.e., saving data to
 a file when invalid values are found) or rendering images when a large
 change is found(i.e., when the max value of a field exceeds a threshold from the
 previous value).

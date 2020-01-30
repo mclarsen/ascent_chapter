@@ -21,7 +21,7 @@ light fluids, and the a clip filter was added to show the internal of the sphere
 }
 \end{figure}
 
-The simulation was run on the Lawrence Livermore National Laboratories(LLNL)
+The simulation was run on the Lawrence Livermore National Laboratory's (LLNL)
 Sierra system, a 125 Petaflop peak system from IBM that has 4,320 nodes,
 each with 2 IBM POWER9 processors, 4 NVIDIA Tesla V100 GPUs, 320 GiB of
 fast memory (256 GiB DDR4 memory and 64 GiB HBM4), and 1.6TB of NVMe
@@ -30,7 +30,7 @@ run across 16,384 GPUs on 4,096 compute nodes. The simulation application
 used CUDA via RAJA to run on the GPUs. The time-varying evolution of the
 mixing was visualized in situ with Ascent, also leveraging 16,384 GPUs.
 The last time step was also exported by Ascent to the parallel file
-system for detailed post-hoc visualization using VisIt. The simulation
+system for detailed post-hoc visualization using VisIt \fix{cite?}. The simulation
 data was accessed by Ascent directly from the GPU memory, eliminating any
 extra data copies.
 Figure~\ref{img:icf} shows one of the many images generated in situ during
@@ -41,9 +41,9 @@ Ascent has been integrated and released with LLNL's MARBL simulation code,
 a new next-generation multiphysics code currently under development.
 %
 One of MARBL's components is a high-order finite element solver build on
-MFEM, and Ascent supports the MFEM data model.
+MFEM \fix{cite?}, and Ascent supports the MFEM data model.
 %
-In order to leverages Ascent's visualization capabilities, Ascent refines
+In order to leverage Ascent's visualization capabilities, Ascent refines
 the high-order elements to low-order(i.e., linear elements).
 %
 Ascent can be activated through the simulation's input deck, and in addition
@@ -61,8 +61,8 @@ One such experiment is a radiation driven Kelvin-Helmholtz shear
 layer experiment~\cite{hurricane2009high}.
 %
 The experiment captured radiographs of the instability as it was driven through
-the material, and comparing experimental radiographs with radiographs created from
-the simulation are a useful simulation validation tool.
+the material. Comparing experimental radiographs with radiographs created from
+the simulation data is a useful simulation validation approach.
 %
 MARBL ran a simulation of this problem using 2304 MPI ranks for 120 hours.
 %

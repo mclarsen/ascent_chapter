@@ -21,11 +21,11 @@ library.
 Flow supports composing and executing directed acyclic graphs
 (DAGs) composed of filters~\cite{LarsenAscent}.
 
-There are three components to Flow:
+There are four components to Flow:
 \begin{itemize}
   \item \textbf{Filter}: basic unit of execution
   \item \textbf{Graph}: contains the filter graph and manages the adding of filters
-  \item \textbf{Registry}: manages the lifetime of intermediate filter results
+  \item \textbf{Registry}: manages the lifetime of filter results
   \item \textbf{Workspace}: contains both the registry and filter graph, coordinates graph execution
 \end{itemize}
 
@@ -87,23 +87,22 @@ tracks all intermediate results, and provides basic memory management capabiliti
 During execution the workspace provides the registry with reference counts that reflect graph connections, allowing intermediate results to be efficiently managed.
 
 %
-Multiple workspaces can co-exist, and in fact, Ascent uses a Flow workspace
+Multiple workspaces can co-exist, and in fact, Ascent uses a separate Flow workspace
 to evaluate expressions within the Ascent runtime.
 %
 
 \subsection{Runtime}
 The Ascent runtime builds on top of Flow, and the main responsibility of the
-runtime is to translate users actions into data flow networks.
+runtime is to translate users actions into data-flow networks.
 %
 For example, when a user describes a series of data transformations inside of a pipeline,
 the runtime adds the corresponding filter for each transformation to
 the internal Flow graph.
 %
 Some actions, like the contour filter, have exactly one filter that the runtime
-adds when translating actions, while other actions add more than one fitler to the runtime's
-Flow graph.
+adds when translating actions, while other actions add more than one fitler to the graph.
 %
-Figure~\ref{img:flow_graph} shows a simplified of a data flow network constructed by the
+Figure~\ref{img:flow_graph} shows a simplified view of a data-flow network constructed by the
 runtime to create contours of a simulation field and rendering an image of the result.
 %
 
@@ -113,17 +112,16 @@ runtime to create contours of a simulation field and rendering an image of the r
 \caption{\label{img:flow_graph} An example data flow network using Flow assembled by the Ascent runtime.}
 \end{figure}
 
-Internally, the runtime maintians a list of registered filters to map
+Internally, the runtime maintains a list of registered filters to map
 user-facing API names to the corresponding Flow filters which are hidden
 from the user.
 %
-In addition to mapping API calls to Flow fitlers, the filter map also speficies
+In addition to mapping API calls to Flow filters, the filter map also specifies
 in what actions a filter can be used.
 %
-Runtime Filters can be registers as either a ``transform'' or a ``extract''.
+Runtime Filters can be registered as either a ``transform'' or an ``extract''.
 %
-Transforms are only callable inside of pipelines and extracts can only be called inside of
-extracts.
+Transforms are only callable inside of pipelines and extracts can only be called at the end of a pipeline.
 %
 Built-in functionality is registered internally with the Ascent runtime when Ascent is initialized.
 
@@ -170,7 +168,7 @@ Since the actions are the same, all MPI ranks create and execute the same graph,
 meaning
 that all flow filters execute on all ranks.
 %
-Filters are free to use MPI and anyway they see fit, including
+Filters are free to use MPI anyway they see fit, including
 creating asynchronous tasks.
 
 \paragraph{Shared-Memory Parallelism}
@@ -198,7 +196,7 @@ representations is not always one-to-one.
 
 To support multiple data set representations, there must be a common
 set of supported features, but not all data models Ascent uses
-supports the same set of features.
+support the same set of features.
 %
 Since Ascent uses Blueprint as its data interface to simulations,
 all other data models must sometimes be adapted to support additional
