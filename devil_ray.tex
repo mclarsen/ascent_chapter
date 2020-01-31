@@ -12,6 +12,7 @@ Analysis and visualization plays a key role in understanding, debugging,
 and communicating simulation results, but analysis and visualization frameworks
 have traditionally only targeted low-order meshes.
 %
+
 The geometry of a high-order dataset is traditionally processed by converting
 to a low-order approximation, and in order to maintain the accuracy of
 the solution, low-order refinement can increase the size of data representation
@@ -28,6 +29,15 @@ By default, Ascent performs low-order refines to visualize high-order meshes,
 but Ascent has recently integrated Devil Ray, a library for natively ray tracing
 high-order element meshes.
 %
+Ascent leverages Devil ray to provide users an alternative to rendering images via low-order refinement.
+%
+Figure~\ref{img:crazy_hex} shows an extreme case of the differences between native support for high-order and element subdivision.
 
-
-
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{images/dray_crazy}
+\includegraphics[width=0.4\textwidth]{images/visit_crazy}
+\caption{\label{img:crazy_hex} Two renderings of a single $20^{th}$ order hexahedral element.
+On the left, a image rendered by Devil Ray, and on the right, an image rendered VisIt by subdividing the element into
+9,261 low-order hexahedrons.}
+\end{figure}
