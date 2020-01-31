@@ -1,0 +1,33 @@
+High-order finite element simulations, like MARBL, are becoming more
+common as supercomputing architectures continue to become more
+heterogenous.
+%
+One reason for this is that, by simply adjusting the polynomial order
+of the mesh elements, high-order simulations
+can tune the FLOPS/byte ratio to optimize performance on a specific architecture.
+%
+Additionally, high-order finite element methods can improve the overall solution accuracy.
+%
+Analysis and visualization plays a key role in understanding, debugging,
+and communicating simulation results, but analysis and visualization frameworks
+have traditionally only targeted low-order meshes.
+%
+The geometry of a high-order dataset is traditionally processed by converting
+to a low-order approximation, and in order to maintain the accuracy of
+the solution, low-order refinement can increase the size of data representation
+by many orders of magnitude.
+%
+To make matters worse, the best refinement level is unknown,
+and the error propagated by the refinement is not easily understood by users.
+%
+With the rise of in situ analysis, low-order refinement imposes additional memory
+and time constraints on the simulation.
+%
+
+By default, Ascent performs low-order refines to visualize high-order meshes,
+but Ascent has recently integrated Devil Ray, a library for natively ray tracing
+high-order element meshes.
+%
+
+
+
