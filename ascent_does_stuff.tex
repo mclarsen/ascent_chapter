@@ -1,3 +1,5 @@
+\fix{Original intro}
+
 The Ascent interface and capabilities are centered around five uses uses:
 transforming data, creating images, capturing data, answering questions,
 and adapting actions.
@@ -17,8 +19,61 @@ Ascent refers to these high-level concepts as \textbf{actions},
 i.e., tasks to execute in situ.
 In this section, we describe Ascent's abstractions and capabilities.
 
-\fix{I feel like this section should take the following form:
-1) what the concept is and 2) what are our current capabilities}
+\fix{Hank's attempt at the intro paragraph}
+
+This section describe Ascent's primary abstractions and surveys its general capabilities.
+%
+Ascent has organized its capabilities into five types of in situ tasks, which
+it refers to as \textbf{actions}.
+%
+Its five actions are:
+\begin{itemize}
+\item \textbf{Pipelines} transform data from one form to another.
+%
+\item \textbf{Scenes} render images.
+%
+\item \textbf{Extracts} are used to move data out of Ascent, i.e., to file I/O or to another framework.
+%
+\item \textbf{Queries} provide quantitative summarizations of the data.  
+%
+\item \textbf{Triggers} adapt when other actions are executed, based on the conditions of the simulation.
+%
+\end{itemize}
+
+These actions are highly interoperable, and Ascent can employ multiple actions of the same type
+at once.
+%
+Consider the following example of Ascent doing in situ analysis on an input data set, $D$,
+for a given cycle.
+%
+Ascent begins by applying an isosurfacing operation to $D$ to make a new data set $D'$ (pipeline).
+%
+It then applies a trigger to $D'$ --- it takes the surface area of the isosurface (query) and compares
+the total area with the area from the previous time it was executed.
+%
+If the total area has changed by more than 5\%, then Ascent would render an image of $D'$ (scene)
+and also save the original data set $D$ to disk (extract).
+%
+Going beyond this example, it is possible to have multiple triggers, arbitrary conditions for
+the triggers (queries or otherwise), as well as many pipelines, scenes, and extracts.
+%
+Figure~\ref{fig:ascent_example} shows such an example.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/ascent_actions_diagram.pdf}
+\caption{\label{fig:ascent_example} An example of how Ascent actions can be combined.
+In this example, simulation data is acquired from Conduit/Blueprint (see \S\ref{sec:API}),
+and that data is sent into a pipeline, which applies threshold and clip operations.
+%
+The result of the pipeline is used in multiple ways, including a scene (which renders
+multiple images) and two extracts for two different I/O libraries.}
+\end{figure}
+
+%Currently supported filters include:
+
+%\fix{I feel like this section should take the following form:
+%1) what the concept is and 2) what are our current capabilities}
 
 \subsubsection{Pipelines}
 Pipelines allows users to describe a series of data transformations, also known as
