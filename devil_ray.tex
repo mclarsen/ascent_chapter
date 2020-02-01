@@ -25,14 +25,6 @@ With the rise of in situ analysis, low-order refinement imposes additional memor
 and time constraints on the simulation.
 %
 
-By default, Ascent performs low-order refines to visualize high-order meshes,
-but Ascent has recently integrated Devil Ray, a library for natively ray tracing
-high-order element meshes.
-%
-Ascent leverages Devil Ray to provide users an alternative to rendering images via low-order refinement.
-%
-Figure~\ref{img:crazy_hex} shows an extreme case of the differences between native support for high-order and element subdivision.
-
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{images/dray_crazy}
@@ -40,4 +32,36 @@ Figure~\ref{img:crazy_hex} shows an extreme case of the differences between nati
 \caption{\label{img:crazy_hex} Two renderings of a single $20^{th}$ order hexahedral element.
 On the left, a image rendered by Devil Ray, and on the right, an image rendered VisIt by subdividing the element into
 9,261 low-order hexahedrons.}
+\end{figure}
+
+By default, Ascent performs low-order refines to visualize high-order meshes,
+but Ascent has recently integrated Devil Ray~\cite{dray}, a library for natively ray tracing
+high-order element meshes.
+%
+Ascent leverages Devil Ray to provide users an alternative to rendering images via low-order refinement.
+%
+Figure~\ref{img:crazy_hex} shows an extreme case of the differences between native support for high-order and element subdivision.
+%
+The Devil Ray integration in Ascent is a first step in offering native high-order
+visualization support to simulations such as MARBL.
+
+
+In terms of capability, Devil Ray rendering integrated into Ascent include
+volume plots, pseudocolor plot, mesh plots, isosurfacing and slicing.
+%
+The Devil Ray plotting capabilities are all imaged based.
+%
+For example, both isosurfacing and slicing are rendered through ray tracing and do not
+create actual geometry.
+%
+Plots can be combined through image compositing.
+%
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{images/dray_combined}
+\caption{\label{img:dray_plots}
+Two examples of Devil Ray rendering. On the left, a volume plot of the
+Taylor-Green vortex, and on the right, a pseudocolor plot combined with a
+volume plot of the triple point problem.}
 \end{figure}
