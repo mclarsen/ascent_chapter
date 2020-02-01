@@ -136,14 +136,14 @@ A plot consists of two things: what data to render and how to render it.
 The data comes from the input pipeline, and the method for rendering it can vary.
 %
 Currently, Ascent supports four plot types: pseudocoloring, volume rendering, mesh plots, 
-and radiograph plots.
+and radiograph plots.  \fix{Matt: can we get a picture of these four in a 2x2 layout?  The tutorial has pseudocolor,volume,mesh, but not radiograph.}
 %
 Each of these plot types contain parameters that control the input data
 (name of the pipeline to consume, which scalar field to operate on, etc.)
 and how to carry out the rendering (color tables, scalar ranges, etc.).
 %
 
-
+In terms of camera placement, 
 Ascent creates a default camera based on bounding box of the data set and
 is always facing the data set.
 %
@@ -151,8 +151,10 @@ Renders inherit the default camera parameters, which simplifies creating
 cameras that actually look at the data set.
 %
 Ascent also provides simple controls to rotate the camera on the
-sphere circumscribing the data set, although the user is free to set all
-camera parameters explicitly.
+sphere circumscribing the data set. 
+%
+Of course, the user is free to set all
+camera parameters explicitly as well.
 
 Finally, scenes can create Cinema~\cite{AhrensCinema} databases that
 create a large set of images that can be explored after the simulation.
