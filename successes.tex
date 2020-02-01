@@ -30,18 +30,18 @@ run across 16,384 GPUs on 4,096 compute nodes. The simulation application
 used CUDA via RAJA to run on the GPUs. The time-varying evolution of the
 mixing was visualized in situ with Ascent, also leveraging 16,384 GPUs.
 The last time step was also exported by Ascent to the parallel file
-system for detailed post-hoc visualization using VisIt \fix{cite?}. The simulation
+system for detailed post-hoc visualization using VisIt\cite{VisIt}. The simulation
 data was accessed by Ascent directly from the GPU memory, eliminating any
 extra data copies.
 Figure~\ref{img:icf} shows one of the many images generated in situ during
 this run.
 
 \subsection{MARBL Simulation Integration}
-Ascent has been integrated and released with LLNL's MARBL simulation code,
+Ascent has been integrated and released with LLNL's MARBL~\cite{marbl} simulation code,
 a new next-generation multiphysics code currently under development.
 %
 One of MARBL's components is a high-order finite element solver build on
-MFEM \fix{cite?}, and Ascent supports the MFEM data model.
+MFEM~\cite{mfem}, and Ascent supports the MFEM data model.
 %
 In order to leverage Ascent's visualization capabilities, Ascent refines
 the high-order elements to low-order(i.e., linear elements).
