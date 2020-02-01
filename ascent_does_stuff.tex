@@ -239,35 +239,54 @@ Currently supported extracts include:
 
 \subsection{Queries}
 \label{action_queries}
-Queries in Ascent allow users to ask questions about simulation data,
-or data from pipelines, through a Python like language.
+Queries enable users to ask quantitative questions.
 %
-Queries provide access to data summarization functions and access to the
-current state of the simulation..
+The inputs to a query can take a varied form: 
+the simulation data directly, 
+data produced by a pipeline, 
+or \fix{even a combination of multiple pipelines and simulation data}.
 %
-Examples include min-max queries, statistics, cell locations,
-and probability distributions.
+That said, typical queries are used to access the current state of the simulation
+and to summarize data.
 %
-Queries are executed each time Ascent is called, and the resulting time
-history can be saved, accessed by the simulation, or accessed in other
-expressions.
+The results of queries are saved in Ascent's state.
+%
+These results can then be used to
+interact with other actions --- a query's return value can be turned
+into the parameter for another action (for example setting the camera position in a scene based
+on the result of a bounding box query) or it can be used to affect triggers.
+%
 
-Queries can be as simple as calling a function that returns the current simulation cycle
-and storing it into a variable.
+The mechanism behind queries enables powerful operations.
 %
-More complex queries can calculate the amount of entropy of a field.
+Queries are formed via a Python-like language that
+enables expressions for math operations,
+call functions, and evaluating conditionals.
 %
-The expression language that backs queries can perform math operations,
-call functions, and evaluate conditionals.
-%
-Since queries are stored into named identifiers, subsequent queries
+Further, since the results of queries are stored into named identifiers, subsequent queries
 can build on the results of other queries, allowing for complex combinations.
+%
+%Examples include min-max queries, statistics, cell locations,
+%and probability distributions.
+%
+This also enables creating a ``time history,'' since 
+Ascent can call the same query every time step and accumulate the result.
+
+%Queries are executed each time Ascent is called, and the resulting time
+%history can be saved, accessed by the simulation, or accessed in other
+%expressions.
+
+%Queries can be as simple as calling a function that returns the current simulation cycle
+%and storing it into a variable.
+%
+%More complex queries can calculate the amount of entropy of a field.
+%
 
 Examples of queries include:
 \begin{itemize}
-\item $cycle()$
-\item $max(field('pressure'))$
-\item $entropy(histogram(field('gyre'), num\_bins=128))$
+\item $cycle()$: calling a function that return the current simulation cycle and storing it into a variable.
+\item $max(field('pressure'))$: the maximum value of the pressure field.
+\item $entropy(histogram(field('gyre'), num\_bins=128))$: calculating a histogram of the gyre field with 128 bins, and then calculating the entropy of that histogram.
 \end{itemize}
 %Listing~\ref{simple_query} shows the declaration of a query that returns
 %the current simulation cycle and stores it into a variable identifier \textit{cycle},
