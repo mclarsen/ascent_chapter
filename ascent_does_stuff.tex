@@ -169,21 +169,29 @@ create a large set of images that can be explored after the simulation.
 %\end{itemize}
 
 \subsection{Extracts}
-Extracts are an escape hatch in Ascent that enables data to be sent
-outside of Ascent.
+The extracts action covers a broad range of activities.
 %
-Extracts can be as simple a saving data to HDF5 files or can be a gateway
+The common theme between these activities is moving data outside Ascent.
+%
+The word extract is meant to convey ``extracting'' data from Ascent to somewhere else.
+%
+%
+%Extracts are an escape hatch in Ascent that enables data to be sent
+%outside of Ascent.
+%
+Extracts can be as simple a saving data to HDF5 files.
+%
+That said, extracts are also the mechanism to integrate other tools with Ascent --- a gateway
 to a larger workflow.
-Extracts provide a means to link codes integrated with Ascent to other tools.
 %
-While, Ascent visualization covers many visualization use cases,
+This is important because
 Ascent does not have the long tail of functionality that tools like ParaView or VisIt provide, which
-were built over many years of development.
+were built over decades of development.
 %
 Through extracts, Ascent can pass data directly to ParaView Catalyst~\cite{Catalyst}.
 %
 Another example of using extracts to provide additional functionality is the
-ADIOS~\cite{Lofstead2008} extract, which allows ascent to link to in-transit workflows.
+ADIOS~\cite{Lofstead2008} extract, which allows Ascent to link to in transit workflows.
 
 Ascent supports connections to the Python ecosystem through the Python and
 Jupyter extracts~\cite{CyrusISAV,Jupyter}.
@@ -192,24 +200,25 @@ Python extracts execute custom analysis code provided by the user, and the
 Jupyter extracts allow for incoming Jupyter notebooks connections from a web
 browser.
 
-Jupyter notebooks is a promising direction for in situ.
+We feel that the Jupyter notebook interface is an important future direction
+for Ascent, and for in situ as a whole.
 %
-One of in situ's greatest weaknesses is the it's reliance on a priori
-knowledge, and one strategy to mitagate this weakness is interactivity.
+One of in situ's greatest weaknesses is the reliance on a priori
+knowledge, and one strategy to mitagate this weakness is incorporating a human-in-the-loop.
 %
 Through the Jupyter notebook interface, users can pause a running simulation
 and interact with the data.
 %
-Additionally, Jupyter widgets enable fast prototyping of domain specific
-GUIs.
+Additionally, Jupyter widgets enable fast prototyping of domain specific GUIs.
 
 Currently supported extracts include:
 \begin{itemize}
-\item ADIOS (beta)
+\item ADIOS 
 \item Babel Flow~\cite{babelflow}
 \item Jupyter Notebooks
 \item ParaView Catalyst
 \item Python
+\item \fix{Custom code}
 \end{itemize}
 
 \subsection{Queries}
