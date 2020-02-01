@@ -39,13 +39,11 @@ n.print();
   \begin{minipage}{.5\textwidth}
   \centering
   \begin{lstlisting}[language=C++]
-{
-  "key": "value"
-}
+key: "value"
   \end{lstlisting}
   \end{minipage}
 \end{tabular}
-\caption{\label{ex:1}On the left, an example of storing a string inside a Conduit Node. On the right, the JSON equivalent.}
+\caption{\label{ex:1}On the left, an example of storing a string inside a Conduit Node. On the right, the YAML equivalent.}
 \end{figure}
 
 Data in Nodes can be created and accessed through hierarchical keys,
@@ -79,19 +77,13 @@ n.print();
   \begin{minipage}{.5\textwidth}
   \centering
   \begin{lstlisting}[language=C++]
-{
-  "dir1" :
-  {
-    "dir2" :
-    {
-      "val1": 100.5
-    }
-  }
-}
+dir1:
+  dir2:
+    val1: 100.5
   \end{lstlisting}
   \end{minipage}
 \end{tabular}
-\caption{\label{ex:2}On the left, an example of using a hierarchical key to store a number. On the right, the JSON equivalent.}
+\caption{\label{ex:2}On the left, an example of using a hierarchical key to store a number. On the right, the YAML equivalent.}
 \end{figure}
 
 Nodes can also contain arrays, and the $set$ method
@@ -122,13 +114,11 @@ n.print();
   \begin{minipage}{.5\textwidth}
   \centering
   \begin{lstlisting}[language=C++]
-{
-  "my_array" : [0, 1, 2, 3]
-}
+my_array: [0, 1, 2, 3]
   \end{lstlisting}
   \end{minipage}
 \end{tabular}
 
-\caption{\label{ex:3}On the left, an example of setting the value of a Node to an Array. On the right, the JSON equivalent.}
+\caption{\label{ex:3}On the left, an example of setting the value of a Node to an Array. On the right, the YAML equivalent.}
 \end{figure}
 
