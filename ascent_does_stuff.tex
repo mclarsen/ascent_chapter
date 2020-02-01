@@ -303,14 +303,54 @@ Examples of queries include:
 
 \subsection{Triggers}
 \label{sec:ascent:triggers}
-Traditional in situ actions execute every $X$ simulation cycles, this presents
-two related problems.
+
+In a typical scenario, in situ visualization is performed at regular intervals, e.g.,
+every $X$ simulation cycles or every $M$ minutes of wall clock time.
 %
-First, if the analysis is expensive, then the total cost of the action may exceed
-what a user is willing to pay, e.g., adding a 50\% overhead on top of the simulation.
+This approach creates a tension between two important goals:
+(1) achieving the visualizations and analyses at the right times within the simulation
+and (2) minimizing costs.
 %
-Second, if the analysis called infrequently, then the feature or event that the analysis is
-trying to capture could easily be missed.
+On the one hand, performing visualization frequently maximizes the chances of having
+visualizations at the right times (and likely also some uninteresting times), but 
+is costly,  e.g., adding a 50\% overhead on top of the simulation.
+%
+On the other hand, performing visualization infrequently minimizes costs, but also makes it
+less likely that the visualizations will occur during important phenomena.
+%
+
+``Triggers'' are designed to balance the tensions between cost and capturing important phenomena.
+%
+Triggers operate in two phases: inspection and action/inaction.
+%
+The purpose of the inspection phase is to determine if the action should be taken, if so, then
+the trigger should ``fire.''
+%
+Further, if the inspection routine is cheap (i.e., executes quickly) and accurate (i.e.,
+fires at the right times), then 
+triggers can be an effective strategy.
+%
+In this case, triggers can be called frequently (possibly every cycle) and still minimize cost
+(since the visualization in the action/inaction phase is called only when necessary) and 
+get the right information (since the trigger is accurate).
+%
+Of course, triggers make the most sense when the desired visualization is quite expensive
+to calculate;
+if the desired visualization could be calculated as quickly as the trigger, then there would
+not be a cost benefit.
+
+
+
+
+
+%Traditional in situ actions execute every $X$ simulation cycles, this presents
+%two related problems.
+%
+%First, if the analysis is expensive, then the total cost of the action may exceed
+%what a user is willing to pay,
+%
+%Second, if the analysis called infrequently, then the feature or event that the analysis is
+%trying to capture could easily be missed.
 %
 Triggers address these issues by coupling inspection routines with analysis, and a
 potentially costly analysis only executes when user defined precondition is met.
