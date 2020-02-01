@@ -41,7 +41,7 @@ Figure~\ref{fig:ascent_example} shows an example of this, specifically two pipel
 \includegraphics[width=\textwidth]{images/ascent_actions_diagram.pdf}
 \caption{\label{fig:ascent_example} An example of how Ascent actions can be combined.
 In this example, simulation data is acquired from Conduit/Blueprint (see \S\ref{sec:API}),
-and that data is relayed into two pipelines (labeled \#1 and \#2). 
+and that data is relayed into two pipelines (labeled \#1 and \#2).
 The first pipeline applies a contour operation, while the second
 applies threshold and clip operations.
 %
@@ -61,7 +61,7 @@ Pipelines allows users to describe a series of data transformations, also known 
 to execute on simulation data.
 %
 %These data transformations are sometimes referred to as filters in other
-%frameworks (like VTK~\cite{VTK}), and 
+%frameworks (like VTK~\cite{VTK}), and
 Figure~\ref{fig:ascent_example} shows
 typical filters for visualization: contour, threshold, and clip.
 %Figure~\ref{img:pipelines} shows two examples of pipelines.
@@ -73,7 +73,7 @@ Ascent allows users can define an arbitrary number of pipelines.
 %
 In terms of inputs and outputs, the input to a pipeline is either
 the simulation data or another pipeline, and the outputs of a pipeline
-can go to scenes, extracts, and queries.  
+can go to scenes, extracts, and queries.
 %
 Further, triggers can make use of pipelines, and their relationship is discussed further
 in \S\ref{sec:ascent:triggers}.
@@ -105,8 +105,8 @@ Notable filters currently supported by Ascent include:
 
 There are also filters that create new fields: Divergence, Gradient, Logarithm, Q-Criterion, Vector Magnitude, and Vorticity.
 %
-Finally, Ascent contains two specific-to-in-situ filters that 
-reduce data size significantly enough that it can be saved to disk and explored post hoc: 
+Finally, Ascent contains two specific-to-in-situ filters that
+reduce data size significantly enough that it can be saved to disk and explored post hoc:
 Lagrangian Flow and Sampling (\fix{should be a reference here to Biswas chapter on sampling}).
 
 
@@ -295,7 +295,7 @@ maximizing constrained resources in situ.
 
 Example of triggers include:
 \begin{itemize}
-\item $cycle() > 100 and cycle() < 200$
+\item $cycle() > 100 \ and \ cycle() < 200$
 \item $max(field('pressure')) > 100.0$
 \item $magnitude(max(field('braid')).position - vector(0,0,0)) > 0$
 \end{itemize}
