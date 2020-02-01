@@ -148,8 +148,16 @@ and how to carry out the rendering (color tables, scalar ranges, etc.).
 pseudocolor (top left), mesh (top right, which also include a pseudocolor plot),
 volume rendering (bottom left), and radiograph (bottom right).
 %
+<<<<<<< HEAD
 The data for these images comes from CloverLeaf3D, 
 a hydrodynamics proxy-application included with Ascent.
+=======
+On the top left, a pseudocolor plot, and
+on the top right, a pseudocolor plot with a mesh plot.
+%
+On the bottom left, a volume plot, and
+on the bottom right, a radiograph plot.
+>>>>>>> e25c80971f329fcce66dc9efb1cedf33098f8217
   }
 \end{figure}
 
@@ -313,7 +321,7 @@ This approach creates a tension between two important goals:
 and (2) minimizing costs.
 %
 On the one hand, performing visualization frequently maximizes the chances of having
-visualizations at the right times (and likely also some uninteresting times), but 
+visualizations at the right times (and likely also some uninteresting times), but
 is costly,  e.g., adding a 50\% overhead on top of the simulation.
 %
 On the other hand, performing visualization infrequently minimizes costs, but also makes it
@@ -326,11 +334,11 @@ The purpose of the inspection phase is to determine if the action should be take
 the trigger should ``fire.''
 %
 Further, if the inspection routine is cheap (i.e., executes quickly) and accurate (i.e.,
-fires at the right times), then 
+fires at the right times), then
 triggers can be an effective strategy.
 %
 In this case, triggers can be called frequently (possibly every cycle) and still minimize cost
-(since the visualization in the action/inaction phase is called only when necessary) and 
+(since the visualization in the action/inaction phase is called only when necessary) and
 get the right information (since the trigger is accurate).
 %
 Of course, triggers make the most sense when the desired visualization is quite expensive
