@@ -144,13 +144,12 @@ and how to carry out the rendering (color tables, scalar ranges, etc.).
   \includegraphics[width=0.4\textwidth]{images/mesh250}
   \includegraphics[width=0.4\textwidth]{images/volume250}
   \includegraphics[width=0.4\textwidth]{images/radiograph250}
-  \caption{\label{fig:ascent_plots} Example plots used in Ascent scenes.
+  \caption{\label{fig:ascent_plots} Example images of Ascent's four plot types:
+pseudocolor (top left), mesh (top right, which also include a pseudocolor plot),
+volume rendering (bottom left), and radiograph (bottom right).
 %
-On the top left, a pseudocolor plot, and
-on the top right, a pseudocolor plot with a mesh plot.
-%
-On the bottom left, a volume plot, and
-on the bottom right, a radiograph plot.
+The data for these images comes from CloverLeaf3D, 
+a hydrodynamics proxy-application included with Ascent.
   }
 \end{figure}
 
@@ -304,6 +303,8 @@ Examples of queries include:
 \subsection{Triggers}
 \label{sec:ascent:triggers}
 
+``Triggers'' are designed to balance the tensions between cost and capturing important phenomena.
+%
 In a typical scenario, in situ visualization is performed at regular intervals, e.g.,
 every $X$ simulation cycles or every $M$ minutes of wall clock time.
 %
@@ -319,8 +320,6 @@ On the other hand, performing visualization infrequently minimizes costs, but al
 less likely that the visualizations will occur during important phenomena.
 %
 
-``Triggers'' are designed to balance the tensions between cost and capturing important phenomena.
-%
 Triggers operate in two phases: inspection and action/inaction.
 %
 The purpose of the inspection phase is to determine if the action should be taken, if so, then
@@ -352,28 +351,39 @@ not be a cost benefit.
 %Second, if the analysis called infrequently, then the feature or event that the analysis is
 %trying to capture could easily be missed.
 %
-Triggers address these issues by coupling inspection routines with analysis, and a
-potentially costly analysis only executes when user defined precondition is met.
+%Triggers address these issues by coupling inspection routines with analysis, and a
+%potentially costly analysis only executes when user defined precondition is met.
 %
-Ideally, inspection routines are cheap and can be called every cycle, while the analysis
-that are ``triggered'' can cost more.
+%Ideally, inspection routines are cheap and can be called every cycle, while the analysis
+%that are ``triggered'' can cost more.
 
-Ascent triggers builds on the queries and expression support introduced in
-Section~\ref{action_queries}, and the trigger condition can be any conditional
-expression.
+A trigger is made up of two parts, which we term as trigger-condition and trigger-action
+for clarity.  
+(A trigger-action is only executed if the trigger-condition is true.)
 %
-When the condition evaluates to true, the trigger fires, executing a user provided
-set of actions, which can be any Ascent action.
+In Ascent, any conditional expression can be a trigger-condition, although most trigger-conditions
+incorporates the queries and expressions infrastructure from
+\S~\ref{action_queries}.
 %
-Triggers can be used to execute actions for debugging purposes(i.e., saving data to
-a file when invalid values are found) or rendering images when a large
-change is found(i.e., when the max value of a field exceeds a threshold from the
+Trigger-actions utilize Ascent's other actions: pipelines, extracts, scenes, and
+queries.  \fix{Can a trigger make another trigger?  I can't see a need for that.}
+%
+For example, a trigger-action may be to calculate an isosurface (pipeline) and save
+an image (scene).
+%The part for the action incorporates 
+%When the condition evaluates to true, the trigger fires, executing a user provided
+%set of actions, which can be any Ascent action.
+%
+In practice, triggers are often used for debugging (e.g., saving data to
+a file when invalid values are found) or 
+for capturing information when a phenomena occurs
+(e.g., saving an image when the maximum value of a field exceeds a threshold from the
 previous value).
 %
-When an event can be expressed in these terms, triggers are a powerful tool for
-maximizing constrained resources in situ.
+%When an event can be expressed in these terms, triggers are a powerful tool for
+%maximizing constrained resources in situ.
 
-Example of triggers include:
+Examples of trigger-conditions in Ascent include:
 \begin{itemize}
 \item $cycle() > 100 \ and \ cycle() < 200$
 \item $max(field('pressure')) > 100.0$
