@@ -75,7 +75,8 @@ multiple images) and two extracts for two different I/O libraries.}
 %\fix{I feel like this section should take the following form:
 %1) what the concept is and 2) what are our current capabilities}
 
-\subsubsection{Pipelines}
+\subsection{Pipelines}
+
 Pipelines allows users to describe a series of data transformations, also known as
 filters, to execute on simulation data.
 %
@@ -117,7 +118,7 @@ Currently supported filters include:
 \item Vector Magnitude
 \end{itemize}
 \end{multicols}
-\subsubsection{Scenes}
+\subsection{Scenes}
 Scenes allow users to specify how images are rendered.
 %
 Each scene consists of one or more plots, and Ascent supports volume,
@@ -151,7 +152,7 @@ Currently supported plots include:
 \item Radiograph
 \end{itemize}
 
-\subsubsection{Extracts}
+\subsection{Extracts}
 Extracts are an escape hatch in Ascent that enables data to be sent
 outside of Ascent.
 %
@@ -197,7 +198,7 @@ Currently supported extracts include:
 \item Python
 \end{itemize}
 
-\subsubsection{Queries}
+\subsection{Queries}
 \label{action_queries}
 Queries in Ascent allow users to ask questions about simulation data,
 or data from pipelines, through a Python like language.
@@ -248,7 +249,7 @@ Examples of queries include:
 %queries["q2/params/name"] = "entropy_of_gyre"
 %\end{lstlisting}
 
-\subsubsection{Triggers}
+\subsection{Triggers}
 Traditional in situ actions execute every $X$ simulation cycles, this presents
 two related problems.
 %
