@@ -50,11 +50,6 @@ A scene uses both pipelines as input, while two extracts use only the second pip
 as input, outputting using two different I/O libraries.}
 \end{figure}
 
-%Currently supported filters include:
-
-%\fix{I feel like this section should take the following form:
-%1) what the concept is and 2) what are our current capabilities}
-
 \subsection{Pipelines}
 
 Pipelines allows users to describe a series of data transformations, also known as filters,
@@ -234,17 +229,16 @@ Currently supported extracts include:
 \item Jupyter Notebooks
 \item ParaView Catalyst
 \item Python
-\item \fix{Custom code}
 \end{itemize}
 
 \subsection{Queries}
 \label{action_queries}
 Queries enable users to ask quantitative questions.
 %
-The inputs to a query can take a varied form: 
-the simulation data directly, 
-data produced by a pipeline, 
-or \fix{even a combination of multiple pipelines and simulation data}.
+The inputs to a query can take a varied form:
+the simulation data directly,
+data produced by a pipeline,
+or even a combination of multiple pipelines and simulation data.
 %
 That said, typical queries are used to access the current state of the simulation
 and to summarize data.
@@ -269,7 +263,7 @@ can build on the results of other queries, allowing for complex combinations.
 %Examples include min-max queries, statistics, cell locations,
 %and probability distributions.
 %
-This also enables creating a ``time history,'' since 
+This also enables creating a ``time history,'' since
 Ascent can call the same query every time step and accumulate the result.
 
 %Queries are executed each time Ascent is called, and the resulting time
