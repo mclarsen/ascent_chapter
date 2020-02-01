@@ -1,0 +1,89 @@
+
+The flexibility of the Conduit Node allows it to be used to represent a
+wide range of scientific data.
+%
+Unconstrained, this flexibly can lead to
+many application specific choices for common types of data that could
+potentially be shared between applications.
+
+The goal of Blueprint is to help facilitate a set of shared higher-level
+conventions for using Conduit Nodes to hold common simulation data structures.
+%
+The Blueprint library in Conduit provides methods to verify if a Conduit
+Node instance conforms to known conventions, which we call protocols.
+%
+It also provides property and transform methods that can be used on conforming Nodes.
+
+Many taxonomies and concrete mesh data models have been developed to allow
+computational meshes to be used in software.
+%
+Blueprint’s conventions for representing mesh data were formed by negotiating
+with simulation application teams at LLNL and from a survey of existing
+projects that provide scientific mesh-related APIs including: ADIOS, Damaris,
+EAVL, MFEM, Silo, VTK, VTKm, and Xdmf.
+%
+Blueprint’s mesh conventions are not a replacement for existing mesh data
+models or APIs.
+%
+Our explicit goal is to outline a comprehensive, but small set of options
+for describing meshes in-core that simplifies the process of adapting data
+to several existing mesh-aware APIs.
+
+Blueprint covers a wide range of mesh desriptions, and
+Blueprint uses four concepts to describe meshes:
+
+\begin{itemize}
+  \item Coordinate Sets
+  \item Topologies
+  \item Fields
+  \item Domain Decomposition Information
+\end{itemize}
+
+Coordinate sets described coordinate systems in 1D, 2D, and 3D, and
+can be specified in cartesian, spherical, or cyclidrical frames of reference.
+%
+In additon to explicit coordinate sets, compact implicit representations,
+such as uniform and rectilinear, are also supported.
+%
+Topologies describe the topological structure of the mesh elements.
+%
+As with coordinate sets, both implicit(e.g., uniform) and explicit
+(e.g., completely unstructured)topologies are supported.
+%
+Fields describe the data associtate with the mesh, and Blueprint supports
+fields associated with verticies or elements.
+%
+Fields can be scalars or have multiple components.
+%
+Additionally, Blueprint supports the description of high-order
+topologies and fields, which are becoming increasingly common.
+
+A Blueprint data set minimally needs a topology and a coordinate system,
+but Blueprint supports having any number of topologies and coordinate
+systems.
+%
+Figure~\ref{ex:blueprint} shows a Blueprint description of a uniform mesh.
+
+\begin{figure}
+\begin{lstlisting}[language=C++]
+Node mesh;
+// 10x10x10 uniform cooridinate system
+mesh["coordsets/my_coords/type"]="uniform";
+mesh["coordsets/my_coords/dims/i"] = 10;
+mesh["coordsets/my_coords/dims/j"] = 10;
+mesh["coordsets/my_coords/dims/k"] = 10;
+
+// optional origin
+mesh["coordsets/my_coords/origin/x"]= -10;
+mesh["coordsets/my_coords/origin/y"]= -10;
+mesh["coordsets/my_coords/origin/z"]= -10;
+
+mesh["coordsets/my_coords/spacing/dx"]= 1.0;
+mesh["coordsets/my_coords/spacing/dy"]= 1.0;
+mesh["coordsets/my_coords/spacing/dz"]= 1.0;
+
+mesh["topologies/my_topo/type"] = "uniform";
+mesh["topologies/my_topo/coordset"] = "my_coords";
+\end{lstlisting}
+\caption{\label{ex:blueprint}An example of a specifying a $10^3$ uniform grid in Blueprint.}
+\end{figure}

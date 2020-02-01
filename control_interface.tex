@@ -1,11 +1,11 @@
 Ascent's control interface consists of two main components:
 the API and actions.
 %
-The API is primaraly for getting data in and out of Ascent,
+The API is primarily for getting data in and out of Ascent,
 and the actions describe what to do with the simulation data
 and what the simulation expects in return.
 
-\subsection{Ascent API}
+\subsubsection{Ascent API}
 Ascent's front facing API consistst of five calls:
 open, pushlish, execute, info, and close.
 %
@@ -25,8 +25,8 @@ conduit::Node options, actions, data_set, info;
 // fill options, actions, and data_set
 ascent::Ascent ascent;
 ascent.open(options);
-ascent.pubish(data_set);
-ascent.exectute(actions);
+ascent.publish(data_set);
+ascent.execute(actions);
 ascent.info(info);
 ascent.close();
 \end{lstlisting}
@@ -51,7 +51,7 @@ of queries, allowing the the simulation to take actions based on the results.
 ``close'' directs Ascent to finalize execution.
 
 
-\subsection{Ascent Actions}
+\subsubsection{Ascent Actions API}
 In Ascent, actions are a declarative interface that enables users to
 control Ascent's exectution using five high-level concepts:
 Pipelines, Scenes, Extracts, Queries, and Triggers.
