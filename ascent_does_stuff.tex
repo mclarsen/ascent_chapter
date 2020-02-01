@@ -1,26 +1,3 @@
-\fix{Original intro}
-
-The Ascent interface and capabilities are centered around five uses uses:
-transforming data, creating images, capturing data, answering questions,
-and adapting actions.
-%
-%
-Pipelines describe how to transform data from one form to another.
-%
-Scenes describe how to render images.
-%
-Extracts describe how to get data out of Ascent.
-%
-Queries describe what questions to answer.
-%
-Triggers describe conditions, that when satisfied, execute analysis.
-%
-Ascent refers to these high-level concepts as \textbf{actions},
-i.e., tasks to execute in situ.
-In this section, we describe Ascent's abstractions and capabilities.
-
-\fix{Hank's attempt at the intro paragraph}
-
 This section describe Ascent's primary abstractions and surveys its general capabilities.
 %
 Ascent organizes its capabilities into five types of in situ tasks, which
@@ -34,7 +11,7 @@ Its five actions are:
 %
 \item \textbf{Extracts} are used to move data out of Ascent, i.e., to file I/O or to another framework.
 %
-\item \textbf{Queries} provide quantitative summarizations of the data.  
+\item \textbf{Queries} provide quantitative summarizations of the data.
 %
 \item \textbf{Triggers} adapt when other actions are executed, based on the conditions of the simulation.
 %
@@ -180,13 +157,13 @@ While, Ascent visualization covers many visualization use cases,
 Ascent does not have the long tail of functionality that tools like ParaView or VisIt provide, which
 were built over many years of development.
 %
-Through extracts, Ascent can pass data directly to ParaView Catalyst.
+Through extracts, Ascent can pass data directly to ParaView Catalyst~\cite{Catalyst}.
 %
 Another example of using extracts to provide additional functionality is the
-ADIOS extract, which allows ascent to link to in-transit workflows.
+ADIOS~\cite{Lofstead2008} extract, which allows ascent to link to in-transit workflows.
 
 Ascent supports connections to the Python ecosystem through the Python and
-Jupyter extracts~\cite{CyrusISAV}.
+Jupyter extracts~\cite{CyrusISAV,Jupyter}.
 %
 Python extracts execute custom analysis code provided by the user, and the
 Jupyter extracts allow for incoming Jupyter notebooks connections from a web
@@ -203,12 +180,10 @@ and interact with the data.
 Additionally, Jupyter widgets enable fast prototyping of domain specific
 GUIs.
 
-\fix{mention babel-flow}
-
 Currently supported extracts include:
 \begin{itemize}
 \item ADIOS (beta)
-\item Babel Flow
+\item Babel Flow~\cite{babelflow}
 \item Jupyter Notebooks
 \item ParaView Catalyst
 \item Python
