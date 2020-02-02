@@ -1,73 +1,124 @@
 
-The flexibility of the Conduit Node allows it to be used to represent a
-wide range of scientific data.
 %
-Unconstrained, this flexibly can lead to
-many application specific choices for common types of data that could
-potentially be shared between applications.
+In-memory sharing of scientific data is an important use case,
+certainly for in situ visualization, but also for computational science in general.
+%
+One barrier to in-memory sharing is how scientific data is represented.
+%
+If a simulation code hands an array to an in situ visualization routine, then the routine
+needs to know if this array is a scalar field, coordinate information, connectivity information
+for an unstructured mesh, etc.
+%
+Conduit is not helpful in addressing this barrier, 
+as it provides a foundation for sharing data, but it provides no guidance in how to arrange
+data into a data model.
+%
+This is where Blueprint comes in.
+%Unfortunately, Conduit 
+%There are many possible options, and Conduit 
+%Achieving this sharing can be difficult, as 
+%scientific data can be represented in myriad ways, creating a burden in mapping
+%Conduit supports each of 
+%these layouts.
+%
+%The flexibility of Conduit Nodes allows it to be used to represent a
+%wide range of scientific data.
+%
+%While this flexibility can be positive, it also can be negative --- 
+%unconstrained, this can lead to
+%many application-specific choices for common types of data
+%which in turn can be a barrier to
+%sharing between applications.
 
-The goal of Blueprint is to help facilitate a set of shared higher-level
+
+The goal of Blueprint is to facilitate a set of shared higher-level
 conventions for using Conduit Nodes to hold common simulation data structures.
 %
-The Blueprint library in Conduit provides methods to verify if a Conduit
-Node instance conforms to known conventions, which we call protocols.
+Blueprint is able to describe a wide range of scientific data.
 %
-It also provides property and transform methods that can be used on conforming Nodes.
-
-Many taxonomies and concrete mesh data models have been developed to allow
-computational meshes to be used in software.
+Its design emerged through two efforts.
 %
-Blueprint’s conventions for representing mesh data were formed by negotiating
-with simulation application teams at LLNL and from a survey of existing
+First,  surveying existing
 projects that provide scientific mesh-related APIs including: ADIOS, Damaris,
-EAVL, MFEM, Silo, VTK, VTKm, and Xdmf.
+EAVL, MFEM, Silo, VTK, VTKm, and Xdmf. \fix{citations?}
 %
-Blueprint’s mesh conventions are not a replacement for existing mesh data
-models or APIs.
+In this way, lessons learned from previous taxonomies and concrete scientific data models
+have been incorporated in Blueprint.
 %
-Our explicit goal is to outline a comprehensive, but small set of options
-for describing meshes in-core that simplifies the process of adapting data
-to several existing mesh-aware APIs.
+Second, through discussion with simulation application teams.
+%
+These discussions were about general in-memory sharing (i.e., including code-to-code sharing).
+but have proven to be useful for in situ visualization use cases as well.
+%
+Finally,
+Blueprint's mesh conventions are not a replacement for existing mesh data models or APIs. 
+%
+Instead, Blueprint is trying to provide a comprehensive-but-small set of options for 
+describing meshes in-core that simplifies 
+the process of adapting data to several existing mesh-aware APIs.
 
-Blueprint covers a wide range of mesh desriptions, and
+
+
+%Many taxonomies and concrete mesh data models have been developed to allow
+%computational meshes to be used in software.
+%
+%Blueprint’s conventions for representing mesh data were formed by negotiating
+%with simulation application teams at LLNL and from 
+%
+
 Blueprint uses four concepts to describe meshes:
-
 \begin{itemize}
-  \item Coordinate Sets
-  \item Topologies
-  \item Fields
-  \item Domain Decomposition Information
-\end{itemize}
-
-Coordinate sets described coordinate systems in 1D, 2D, and 3D, and
-can be specified in cartesian, spherical, or cyclidrical frames of reference.
+  \item \textbf{Coordinate Sets} describe coordinate systems in 1D, 2D, and 3D, and
+using Cartesian, spherical, or cylindrical frames of reference.
 %
-In additon to explicit coordinate sets, compact implicit representations,
-such as uniform and rectilinear, are also supported.
+Blueprint supports not only explicit coordinate sets, but also implicit representations,
+such as uniform and rectilinear.
+  \item \textbf{Topologies} describe the topological structure of the mesh elements.
 %
-Topologies describe the topological structure of the mesh elements.
-%
-As with coordinate sets, both implicit(e.g., uniform) and explicit
-(e.g., completely unstructured)topologies are supported.
-%
-Fields describe the data associtate with the mesh, and Blueprint supports
-fields associated with verticies or elements.
-%
-Fields can be scalars or have multiple components.
+As with coordinate sets, both implicit (e.g., uniform) and explicit
+(e.g., completely unstructured) topologies are supported.
+  \item \textbf{Fields} describe the data associated with the mesh.
+Fields can be assciated with vertices or with elements, and 
+can be scalars or have multiple components.
 %
 Additionally, Blueprint supports the description of high-order
 topologies and fields, which are becoming increasingly common.
-
+  \item \textbf{Domain Decomposition Information} is important for distributed-memory applications.
+%
+In these cases, the mesh is typically distributed among MPI tasks, into ``domains,'' and
+many algorithms need information at the boundaries of the domains to proceed.
+%
+There are many ways to describe how domain's abut, and Blueprint's domain decomposition information 
+allows for capturing the specifics.
+\end{itemize}
 A Blueprint data set minimally needs a topology and a coordinate system,
 but Blueprint supports having any number of topologies and coordinate
-systems.
+systems, as well as any number of fields.
 %
+
+
 Figure~\ref{ex:blueprint} shows a Blueprint description of a uniform mesh.
+%
+Blueprint's form follows Conduit's key-value approach.
+%
+That said, the challenge in learning Blueprint is in learning the reserved words associated
+with concepts.  
+%
+In the figure's description of the coordinate system, there are many reserved words:
+coordsets, type, dims,  i, j, k, and uniform.
+%
+Each of these have the expected meaning.
+%
+The figure also creates a variable, my\_coords.
+%
+Blueprint does provide help in setting a data set through its protocols ---
+methods to verify if a Conduit Node instance conforms to known conventions. 
+
 
 \begin{figure}
 \begin{lstlisting}[language=C++]
 Node mesh;
-// 10x10x10 uniform cooridinate system
+// 10x10x10 uniform coordinate system
 mesh["coordsets/my_coords/type"]="uniform";
 mesh["coordsets/my_coords/dims/i"] = 10;
 mesh["coordsets/my_coords/dims/j"] = 10;
@@ -87,3 +138,4 @@ mesh["topologies/my_topo/coordset"] = "my_coords";
 \end{lstlisting}
 \caption{\label{ex:blueprint}An example of a specifying a $10^3$ uniform grid in Blueprint.}
 \end{figure}
+
