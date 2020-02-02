@@ -12,21 +12,21 @@ Ascent's API consists of five calls:
 %Ascent supports multiple language binding including C, C++,
 %Fortran, and Python.
 \begin{itemize}
-  \item \textbf{open} initializes Ascent with options including the
-MPI communicator, exception handling, and the actions file name.
+  \item \textbf{open} initializes Ascent.  It can optionally take arguments, for passing along
+information such as the MPI communicator.
 %
-  \item \textbf{publish} is the method that allows a simulation code to publish its data
+  \item \textbf{publish} is the method that enables a simulation code to pass (``publish'') its data
 to Ascent.  
 %
-   \item \textbf{execute} specifies the Ascent actions to perform (see \S\ref{sec:capabilities}).  
+   \item \textbf{execute} specifies which Ascent actions (see \S\ref{sec:capabilities}) to perform.  
 %
 %Typically, the parameters to ``exectute'' are overrided with a user provided
 %file, which allows actions to be changed without re-compiling the simulation.
 %
   \item \textbf{info} is the mechanism for getting data out from Ascent into the simulation.
 %
-The Conduit Node passed to ``info'' is populated with data that includes the results
-of queries, allowing the the simulation to take actions based on the results.
+%The Conduit Node passed to ``info'' is populated with data that includes the results
+%of queries, allowing the the simulation to take actions based on the results.
 %
   \item \textbf{close} directs Ascent to finalize execution.
 \end{itemize}
@@ -36,7 +36,9 @@ Ascent usage typically consists of only four calls: open, publish, execute, and 
 These calls are available with multiple language bindings: C, C++, Fortran, and Python.
 %
 %
-\begin{lstlisting}[language=C++,caption={Typical Ascent usage in C++}]
+\begin{lstlisting}[language=C++,caption={\label{listing:ascent_api}Typical Ascent usage in C++.
+The code for ``fill data\_set'' can be found in listing~\ref{ex:blueprint}, while the code
+for ``fill actions'' can be found in listing~\ref{listing:actions}.}]
 conduit::Node data_set, actions;
 // fill data_set 
 // fill actions 
@@ -44,7 +46,6 @@ ascent::Ascent ascent;
 ascent.open();
 ascent.publish(data_set);
 ascent.execute(actions);
-ascent.info(info);
 ascent.close();
 \end{lstlisting}
 
@@ -57,4 +58,43 @@ The format for the data passed to ``execute'' (``actions'' in the example)
 is the subject of the remainder of this section.
 %
 
+
+There are two forms for specifying actions to Ascent.
+%
+One form is to write code that specifies actions.
+%
+This code would set up Conduit nodes, and be passed in as the ``actions'' in the
+code listing above.
+%
+The code would be part of the simulation code, and compiled into the simulation.
+%
+The other form is to encode the information in a YAML file.
+%
+In this case, the code for the simulation code would simply direct Ascent to read
+the YAML file and get the directions for the actions to take from that file.
+%
+The advantage of this latter form is that is that it decouples the visualization
+operations from the simulation code.
+%
+Specifically, the simulation can be compiled into binary form, and yet the visualization
+operations to be performed can still be changed.
+%
+It also allows one person to do code integration (setting up publishing of data)
+and other people to control the visualization without having to understand
+the code integration.
+
+Despite the advantages of the YAML approach, we demonstrate setting up actions with
+the code interface where the visualization operations are compiled into the code.
+%
+The result of this code listing is to create the ``actions'' from Listing~\ref{listing:ascent_api}.
+
+\begin{lstlisting}[language=C++,caption={\label{listing:actions}Setting up Ascent actions using the C++ bindings.}]
+conduit::Node data_set, actions;
+// fill data_set 
+// fill actions 
+ascent::Ascent ascent;
+ascent.open();
+ascent.publish(data_set);
+ascent.execute(actions);
+\end{lstlisting}
 

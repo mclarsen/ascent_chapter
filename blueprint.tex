@@ -97,7 +97,7 @@ systems, as well as any number of fields.
 %
 
 
-Figure~\ref{ex:blueprint} shows a Blueprint description of a uniform mesh.
+Listing~\ref{ex:blueprint} shows a Blueprint description of a uniform mesh.
 %
 Blueprint's form follows Conduit's key-value approach.
 %
@@ -115,8 +115,7 @@ Blueprint does provide help in setting a data set through its protocols ---
 methods to verify if a Conduit Node instance conforms to known conventions. 
 
 
-\begin{figure}
-\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++,caption={\label{ex:blueprint}An example of a specifying a $10^3$ uniform grid in Blueprint.}]
 Node mesh;
 // 10x10x10 uniform coordinate system
 mesh["coordsets/my_coords/type"]="uniform";
@@ -136,6 +135,4 @@ mesh["coordsets/my_coords/spacing/dz"]= 1.0;
 mesh["topologies/my_topo/type"] = "uniform";
 mesh["topologies/my_topo/coordset"] = "my_coords";
 \end{lstlisting}
-\caption{\label{ex:blueprint}An example of a specifying a $10^3$ uniform grid in Blueprint.}
-\end{figure}
 
