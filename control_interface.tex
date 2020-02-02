@@ -1,94 +1,60 @@
-Ascent's control interface consists of two main components:
-the API and actions.
+%Ascent's control interface consists of two main components:
+%the API and actions.
 %
-The API is primarily for getting data in and out of Ascent,
-and the actions describe what to do with the simulation data
-and what the simulation expects in return.
+%The API is primarily for getting data in and out of Ascent,
+%and the actions describe what to do with the simulation data
+%and what the simulation expects in return.
 
-\subsubsection{Ascent API}
-Ascent's front facing API consistst of five calls:
-open, pushlish, execute, info, and close.
+%\subsubsection{Ascent API}
+Ascent's API consists of five calls:
+%open, pushlish, execute, info, and close.
 %
-Ascent supports multiple language binding including C, C++,
-Fortran, and Python.
+%Ascent supports multiple language binding including C, C++,
+%Fortran, and Python.
+\begin{itemize}
+  \item \textbf{open} initializes Ascent with options including the
+MPI communicator, exception handling, and the actions file name.
+%
+  \item \textbf{publish} is the method that allows a simulation code to publish its data
+to Ascent.  
+%
+   \item \textbf{execute} specifics the Ascent actions to perform (see \S\ref{sec:capabilities}).  
+%
+%Typically, the parameters to ``exectute'' are overrided with a user provided
+%file, which allows actions to be changed without re-compiling the simulation.
+%
+  \item \textbf{info} is the mechanism for getting data out from Ascent into the simulation.
+%
+The Conduit Node passed to ``info'' is populated with data that includes the results
+of queries, allowing the the simulation to take actions based on the results.
+%
+  \item \textbf{close} directs Ascent to finalize execution.
+\end{itemize}
 
-%\begin{itemize}
-%  \item open: initializes Ascent
-%  \item publish: set the simulaiton data set
-%  \item execute: performs a set of actions on the data set
-%  \item info: returns information back to the simulation
-%  \item close: cleans up Ascent
-%\end{itemize}
-
-\begin{lstlisting}[language=C++,caption={This cool caption}]
-conduit::Node options, actions, data_set, info;
-// fill options, actions, and data_set
+Ascent usage typically consists of only four calls: open, publish, execute, and close.
+%
+These calls are available with multiple language bindings: C, C++, Fortran, and Python.
+%
+%
+\begin{lstlisting}[language=C++,caption={Typical Ascent usage in C++}]
+conduit::Node data_set, actions;
+// fill data_set 
+// fill actions 
 ascent::Ascent ascent;
-ascent.open(options);
+ascent.open();
 ascent.publish(data_set);
 ascent.execute(actions);
 ascent.info(info);
 ascent.close();
 \end{lstlisting}
 
-``open'' initializes ascent with a number of options including the
-MPI communicator, exception handling, and the actions file name.
+The major work in an Ascent integration is setting up the data passed to ``publish'' and
+``execute.''
 %
-``publish'' takes in a Conduit Node containing the computational
-mesh described using Blueprint.
+The data passed to ``publish'' (``data\_set'' in the example) is in the Conduit-Blueprint form, which was discussed in \S\ref{Blueprint}.
 %
-``execute'' also takes in a conduit node containing the actions to
-perform.
-%
-Typically, the parameters to ``exectute'' are overrided with a user provided
-file, which allows actions to be changed without re-compiling the simulation.
-%
-``info'' is the mechanism for getting data out from Ascent into the simulation.
-%
-The Node passed to ``info'' is populated with data that includes the results
-of queries, allowing the the simulation to take actions based on the results.
-%
-``close'' directs Ascent to finalize execution.
-
-
-\subsubsection{Ascent Actions API}
-In Ascent, actions are a declarative interface that enables users to
-control Ascent's exectution using five high-level concepts:
-Pipelines, Scenes, Extracts, Queries, and Triggers.
-%
-Pipelines describe a series of data tranfomations, e.g.,
-clipping and contouring.
-%
-Scenes describe the images to be rendered, consisting of one or more
-plots (e.g., pseudocolor or volume rendering).
-%
-Extracts are a way to to get data out of Ascent and into other softeware
-ecosystems, such as python.
-%
-Queries are a way to ask questions about the simulation data over time, and
-the results are available to the simulation.
-%
-Triggers describe conditional actions based on simulation state and are a way
-to create adaptive workflows inside of Ascent.
-
-Under the hood, tools like ParaView and VisIt construct data-flow networks
-to execute commands issued by the user through the GUI.
-%
-Abstractly, Ascents actions are a level below a GUI but at a higher level
-than assembling a data flow network from scratch.
-%
-Constructing actions provides the user greater control and understanding
-of exactly what is executing in situ, while still affording a higher level of
-useability than programming directly in somnething like VTK.
-%
-Additionally, many filters in Ascent provide \textit{relative}
-parameters so the user doesn't need to explicitly know filter parameter values
-before the simulation executes.
-%
-For example, the slice filter accepts \textit{relative} offsets from the
-center of the data set, i.e., a value of $(0,0,0)$ would place the origin
-of the slice plane a the center of the data set bounding box.
-
+The format for the data passed to ``execute'' (``actions'' in the example) 
+is the subject of the remainder of this section.
 %
 
 
