@@ -126,13 +126,16 @@ Transforms are only callable inside of pipelines and extracts can only be called
 Built-in functionality is registered internally with the Ascent runtime when Ascent is initialized.
 
 
-The design of the runtime allows for a component based architecture.
+The runtime also exposes the filter registration of the underlying data flow network which
+allows the runtime to inherit Flow's flexibility.
 %
 Simulations, or other analysis libaries, are free to register custom capability at
-runtime, and this allows outside functionality to build off the capability that Ascent provides.
+runtime, and this allows outside functionality to build off the capability
+provided by Ascent.
 %
-When connecting Ascent to other ecosystems like Python, an custom extract allows new code to either
-directly connect with simulation data or consume the results of a pipeline.
+Just like internal filters, custom filters can either be registerd as transforms or extracts,
+and can directly connect with simulation data or consume the results of a pipeline.
+%
 
 The other responsibitlity of the runtime is to interface with the simulation through Ascent's
 main API calls.
@@ -191,7 +194,8 @@ to another without unnecessary copies.
 %
 By using this abstraction, filters can ask for whatever data set
 representation they need, however, the converions between data
-representations is not always one-to-one.
+representations are not always one-to-one and may not always
+result in a shallow copy.
 %
 
 To support multiple data set representations, there must be a common
