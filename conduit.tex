@@ -1,7 +1,7 @@
-This subsection describes the basics of Conduit, a library for describing
+This subsection describes the basics of Conduit, a library for describing 
 hierarchical scientific data in C++, C, Fortran, and Python.
 %
-that provides an intuitive model
+%that provides an intuitive model 
 The API was designed to be intuitive, and is inspired by JSON.
 %
 While primarily used for data coupling between packages in-core,
@@ -16,7 +16,7 @@ The primary data structure in Conduit is a Node.
 %
 Nodes stores data through a key-value interface.
 %
-Figure~\ref{ex:1} shows how to store the string ``value'' with the key ``K'' into a Node.
+Fig.~\ref{ex:1} shows how to store the string ``value'' with the key ``K'' into a Node.
 
 \begin{figure}
 \begin{tabular}{cc}
@@ -44,7 +44,7 @@ and the key string looks much like a UNIX directory structure.
 %
 Key paths are completely up to the user.
 %
-Figure~\ref{ex:2} illustrates creating a Node hierarchy
+Fig.~\ref{ex:2} illustrates creating a Node hierarchy
 and storing a floating point value in a leaf Node.
 %
 In this example, several Nodes are actually created with parent child
@@ -82,7 +82,7 @@ dir1:
 Nodes can also contain arrays, and the $set$ method
 copies the values from an array into a Node.
 %
-Figure~\ref{ex:3} shows how to set a Node to the contents of an array.
+Fig.~\ref{ex:3} shows how to set a Node to the contents of an array.
 %
 Alternatively, the $set\_external$ method copies only the pointer (i.e., a shallow copy),
 and any change to the underlying array would be reflected in both the original
