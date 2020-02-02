@@ -88,13 +88,40 @@ the code interface where the visualization operations are compiled into the code
 %
 The result of this code listing is to create the ``actions'' from Listing~\ref{listing:ascent_api}.
 
-\begin{lstlisting}[language=C++,caption={\label{listing:actions}Setting up Ascent actions using the C++ bindings.}]
-conduit::Node data_set, actions;
-// fill data_set 
-// fill actions 
-ascent::Ascent ascent;
-ascent.open();
-ascent.publish(data_set);
-ascent.execute(actions);
+\begin{lstlisting}[language=C++,caption={\label{listing:actions}Setting up Ascent actions using the C++ bindings.
+%
+This listing is broken into three parts.  
+%
+The first part makes a pipeline named ``pl1'' with one filter named ``f1.''
+%
+The second part makes a scene named ``s1'' which is connected to pipeline ``pl1.''
+%
+The third part tells Ascent to add the pipeline, add the scene, and then execute both.
+}]
+// Part 1: make a pipeline
+Node pipelines;
+pipelines["pl1/f1/type"] = "contour";
+Node contour_params;
+contour_params["field"] = "pressure";
+double iso_vals[2] = {0.2, 0.4};
+contour_params["iso_values"].set_external(iso_vals,2);
+pipelines["pl1/f1/params"] = contour_params;
+
+// Part 2: make a scene to render the dataset
+Node scenes;
+scenes["s1/plots/p1/type"] = "pseudocolor";
+scenes["s1/plots/p1/pipeline"] = "pl1";
+scenes["s1/plots/p1/field"] = "pressure";
+scenes["s1/image_prefix"] = "pressure_iso";
+
+// Part 3: prepare Conduit node for Ascent's execute() method
+Node actions;
+Node &add_act = actions.append();
+add_act["action"] = "add_pipelines";
+add_act["pipelines"] = pipelines;
+Node &add_act2 = actions.append();
+add_act2["action"] = "add_scenes";
+add_act2["scenes"] = scenes;
+actions.append()["action"] = "execute";
 \end{lstlisting}
 
