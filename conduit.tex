@@ -1,29 +1,22 @@
-Conduit is a library that provides an intuitive model for describing
+This subsection describes the basics of Conduit, a library for describing 
 hierarchical scientific data in C++, C, Fortran, and Python.
 %
-The API is a JSON-inspired data model for describing hierarchical
-in-core scientific data.
+that provides an intuitive model 
+The API was designed to be intuitive, and is inspired by JSON.
 %
 While primarily used for data coupling between packages in-core,
 Conduit also provides easy access to serialization and I/O functions.
 %
-In this section, we will discuss some of the basics of Conduit
-and describe the concepts needed to couple simulation mesh
-data structures using Conduit's Mesh Blueprint.
+%
+%In this section, we will discuss some of the basics of Conduit
+%and describe the concepts needed to couple simulation mesh
+%data structures using Conduit's Mesh Blueprint.
 
-\fix{At the end, we should mention how simulations codes are using conduit as
-a central data store, and for checkpoints. It also might be nice to
-illustrate some other interesting use cases like neurons, or diffing nodes
-to update rendering states in wolf vision. The limits of using using Conduit
-are only bounded by the imagination of the person who wields Conduit.}
-
-\subsubsection{Conduit Basics}
-The primary Conduit data structure is a Node.
+The primary data structure in Conduit is a Node.
 %
 Nodes stores data through a key-value interface.
 %
-Figure~\ref{ex:1} shows how to store a string ``value'' into a Node
-with the key ``key''.
+Figure~\ref{ex:1} shows how to store the string ``value'' with the key ``K'' into a Node.
 
 \begin{figure}
 \begin{tabular}{cc}
@@ -31,7 +24,7 @@ with the key ``key''.
   \centering
     \begin{lstlisting}[language=C++]
 Node n;
-n["key"] = "value";
+n["K"] = "value";
 n.print();
     \end{lstlisting}
   \end{minipage}
@@ -39,11 +32,11 @@ n.print();
   \begin{minipage}{.5\textwidth}
   \centering
   \begin{lstlisting}[language=C++]
-key: "value"
+K: "value"
   \end{lstlisting}
   \end{minipage}
 \end{tabular}
-\caption{\label{ex:1}On the left, an example of storing a string inside a Conduit Node. On the right, the YAML equivalent.}
+\caption{\label{ex:1}On the left, an example of storing a string inside a Conduit Node. On the right, the YAML equivalent.  The YAML has increasing indentation to indicate increasing depth in a hierarchy.}
 \end{figure}
 
 Data in Nodes can be created and accessed through hierarchical keys,
@@ -91,11 +84,11 @@ copies the values from an array into a Node.
 %
 Figure~\ref{ex:3} shows how to set a Node to the contents of an array.
 %
-Alternatively, the $set_external$ copies only the pointer(i.e., a shallow copy),
+Alternatively, the $set\_external$ method copies only the pointer (i.e., a shallow copy),
 and any change to the underlying array would be reflected in both the original
 array and the data contained inside the Node.
 %
-Using $set_external$ is desirable for large data, such as simulation mesh data,
+Using $set\_external$ is desirable for large data, such as simulation mesh data,
 and in environments where memory is constrained.
 
 \begin{figure}
@@ -121,4 +114,17 @@ my_array: [0, 1, 2, 3]
 
 \caption{\label{ex:3}On the left, an example of setting the value of a Node to an Array. On the right, the YAML equivalent.}
 \end{figure}
+
+As already mentioned, Conduit lays the foundation for Ascent's API.
+%
+That said, Conduit enjoys widespread use outside Ascent.
+%
+It is being used for simulation code coupling, effectively as a data store, among
+other use cases.
+
+%%\fix{At the end, we should mention how simulations codes are using conduit as
+%a central data store, and for checkpoints. It also might be nice to
+%illustrate some other interesting use cases like neurons, or diffing nodes
+%to update rendering states in wolf vision. The limits of using using Conduit
+%are only bounded by the imagination of the person who wields Conduit.}
 
