@@ -120,15 +120,15 @@ A scene is made up of ```renders''' and ```plots.'''
 Renders can be thought of as sub-scenes, i.e., each scene is made up of many sub-scenes (renders),
 which contain
 camera specifications, image dimensions, background and
-foreground colors, annotation controls.
+foreground colors, and annotation controls.
 %
-There is no limit to the number of renders for a scene, and there can also be zero.
+There can be an arbitrary number of renders for a scene. 
 %
 Plots are the things to render.
 %
 A plot consists of two things: what data to render and how to render it.
 %
-The data comes from the input pipeline, and the method for rendering it can vary.
+The data comes from the input (usually a pipeline), and the method for rendering the data can vary.
 %
 Currently, Ascent supports four plot types: pseudocoloring, volume rendering, mesh plots,
 and radiograph plots(see Figure~\ref{fig:ascent_plots}).
@@ -145,7 +145,7 @@ and how to carry out the rendering (color tables, scalar ranges, etc.).
   \includegraphics[width=0.4\textwidth]{images/volume250}
   \includegraphics[width=0.4\textwidth]{images/radiograph250}
   \caption{\label{fig:ascent_plots} Example images of Ascent's four plot types:
-pseudocolor (top left), mesh (top right, which also include a pseudocolor plot),
+pseudocolor (top left), mesh (top right, which also includes a pseudocolor plot),
 volume rendering (bottom left), and radiograph (bottom right).
 %
 The data for these images comes from CloverLeaf3D, 
@@ -154,11 +154,11 @@ a hydrodynamics proxy-application included with Ascent.
 \end{figure}
 
 In terms of camera placement,
-Ascent creates a default camera based on bounding box of the data set and
-is always facing the data set.
+Ascent creates a default camera based on bounding box of the data set 
+that faces the data set.
 %
-Renders inherit the default camera parameters, which simplifies creating
-cameras that actually look at the data set.
+Renders inherit the default camera parameters, simplifying creation of useful
+cameras positions.
 %
 Ascent also provides simple controls to rotate the camera on the
 sphere circumscribing the data set.
@@ -166,8 +166,8 @@ sphere circumscribing the data set.
 Of course, the user is free to set all
 camera parameters explicitly as well.
 
-Finally, scenes can create Cinema~\cite{AhrensCinema} databases that
-create a large set of images that can be explored after the simulation.
+Finally, scenes can create Cinema~\cite{AhrensCinema} databases, i.e.,
+a large set of images that can be explored after the simulation.
 \fix{Should be a reference to Cinema chapter here.}
 
 %Currently supported plots include:
@@ -203,7 +203,7 @@ Through extracts, Ascent can pass data directly to ParaView Catalyst~\cite{Catal
 Another example of using extracts to provide additional functionality is the
 ADIOS~\cite{Lofstead2008} extract, which allows Ascent to link to in transit workflows.
 
-Ascent supports connections to the Python ecosystem through the Python and
+Ascent supports connections to the Python ecosystem through its Python and
 Jupyter extracts~\cite{CyrusISAV,Jupyter}.
 %
 Python extracts execute custom analysis code provided by the user, and the
@@ -221,7 +221,7 @@ and interact with the data.
 %
 Additionally, Jupyter widgets enable fast prototyping of domain specific GUIs.
 
-Currently supported extracts include:
+In all, currently supported extracts include:
 \begin{itemize}
 \item ADIOS
 \item Babel Flow~\cite{babelflow}
@@ -335,7 +335,7 @@ get the right information (since the trigger is accurate).
 %
 Of course, triggers make the most sense when the desired visualization is quite expensive
 to calculate;
-if the desired visualization could be calculated as quickly as the trigger, then there would
+if the desired visualization could be calculated as quickly as the inspection, then there would
 not be a cost benefit.
 
 
@@ -357,16 +357,16 @@ not be a cost benefit.
 %Ideally, inspection routines are cheap and can be called every cycle, while the analysis
 %that are ``triggered'' can cost more.
 
-A trigger is made up of two parts, which we term as trigger-condition and trigger-action
-for clarity.  
+A trigger is made up of two parts; for clarity, we term these two parts 
+as trigger-condition and trigger-action.
 (A trigger-action is only executed if the trigger-condition is true.)
 %
 In Ascent, any conditional expression can be a trigger-condition, although most trigger-conditions
 incorporates the queries and expressions infrastructure from
-\S~\ref{action_queries}.
+\S\ref{action_queries}.
 %
 Trigger-actions utilize Ascent's other actions: pipelines, extracts, scenes, and
-queries.  \fix{Can a trigger make another trigger?  I can't see a need for that.}
+queries.  
 %
 For example, a trigger-action may be to calculate an isosurface (pipeline) and save
 an image (scene).

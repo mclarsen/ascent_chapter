@@ -43,7 +43,7 @@ i.e., a ``flyweight'' design, and
 (2) deliver diverse and powerful capabilities,
 especially for modern supercomputers.
 %
-In addition, Ascent is built for production use by computational
+Further,  while not a focus of this chapter, Ascent is built for production use by computational
 simulation codes --- it has documentation,
 examples, engages in modern software engineering practices, etc.
 
@@ -59,7 +59,7 @@ column major, array of structures versus structures of arrays)
 in a zero-copy manner.
 %
 In most cases, the majority of the memory needed by Ascent is only for
-storing intermediate results.
+storing intermediate results, such as the triangles produced by an isosurface algorithm.
 %
 To minimize execution time,
 VTK-m provides native support for many-core architectures,
@@ -148,7 +148,7 @@ The remainder of this chapter focuses on key elements of Ascent:
 \begin{itemize}
 \item \S\ref{sec:capabilities} discusses the key abstractions for using Ascent.
 \item \S\ref{sec:design} discusses Ascent's design.
-\item \S\ref{sec:API} discusses Ascent's APIs for sharing simulation
+\item \S\ref{sec:API} discusses Ascent's APIs for inputting
 data and for controlling execution.
 \item \S\ref{sec:success} discusses success stories using Ascent.
 \end{itemize}
