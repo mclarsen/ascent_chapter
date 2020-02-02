@@ -10,7 +10,8 @@ needs to know if this array is a scalar field, coordinate information, connectiv
 for an unstructured mesh, etc.
 %
 Conduit is not helpful in addressing this barrier, 
-as it provides a foundation for sharing data, but it provides no guidance in how to arrange
+as it provides a foundation for sharing data, but it provides no guidance on
+how to arrange
 data into a data model.
 %
 This is where Blueprint comes in.
@@ -38,7 +39,7 @@ Blueprint is able to describe a wide range of scientific data.
 %
 Its design emerged through two efforts.
 %
-First,  surveying existing
+First, by surveying existing
 projects that provide scientific mesh-related APIs including: ADIOS, Damaris,
 EAVL, MFEM, Silo, VTK, VTKm, and Xdmf. \fix{citations?}
 %
@@ -47,7 +48,7 @@ have been incorporated in Blueprint.
 %
 Second, through discussion with simulation application teams.
 %
-These discussions were about general in-memory sharing (i.e., including code-to-code sharing).
+These discussions were about general in-memory sharing (i.e., including code-to-code sharing),
 but have proven to be useful for in situ visualization use cases as well.
 %
 Finally,
@@ -68,7 +69,7 @@ the process of adapting data to several existing mesh-aware APIs.
 
 Blueprint uses four concepts to describe meshes:
 \begin{itemize}
-  \item \textbf{Coordinate Sets} describe coordinate systems in 1D, 2D, and 3D, and
+  \item \textbf{Coordinate Sets} describe coordinate systems in 1D, 2D, and 3D, 
 using Cartesian, spherical, or cylindrical frames of reference.
 %
 Blueprint supports not only explicit coordinate sets, but also implicit representations,
@@ -78,7 +79,7 @@ such as uniform and rectilinear.
 As with coordinate sets, both implicit (e.g., uniform) and explicit
 (e.g., completely unstructured) topologies are supported.
   \item \textbf{Fields} describe the data associated with the mesh.
-Fields can be assciated with vertices or with elements, and 
+Fields can be associated with vertices or with elements, and 
 can be scalars or have multiple components.
 %
 Additionally, Blueprint supports the description of high-order
