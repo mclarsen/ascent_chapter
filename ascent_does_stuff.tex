@@ -399,14 +399,14 @@ Examples of trigger-conditions in Ascent include:
 \end{figure}
 
 Although some of the interactions between Ascent actions have been mentioned previously,
-this section formalizes and summarizes these interactions, via Figure~\ref{fig:interactions}.
+this subsection formalizes and summarizes these interactions, via Figure~\ref{fig:interactions}.
 %
 The figure shows three types of interactions via arrow glyphs:
 %
 \begin{itemize}
 \item Takes as input: the action at the tail of the arrow may serve as input for the action at the head of the arrow.
 \item Used to set parameter for action: the action at the tail of the arrow may set parameter values for the action at the head of the arrow.
-\item Generates this action: the action at the tail of the arrow may generate actions at the head of the arrow.
+\item Generates this action: the action at the tail of the arrow may generate actions of the type at the head of the arrow.
 \end{itemize}
 
 Two of these interaction types are simply described.  
@@ -414,8 +414,8 @@ Two of these interaction types are simply described.
 First, queries are the only action that can set parameters for other actions, and it does so for
 pipelines, scenes, and extracts, as well as for other queries.
 %
-Second, trigger-actions are the only action that can spawn new actions, and it spawns pipelines,
-scenes, extracts, and queries.
+Second, trigger-actions are the only action that can spawn new actions, and the types it spawns are
+pipelines, scenes, extracts, and queries.
 %
 
 The last interaction type is on inputs.
@@ -425,7 +425,7 @@ Simulation data is input to pipelines, scenes, extracts, and queries.
 Pipelines are input to the same types of actions, meaning that pipelines can serve as input
 to other pipelines.
 %
-Further, in these cases, there can be multiple inputs, i.e., one queries can have multiple
+Further, in these cases, there can be multiple inputs, e.g., one query can have multiple
 pipelines as input.
 %
 The last input involves queries and trigger-conditions. 
