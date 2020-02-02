@@ -392,16 +392,23 @@ Examples of trigger-conditions in Ascent include:
 
 \subsection{Interactions Between Actions}
 
+Although some of the interactions between Ascent actions have been mentioned previously,
+this subsection formalizes and summarizes these interactions.
+%
+The key takeaway is that the Ascent project has smooth pathing between its actions.
+%
+This constrasts with other projects, where interoperability between different types of actions
+can be difficult or impossible.
+
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{images/ascent_interactions}
 \caption{\label{fig:interactions} Interactions between Ascent actions.}
 \end{figure}
 
-Although some of the interactions between Ascent actions have been mentioned previously,
-this subsection formalizes and summarizes these interactions, via Figure~\ref{fig:interactions}.
+Figure~\ref{fig:interactions} shows interactions between Ascent's actions.
 %
-The figure shows three types of interactions via arrow glyphs:
+It shows three types of interactions via arrow glyphs:
 %
 \begin{itemize}
 \item Takes as input: the action at the tail of the arrow may serve as input for the action at the head of the arrow.
@@ -433,3 +440,15 @@ The last input involves queries and trigger-conditions.
 In this case, the queries would have their own inputs (i.e., simulation data or pipelines), 
 but the trigger-condition would be firing or not based on the result of the query ---
 the simulation data or pipeline is one step removed.
+
+Finally, Figure~\ref{fig:interactions} shows simulation data as only being at the tail of arrows,
+and never the head, i.e., nothing is ever sent to the simulation.
+%
+In reality, Ascent does have pathing to send data back to the simulation.
+%
+This is most useful for queries, but also applies to the other actions.
+%
+For example, it is possible to have a scene return an image (instead of writing it to disk)
+and then pass that image back to the simulation (as bytes).
+
+

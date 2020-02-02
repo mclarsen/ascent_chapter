@@ -73,6 +73,21 @@ Message Passing Interface (MPI) library.
 In all, Ascent is able to perform its algorithms very quickly,
 since it can make full use of the underlying hardware architecture.
 %
+\fix{Hank's version:}
+In terms of binary size, Ascent has a focus on minimizing dependencies on other libraries.
+%
+In addition to a small binary size, this also allows Ascent to be ported to new supercomputers
+more quickly.
+%
+For example, Ascent can make use of OpenGL, but it also has a software-only renderer that allows
+it to proceed without OpenGL.
+%
+In all, dependencies are only brought in as needed.
+%
+Further, to integrate Ascent, simulation codes only need to work with Ascent's API.
+% 
+All other symbols are imported during run-time, by Ascent.
+\fix{Matt's version:}
 Ascent also has far fewer dependencies than more mature community
 visualization tools which leads to smaller binary sizes.
 %
