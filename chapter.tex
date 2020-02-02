@@ -73,27 +73,27 @@ Message Passing Interface (MPI) library.
 In all, Ascent is able to perform its algorithms very quickly,
 since it can make full use of the underlying hardware architecture.
 %
-\fix{Hank's version:}
-In terms of binary size, Ascent has a focus on minimizing dependencies on other libraries.
+%\fix{Hank's version:}
+%In terms of binary size, Ascent has a focus on minimizing dependencies on other libraries.
+%%
+%In addition to a small binary size, this also allows Ascent to be ported to new supercomputers
+%more quickly.
+%%
+%For example, Ascent can make use of OpenGL, but it also has a software-only renderer that allows
+%it to proceed without OpenGL.
+%%
+%In all, dependencies are only brought in as needed.
+%%
+%Further, to integrate Ascent, simulation codes only need to work with Ascent's API.
+%%
+%\fix{All other symbols are imported by Ascent during run-time.}
+%\fix{Matt's version:}
+%Ascent also has far fewer dependencies than more mature community
+%visualization tools which leads to smaller binary sizes.
 %
-In addition to a small binary size, this also allows Ascent to be ported to new supercomputers
-more quickly.
-%
-For example, Ascent can make use of OpenGL, but it also has a software-only renderer that allows
-it to proceed without OpenGL.
-%
-In all, dependencies are only brought in as needed.
-%
-Further, to integrate Ascent, simulation codes only need to work with Ascent's API.
-%
-\fix{All other symbols are imported by Ascent during run-time.}
-\fix{Matt's version:}
-Ascent also has far fewer dependencies than more mature community
-visualization tools which leads to smaller binary sizes.
-%
-\fix{ALT: Ascent has far fewer dependencies that more mature community visualization tools.
+Ascent has far fewer dependencies that more mature community visualization tools.
 Not only does this reduce build complexity, but it results in
-smaller binary sizes, lessening the linking burden on the simulation.}
+smaller binary sizes, lessening the linking burden on the simulation.
 %
 Finally, Ascent's API was designed to be simple to learn,
 easy to integrate for novice users, and small in overall code size.
@@ -102,11 +102,11 @@ Integrations can be as short as ten lines of code.
 %
 This topic is explored more in \S\ref{sec:API}.
 
-\fix{Ascent takes multiple approaches to deliver diverse and powerful capabilities:
+Ascent takes multiple approaches to deliver diverse and powerful capabilities:
 integrating with many technologies,
 supporting both visualization and analysis routines,
 developing algorithms specifically designed for in situ processing,
-and providing support for modern supercomputers.}
+and providing support for modern supercomputers.
 %
 Ascent's strongest component for delivering capabilities is likely
 through integrating many additional technologies.
@@ -137,7 +137,7 @@ A successful integration of code is described in \S\ref{sec:DevilRay}.
 %
 Specifically, this integration incorporated the Devil Ray code for ray-tracing
 higher order elements.
-%\S\ref{sec:DevilRay} describes a success story regarding integrating\S\ref{sec:DevilRay} 
+%\S\ref{sec:DevilRay} describes a success story regarding integrating\S\ref{sec:DevilRay}
 %code,
 %namely incorporating the Devil Ray code for ray-tracing higher order
 %elements.

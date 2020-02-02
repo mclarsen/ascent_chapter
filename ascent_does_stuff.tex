@@ -100,7 +100,7 @@ Notable filters currently supported by Ascent include:
 
 There are also filters that create new fields: Divergence, Gradient, Logarithm, Q-Criterion, Vector Magnitude, and Vorticity.
 %
-Finally, Ascent contains two \fix{in situ-specific} filters --- Lagrangian Flow
+Finally, Ascent contains two filters targeted specifically for in situ --- Lagrangian Flow
 and Sampling (\fix{should be a reference here to Biswas chapter on sampling})
 --- that
 reduce data size significantly enough that it can be saved to disk and explored post hoc.
@@ -124,7 +124,7 @@ which contain
 camera specifications, image dimensions, background and
 foreground colors, and annotation controls.
 %
-There can be an arbitrary number of renders for a scene. 
+There can be an arbitrary number of renders for a scene.
 %
 Plots are the things to render.
 %
@@ -150,13 +150,13 @@ and how to carry out the rendering (color tables, scalar ranges, etc.).
 pseudocolor (top left), mesh (top right, which also includes a pseudocolor plot),
 volume rendering (bottom left), and radiograph (bottom right).
 %
-The data for these images comes from CloverLeaf3D, 
+The data for these images comes from CloverLeaf3D,
 a hydrodynamics proxy-application included with Ascent.
   }
 \end{figure}
 
 In terms of camera placement,
-Ascent creates a default camera based on the bounding box of the data set 
+Ascent creates a default camera based on the bounding box of the data set
 that faces the data set.
 %
 Renders inherit the default camera parameters, simplifying creation of useful
@@ -223,7 +223,7 @@ and interact with the data.
 %
 Additionally, Jupyter widgets enable fast prototyping of domain specific GUIs.
 
-\fix{Do these new cites?} In all, currently supported extracts include:
+In all, currently supported extracts include:
 \begin{itemize}
 \item ADIOS
 \item Babel Flow~\cite{babelflow}
@@ -360,7 +360,7 @@ then there is no cost benefit.
 %Ideally, inspection routines are cheap and can be called every cycle, while the analysis
 %that are ``triggered'' can cost more.
 
-A trigger is made up of two parts; for clarity, we term these two parts 
+A trigger is made up of two parts; for clarity, we term these two parts
 as trigger-condition and trigger-action.
 (A trigger-action is only executed if the trigger-condition is true.)
 %
@@ -369,16 +369,16 @@ incorporate the queries and expressions infrastructure from
 \S\ref{action_queries}.
 %
 Trigger-actions utilize Ascent's other actions: pipelines, extracts, scenes, and
-queries.  
+queries.
 %
 For example, a trigger-action may be to calculate an isosurface (pipeline) and save
 an image (scene).
-%The part for the action incorporates 
+%The part for the action incorporates
 %When the condition evaluates to true, the trigger fires, executing a user provided
 %set of actions, which can be any Ascent action.
 %
 In practice, triggers are often used for debugging (e.g., saving data to
-a file when invalid values are found) or 
+a file when invalid values are found) or
 for capturing information when a phenomena occurs
 (e.g., saving an image when the maximum value of a field exceeds a threshold from the
 previous value).
@@ -388,11 +388,12 @@ previous value).
 
 Examples of trigger-conditions in Ascent include:
 \begin{itemize}
-\item $cycle() > 100 \ and \ cycle() < 200$: the cycle field is
+\item $cycle() > 100 \ and \ cycle() < 200$: the simulation cycle is
 between 100 and 200.
 \item $max(field('pressure')) > 100.0$: the max value of the pressure field
 exceeds 100.
-\item $magnitude(max(field('braid')).position - vector(0,0,0)) > 0$\fix{: ??}
+\item $magnitude(max(field('pressure')).position - vector(0,0,0)) > 20.0$: the distance of the max
+value of the pressure field from the origin exceeds 20.
 \end{itemize}
 
 \subsection{Interactions Between Actions}
@@ -400,7 +401,7 @@ exceeds 100.
 Although some of the interactions between Ascent actions have been mentioned previously,
 this subsection formalizes and summarizes these interactions.
 %
-The key takeaway is that \fix{pathing?} between actions in Ascent is important and well-supported.
+The key takeaway is that connectoins between actions in Ascent is important and well-supported.
 %
 This is not always the case; in some projects, interoperability between different types of actions
 can be difficult or impossible.
@@ -421,7 +422,7 @@ It shows three types of interactions via arrow glyphs:
 \item Generates this action: the action at the tail of the arrow may generate actions of the type at the head of the arrow.
 \end{itemize}
 
-Two of these interaction types are simply described.  
+Two of these interaction types are simply described.
 %
 First, queries are the only action that can set parameters for other actions, and it does so for
 pipelines, scenes, and extracts, as well as for other queries.
@@ -440,9 +441,9 @@ to other pipelines.
 Further, in these cases, there can be multiple inputs, e.g., one query can have multiple
 pipelines as input.
 %
-The last input involves queries and trigger-conditions. 
+The last input involves queries and trigger-conditions.
 %
-In this case, the queries would have their own inputs (i.e., simulation data or pipelines), 
+In this case, the queries would have their own inputs (i.e., simulation data or pipelines),
 but the trigger-condition would be firing or not based on the result of the query ---
 the simulation data or pipeline is one step removed.
 
