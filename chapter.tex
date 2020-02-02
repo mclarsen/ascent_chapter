@@ -85,8 +85,8 @@ it to proceed without OpenGL.
 In all, dependencies are only brought in as needed.
 %
 Further, to integrate Ascent, simulation codes only need to work with Ascent's API.
-% 
-All other symbols are imported during run-time, by Ascent.
+%
+\fix{All other symbols are imported by Ascent during run-time.}
 \fix{Matt's version:}
 Ascent also has far fewer dependencies than more mature community
 visualization tools which leads to smaller binary sizes.
@@ -102,12 +102,11 @@ Integrations can be as short as ten lines of code.
 %
 This topic is explored more in \S\ref{sec:API}.
 
-In terms of delivering diverse and powerful capabilities,
-Ascent employs multiple approaches:
-integration with many technologies,
+\fix{Ascent takes multiple approaches to deliver diverse and powerful capabilities:
+integrating with many technologies,
 supporting both visualization and analysis routines,
-algorithms specifically designed for in situ processing,
-and providing support for modern supercomputers.
+developing algorithms specifically designed for in situ processing,
+and providing support for modern supercomputers.}
 %
 Ascent's strongest component for delivering capabilities is likely
 through integrating many additional technologies.
@@ -119,10 +118,10 @@ directly for much of its data model and visualization algorithms.
 %
 It also provides many options for integration, including
 bindings
-for controlling Ascent with  C, C++, Python and Fortan.
+for controlling Ascent with  C, C++, Python, and Fortan.
 %
 Further, it provides options for controlling Ascent via its code API,
-via YAML files (which can be changed dynamically at runtime), and via
+YAML files (which can be changed dynamically at runtime), or
 a Jupyter notebook integration \cite{CyrusISAV}.
 %
 Finally, Ascent is able to integrate arbitrary code, including
@@ -134,10 +133,14 @@ machine learning infrastructures, such as TensorFlow and PyTorch.
 This is more than proof of concept,
 as Ascent recently utilized a distributed-memory Random Forest.
 %
-\S\ref{sec:DevilRay} describes a success story regarding integrating
-code,
-namely incorporating the Devil Ray code for ray-tracing higher order
-elements.
+A successful integration of code is described in \S\ref{sec:DevilRay}.
+%
+Specifically, this integration incorporated the Devil Ray code for ray-tracing
+higher order elements.
+%\S\ref{sec:DevilRay} describes a success story regarding integrating\S\ref{sec:DevilRay} 
+%code,
+%namely incorporating the Devil Ray code for ray-tracing higher order
+%elements.
 %
 Moving to another approach, Ascent has embraced analysis alongside
 visualization.

@@ -1,4 +1,4 @@
-This section describe Ascent's primary abstractions and surveys its general capabilities.
+This section describes Ascent's primary abstractions and surveys its general capabilities.
 %
 Ascent organizes its capabilities into five types of in situ tasks, which
 it refers to as \textbf{actions}.
@@ -34,7 +34,7 @@ and also save the original data set $D$ to disk (extract).
 Going beyond this example, it is possible to have multiple triggers, arbitrary conditions for
 the triggers (queries or otherwise), as well as many pipelines, scenes, and extracts.
 %
-Figure~\ref{fig:ascent_example} shows an example of this, specifically two pipelines and two extracts.
+Fig.~\ref{fig:ascent_example} shows an example of this, specifically two pipelines and two extracts.
 
 \begin{figure}
 \centering
@@ -57,7 +57,7 @@ to execute on simulation data.
 %
 %These data transformations are sometimes referred to as filters in other
 %frameworks (like VTK~\cite{VTK}), and
-Figure~\ref{fig:ascent_example} shows
+Fig.~\ref{fig:ascent_example} shows
 typical filters for visualization: contour, threshold, and clip.
 %Figure~\ref{img:pipelines} shows two examples of pipelines.
 %%
@@ -100,9 +100,11 @@ Notable filters currently supported by Ascent include:
 
 There are also filters that create new fields: Divergence, Gradient, Logarithm, Q-Criterion, Vector Magnitude, and Vorticity.
 %
-Finally, Ascent contains two specific-to-in-situ filters that
-reduce data size significantly enough that it can be saved to disk and explored post hoc:
-Lagrangian Flow and Sampling (\fix{should be a reference here to Biswas chapter on sampling}).
+Finally, Ascent contains two \fix{in situ-specific} filters --- Lagrangian Flow
+and Sampling (\fix{should be a reference here to Biswas chapter on sampling})
+--- that
+reduce data size significantly enough that it can be saved to disk and explored post hoc.
+
 
 
 \subsection{Scenes}
@@ -115,7 +117,7 @@ on the original simulation data.
 Scenes do not return anything to Ascent that can interact with other actions, but they
 do save the images they produce to disk for later inspection.
 
-A scene is made up of ```renders''' and ```plots.'''
+A scene is made up of ``renders" and ``plots".
 %
 Renders can be thought of as sub-scenes, i.e., each scene is made up of many sub-scenes (renders),
 which contain
@@ -130,8 +132,8 @@ A plot consists of two things: what data to render and how to render it.
 %
 The data comes from the input (usually a pipeline), and the method for rendering the data can vary.
 %
-Currently, Ascent supports four plot types: pseudocoloring, volume rendering, mesh plots,
-and radiograph plots(see Figure~\ref{fig:ascent_plots}).
+Currently, Ascent supports four plot types: pseudocolor, mesh, volume
+rendering, and radiograph plots (see Fig.~\ref{fig:ascent_plots}).
 %
 Each of these plot types contain parameters that control the input data
 (name of the pipeline to consume, which scalar field to operate on, etc.)
@@ -154,7 +156,7 @@ a hydrodynamics proxy-application included with Ascent.
 \end{figure}
 
 In terms of camera placement,
-Ascent creates a default camera based on bounding box of the data set 
+Ascent creates a default camera based on the bounding box of the data set 
 that faces the data set.
 %
 Renders inherit the default camera parameters, simplifying creation of useful
@@ -181,7 +183,7 @@ a large set of images that can be explored after the simulation.
 \subsection{Extracts}
 The extracts action covers a broad range of activities.
 %
-The common theme between these activities is moving data outside Ascent.
+The common theme among these activities is moving data outside Ascent.
 %
 The word extract is meant to convey ``extracting'' data from Ascent to somewhere else.
 %
@@ -189,7 +191,7 @@ The word extract is meant to convey ``extracting'' data from Ascent to somewhere
 %Extracts are an escape hatch in Ascent that enables data to be sent
 %outside of Ascent.
 %
-Extracts can be as simple a saving data to HDF5 files.
+Extracts can be as simple as saving data to HDF5 files.
 %
 That said, extracts are also the mechanism to integrate other tools with Ascent --- a gateway
 to a larger workflow.
@@ -221,7 +223,7 @@ and interact with the data.
 %
 Additionally, Jupyter widgets enable fast prototyping of domain specific GUIs.
 
-In all, currently supported extracts include:
+\fix{Do these new cites?} In all, currently supported extracts include:
 \begin{itemize}
 \item ADIOS
 \item Babel Flow~\cite{babelflow}
@@ -236,7 +238,7 @@ Queries enable users to ask quantitative questions.
 %
 The inputs to a query can take a varied form:
 the simulation data directly,
-data produced by a pipeline,
+the data produced by a pipeline,
 or even a combination of multiple pipelines and simulation data.
 %
 That said, typical queries are used to access the current state of the simulation
@@ -277,7 +279,7 @@ Ascent can call the same query every time step and accumulate the result.
 
 Examples of queries include:
 \begin{itemize}
-\item $cycle()$: calling a function that return the current simulation cycle and storing it into a variable.
+\item $cycle()$: calling a function that returns the current simulation cycle and storing it into a variable.
 \item $max(field('pressure'))$: the maximum value of the pressure field.
 \item $entropy(histogram(field('gyre'), num\_bins=128))$: calculating a histogram of the gyre field with 128 bins, and then calculating the entropy of that histogram.
 \end{itemize}
@@ -303,7 +305,7 @@ Examples of queries include:
 \subsection{Triggers}
 \label{sec:ascent:triggers}
 
-``Triggers'' are designed to balance the tensions between cost and capturing important phenomena.
+Triggers are designed to balance the tensions between cost and capturing important phenomena.
 %
 In a typical scenario, in situ visualization is performed at regular intervals, e.g.,
 every $X$ simulation cycles or every $M$ minutes of wall clock time.
@@ -322,8 +324,9 @@ less likely that the visualizations will occur during important phenomena.
 
 Triggers operate in two phases: inspection and action/inaction.
 %
-The purpose of the inspection phase is to determine if the action should be taken, if so, then
-the trigger should ``fire.''
+The purpose of the inspection phase is to determine if the action should be taken.
+%
+The trigger should ``fire'' if the action should be taken.
 %
 Further, if the inspection routine is cheap (i.e., executes quickly) and accurate (i.e.,
 fires at the right times), then
@@ -335,8 +338,8 @@ get the right information (since the trigger is accurate).
 %
 Of course, triggers make the most sense when the desired visualization is quite expensive
 to calculate;
-if the desired visualization could be calculated as quickly as the inspection, then there would
-not be a cost benefit.
+if the desired visualization could be calculated as quickly as the inspection,
+then there is no cost benefit.
 
 
 
@@ -362,7 +365,7 @@ as trigger-condition and trigger-action.
 (A trigger-action is only executed if the trigger-condition is true.)
 %
 In Ascent, any conditional expression can be a trigger-condition, although most trigger-conditions
-incorporates the queries and expressions infrastructure from
+incorporate the queries and expressions infrastructure from
 \S\ref{action_queries}.
 %
 Trigger-actions utilize Ascent's other actions: pipelines, extracts, scenes, and
@@ -385,9 +388,11 @@ previous value).
 
 Examples of trigger-conditions in Ascent include:
 \begin{itemize}
-\item $cycle() > 100 \ and \ cycle() < 200$
-\item $max(field('pressure')) > 100.0$
-\item $magnitude(max(field('braid')).position - vector(0,0,0)) > 0$
+\item $cycle() > 100 \ and \ cycle() < 200$: the cycle field is
+between 100 and 200.
+\item $max(field('pressure')) > 100.0$: the max value of the pressure field
+exceeds 100.
+\item $magnitude(max(field('braid')).position - vector(0,0,0)) > 0$\fix{: ??}
 \end{itemize}
 
 \subsection{Interactions Between Actions}
@@ -395,7 +400,7 @@ Examples of trigger-conditions in Ascent include:
 Although some of the interactions between Ascent actions have been mentioned previously,
 this subsection formalizes and summarizes these interactions.
 %
-The key takeaway is that pathing between actions in Ascent is important and well-supported.
+The key takeaway is that \fix{pathing?} between actions in Ascent is important and well-supported.
 %
 This is not always the case; in some projects, interoperability between different types of actions
 can be difficult or impossible.
@@ -406,7 +411,7 @@ can be difficult or impossible.
 \caption{\label{fig:interactions} Interactions between Ascent actions.}
 \end{figure}
 
-Figure~\ref{fig:interactions} shows interactions between Ascent's actions.
+Fig.~\ref{fig:interactions} shows interactions between Ascent's actions.
 %
 It shows three types of interactions via arrow glyphs:
 %
@@ -441,7 +446,7 @@ In this case, the queries would have their own inputs (i.e., simulation data or 
 but the trigger-condition would be firing or not based on the result of the query ---
 the simulation data or pipeline is one step removed.
 
-Finally, Figure~\ref{fig:interactions} shows simulation data as only being at the tails of arrows,
+Finally, Fig.~\ref{fig:interactions} shows simulation data as only being at the tails of arrows,
 and never the heads, i.e., nothing is ever sent to the simulation.
 %
 In reality, Ascent does have pathing to send data back to the simulation.

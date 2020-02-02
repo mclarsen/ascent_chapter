@@ -1,18 +1,18 @@
-In the previous section, we described Ascent's high level abstractions and
+In the previous section, we described Ascent's high-level abstractions and
 capabilities.
 %
 This section discusses Ascent's system architecture starting at its inner layer, Flow,
 and moving outward.
 
-\subsection{Flow: A data-type agonistic data-flow based architecture}
+\subsection{Flow: A data-type agnostic data-flow based architecture}
 Ascent uses a graph-based data-flow architecture.
 The data-flow architecture allows Ascent to track, re-use, and cleanup intermediate
 results efficiently while implementing complex visualization pipelines.
 The design also abstracts how we register and execute operations,
 which simplifies adding new features.
 
-At Ascent's core is a simple data-flow library, called Flow, that
-composes and executes filters, the basic unit of execution in Ascent.
+At Ascent's core is a simple data-flow library known as Flow, that
+composes and executes filters, which are the basic unit of execution in Ascent.
 %
 Flow is an evolution of a Python data-flow network
 ~\cite{flow_reference}, but unlike its ancestor, Flow is a C++
@@ -23,10 +23,12 @@ Flow supports composing and executing directed acyclic graphs
 
 There are four components to Flow:
 \begin{itemize}
-  \item \textbf{Filter}: basic unit of execution
-  \item \textbf{Graph}: contains the filter graph and manages the adding of filters
-  \item \textbf{Registry}: manages the lifetime of filter results
-  \item \textbf{Workspace}: contains both the registry and filter graph, coordinates graph execution
+  \item \textbf{Filter}: basic unit of execution.
+  \item \textbf{Graph}: contains the filter graph and manages the adding of
+filters.
+  \item \textbf{Registry}: manages the lifetime of filter results.
+  \item \textbf{Workspace}: contains both the registry and filter graph,
+coordinates graph execution.
 \end{itemize}
 
 \paragraph{Flow Filters}
@@ -58,7 +60,7 @@ The graph is responsible for storing filters and connections
 between filters.
 %
 The primary graph interface supports adding filters and connecting
-filter ports(e.g., inputs and outputs) together.
+filter ports (e.g., inputs and outputs) together.
 
 \paragraph{Registry}
 The registry is a key-value data store used to manage the intermediate
@@ -74,8 +76,7 @@ or VTK-m data sets.
 
 \paragraph{Workspace}
 The workspace is a container for both the graph and the registry,
-and the workspace is responsible for creating an execution for plan
-for the DAG.
+and the workspace is responsible for creating an execution for the DAG.
 %
 Additionally, the workspace manages the lists of known filters.
 %
@@ -83,7 +84,7 @@ A filter must be registered with the workspace in order to be added to the
 graph, and once registered, a filter can be added to the graph by name.
 %
 Flow uses a topological sort to ensure proper filter execution order,
-tracks all intermediate results, and provides basic memory management capabilities.
+to track all intermediate results, and to provide basic memory management capabilities.
 During execution the workspace provides the registry with reference counts that reflect graph connections, allowing intermediate results to be efficiently managed.
 
 %
@@ -93,16 +94,16 @@ to evaluate expressions within the Ascent runtime.
 
 \subsection{Runtime}
 The Ascent runtime builds on top of Flow, and the main responsibility of the
-runtime is to translate users actions into data-flow networks.
+runtime is to translate user actions into data-flow networks.
 %
 For example, when a user describes a series of data transformations inside of a pipeline,
 the runtime adds the corresponding filter for each transformation to
 the internal Flow graph.
 %
 Some actions, like the contour filter, have exactly one filter that the runtime
-adds when translating actions, while other actions add more than one fitler to the graph.
+adds when translating actions, while other actions add more than one filter to the graph.
 %
-Figure~\ref{img:flow_graph} shows a simplified view of a data-flow network constructed by the
+Fig.~\ref{img:flow_graph} shows a simplified view of a data-flow network constructed by the
 runtime to create contours of a simulation field and rendering an image of the result.
 %
 
@@ -129,25 +130,26 @@ Built-in functionality is registered internally with the Ascent runtime when Asc
 The runtime also exposes the filter registration of the underlying data flow network which
 allows the runtime to inherit Flow's flexibility.
 %
-Simulations, or other analysis libaries, are free to register custom capability at
+Simulations, or other analysis libraries, are free to register custom capability at
 runtime, and this allows outside functionality to build off the capability
 provided by Ascent.
 %
-Just like internal filters, custom filters can either be registerd as transforms or extracts,
+Just like internal filters, custom filters can either be registered as transforms or extracts,
 and can directly connect with simulation data or consume the results of a pipeline.
 %
 
-The other responsibitlity of the runtime is to interface with the simulation through Ascent's
+The other responsibility of the runtime is to interface with the simulation through Ascent's
 main API calls.
 %
-The runtime consumes configuration options like MPI communicators, exception handling, what
+The runtime consumes configuration options like MPI communicators, exception
+handling, and what
 backends (e.g., OpenMP or CUDA) to execute code on.
 %
 Additionally, the simulation's mesh data and the actions are all passed to the runtime.
 
-\subsubsection{Parallism in Ascent}
+\subsubsection{Parallelism in Ascent}
 Ascent is a hybrid-parallel library, meaning that it uses both
-distributed-memory(e.g., MPI) and shared-memory parallelism
+distributed-memory (e.g., MPI) and shared-memory parallelism
 (e.g., CUDA and OpenMP), and Ascent is primarily
 tightly-coupled with simulations.
 %
@@ -157,7 +159,7 @@ on the same architectures using the same types of parallelism as the
 simulations.
 %
 Ascent supports many different parallel configurations including
-one MPI rank per core(i.e., no shared-memory parallelism), one rank
+one MPI rank per core (i.e., no shared-memory parallelism), one rank
 per GPU, and one rank per node.
 %
 While Ascent does internally leverage shared-memory parallelism
@@ -193,7 +195,7 @@ The data object is responsible for transforming data from one in-memory format
 to another without unnecessary copies.
 %
 By using this abstraction, filters can ask for whatever data set
-representation they need, however, the converions between data
+representation they need, however, the conversions between data
 representations are not always one-to-one and may not always
 result in a shallow copy.
 %
