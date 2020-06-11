@@ -5,13 +5,71 @@
 % Use this file as a template for your own input.
 %
 %%%%%%%%%%%%%%%%%%%%%%%% Springer-Verlag %%%%%%%%%%%%%%%%%%%%%%%%%%
-%\motto{Use the template \emph{chapter.tex} to style the various elements of your chapter content.}
-\chapter{Ascent: A Flyweight In Situ Library for Exascale Simulations}
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox]{svmult}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+
+
+
+\usepackage{newtxtext}       %
+\usepackage{newtxmath}       % selects Times Roman as basic font
+
+%\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{wrapfig}
+
+\newcommand{\fix}[1]{\textcolor{red}{#1}} %Put words in Red
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title*{Ascent: A Flyweight In Situ Library for Exascale Simulations}
+% Use \titlerunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\author{Matthew Larsen, Eric Brugger, Hank Childs, and Cyrus Harrison}
+% Use \authorrunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\institute{Matthew Larsen, Eric Brugger, and Cyrus Harrison \at Lawrence Livermore National Laboratory
+\and Hank Childs \at University of Oregon}
+%
+% Use the package "url.sty" to avoid
+% problems with special characters
+% used in your e-mail or web address
+%
+\maketitle
+
+
+
+
+%\chapter{Ascent: A Flyweight In Situ Library for Exascale Simulations}
 \label{ascent} % Always give a unique label
 % use \chaptermark{}
 % to alter or adjust the chapter heading in the running head
 
-\abstract*{
+\abstract{
 In situ coupling poses a unique set of challenges to the design of analysis and
 visualization infrastructures.
 %
@@ -33,6 +91,8 @@ architectures.
 %
 In this paper, we will discuss in detail Ascent's design considerations, data and control interfaces, system architecture, and success stories.
 }
+
+\section{Introduction}
 
 This chapter describes the Ascent library for in situ visualization
 and analysis.
@@ -243,3 +303,7 @@ Statement about Devil Ray, but a forward reference a section in success stories 
 
 %\section{Success Stories}
 %\label{ascent_success}
+
+\bibliographystyle{splncs04}
+\bibliography{book}
+\end{document}
