@@ -70,26 +70,20 @@
 % to alter or adjust the chapter heading in the running head
 
 \abstract{
-In situ coupling poses a unique set of challenges to the design of analysis and
-visualization infrastructures.
+This chapter describes the Ascent library for in situ visualization and analysis.
 %
-When running with a simulation, resources, such as time and memory are constrained.
+The chapter begins by describing the library's focal points:
+minimizing encumbrance on simulation codes, enabling diverse
+and powerful capabilities, exascale architectures, and delivering a product.
 %
-As simulation applications port to accelerator-based HPC architectures, so
-must our analysis tools.
+It then describes Ascent's abstractions, design, and interface.
 %
-Further, integrating into a simulation's build system adds additional complexity
-becomes difficult with more dependencies.
-%
-Our current community tools were not designed with these set of issues in mind.
-%
-Ascent is an emerging is situ analysis and visualization infrastructure that
-addresses these challenges.
-%
-From Ascent's inception, we have targeted in situ use cases and many-core
-architectures.
-%
-In this paper, we will discuss in detail Ascent's design considerations, data and control interfaces, system architecture, and success stories.
+The chapter concludes with success stories that demonstrate its
+capabilities:
+in situ visualization of a 97.8 billion element intertial confinement fusion
+simulation using 16,384 GPUs, 
+delivering radiography capabilities for a Kelvin-Helmholtz simulation,
+and native rendering of higher order elements.
 }
 
 \section{Introduction}
