@@ -28,9 +28,9 @@
 \usepackage{graphicx}
 
 
-
-\usepackage{newtxtext}       %
-\usepackage{newtxmath}       % selects Times Roman as basic font
+\usepackage{txfonts}
+%\usepackage{newtxtext}       %
+%\usepackage{newtxmath}       % selects Times Roman as basic font
 
 %\usepackage{subcaption}
 \usepackage{multirow}
@@ -89,7 +89,7 @@ The chapter then describes Ascent's abstractions, design, and interface.
 It concludes with success stories that  highlight its
 capabilities:
 in situ visualization of a 97.8 billion element intertial confinement fusion
-simulation using 16,384 GPUs, 
+simulation using 16,384 GPUs,
 delivering radiography capabilities for a Kelvin-Helmholtz simulation,
 and native rendering of higher order elements.
 }
@@ -99,7 +99,7 @@ and native rendering of higher order elements.
 This chapter describes the Ascent library for in situ visualization
 and analysis.
 %
-Ascent was ``born in situ,'' meaning that it was created for the 
+Ascent was ``born in situ,'' meaning that it was created for the
 express purpose of performing in situ processing, and all implementation
 decisions follow this mandate.
 %
@@ -173,7 +173,7 @@ since it can make full use of the underlying hardware architecture.
 %Ascent also has far fewer dependencies than more mature community
 %visualization tools which leads to smaller binary sizes.
 
-In terms of binary size, Ascent has far 
+In terms of binary size, Ascent has far
 fewer dependencies that more mature community visualization tools.
 %
 Not only does this reduce build complexity, but it results in
