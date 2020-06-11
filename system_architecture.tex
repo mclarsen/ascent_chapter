@@ -171,11 +171,17 @@ from Ascent's components such as VTK-m and Devil Ray.
 Within Ascent, all MPI ranks receive the same set of actions.
 %
 Since the actions are the same, all MPI ranks create and execute the same graph,
-meaning
-that all flow filters execute on all ranks.
+meaning that all flow filters execute on all ranks.
 %
-Filters are free to use MPI anyway they see fit, including
+Ascent guarantees that each filter is given full control of MPI communication,
+and filters are free to use MPI anyway they see fit, including
 creating asynchronous tasks.
+%
+Some filters, such as threshold, do not need to use any
+MPI communication, i.e., each block of data is processed independently,
+but other filters, such as particle advection, use MPI to pass particles
+from one rank to another.
+%
 
 \paragraph{Shared-Memory Parallelism}
 Ascent's main components use portable performance abstraction layers to
