@@ -70,15 +70,16 @@
 % to alter or adjust the chapter heading in the running head
 
 \abstract{
-This chapter describes the Ascent library for in situ visualization and analysis.
+This chapter describes Ascent, a production library for in situ visualization and analysis
+on exascale architectures.
 %
-The chapter begins by describing the library's focal points:
-minimizing encumbrance on simulation codes, enabling diverse
-and powerful capabilities, exascale architectures, and delivering a product.
+It begins by describing the library's focal points:
+minimizing encumbrance on simulation codes and enabling diverse
+and powerful capabilities.
 %
-It then describes Ascent's abstractions, design, and interface.
+The chapter then describes Ascent's abstractions, design, and interface.
 %
-The chapter concludes with success stories that demonstrate its
+It concludes with success stories that  highlight its
 capabilities:
 in situ visualization of a 97.8 billion element intertial confinement fusion
 simulation using 16,384 GPUs, 
@@ -101,10 +102,11 @@ Further,  while not a focus of this chapter, Ascent is built for production use 
 simulation codes --- it has documentation,
 examples, engages in modern software engineering practices, etc.
 
-In terms of flyweight design, Ascent aims to minimize
-execution time, memory usage, binary size, and integration effort.
-%
-The first two, execution time and memory usage, benefit from directly
+\subsection{Flyweight Design}
+
+Ascent aims to minimize execution time, memory usage, binary size, and integration effort.
+
+The first two aims, minimizing execution time and memory usage, benefit from directly
 incorporating VTK-m~\cite{Moreland:CGA2016} into Ascent.
 %
 For minimizing memory,
@@ -144,11 +146,21 @@ since it can make full use of the underlying hardware architecture.
 %\fix{Matt's version:}
 %Ascent also has far fewer dependencies than more mature community
 %visualization tools which leads to smaller binary sizes.
+
+In terms of binary size, Ascent has far 
+fewer dependencies that more mature community visualization tools.
 %
-Ascent has far fewer dependencies that more mature community visualization tools.
 Not only does this reduce build complexity, but it results in
 smaller binary sizes, lessening the linking burden on the simulation.
 %
+The only required libraries for Ascent are VTK-m
+and Conduit (described in \S\ref{Conduit}).
+%
+Ascent also adds its own libraries, specifically VTK-h (an MPI wrapping around
+VTK-m) and Flow (described in \S\ref{sec:flow}).
+%
+All other libraries are optional.
+
 Finally, Ascent's API was designed to be simple to learn,
 easy to integrate for novice users, and small in overall code size.
 %
@@ -156,12 +168,14 @@ Integrations can be as short as ten lines of code.
 %
 This topic is explored more in \S\ref{sec:API}.
 
+\subsection{Ascent Capabilities}
+
 Ascent takes multiple approaches to deliver diverse and powerful capabilities:
 integrating with many technologies,
 supporting both visualization and analysis routines,
 developing algorithms specifically designed for in situ processing,
 and providing support for modern supercomputers.
-%
+
 Ascent's strongest component for delivering capabilities is likely
 through integrating many additional technologies.
 %
@@ -195,9 +209,8 @@ higher order elements.
 %code,
 %namely incorporating the Devil Ray code for ray-tracing higher order
 %elements.
-%
-Moving to another approach, Ascent has embraced analysis alongside
-visualization.
+
+Ascent has embraced analysis alongside visualization.
 %
 Noteworthy analysis examples include simulated radiographs and its
 query infrastructure to get quantitative results such as volumes,
@@ -214,16 +227,18 @@ based on the conditions in the system.
 Ascent also has algorithms for extracting reduced forms of the data,
 such as a module for extracting Lagrangian flow~\cite{Agranovsky:LDAV2014,Sane:EGPGV19} and the
 aforementioned Cinema output.
-%
+
 Finally, Ascent has been designed from the beginning with modern
 supercomputers in mind.
 %
 Especially because of the integration of VTK-m, Ascent is able to
 run efficiently on these architectures.
 
+\subsection{Organization of This Chapter}
+
 The remainder of this chapter focuses on key elements of Ascent:
 \begin{itemize}
-\item \S\ref{sec:capabilities} discusses the key abstractions for using Ascent.
+\item \S\ref{sec:capabilities} discusses the five abstractions for using Ascent.
 \item \S\ref{sec:design} discusses Ascent's design.
 \item \S\ref{sec:API} discusses Ascent's APIs for inputting
 data and for controlling execution.
