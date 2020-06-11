@@ -36,6 +36,13 @@
 \usepackage{multirow}
 \usepackage{wrapfig}
 
+\newenvironment{tightItemize}{
+        \begin{itemize}
+                \setlength{\itemsep}{1pt}
+                \setlength{\parskip}{0pt}
+                \setlength{\parsep}{0pt}
+        }{\end{itemize}
+}
 \newcommand{\fix}[1]{\textcolor{red}{#1}} %Put words in Red
 
 \makeindex             % used for the subject index
@@ -92,19 +99,38 @@ and native rendering of higher order elements.
 This chapter describes the Ascent library for in situ visualization
 and analysis.
 %
-Ascent was designed to deliver on two goals which are often in tension:
- (1) minimize encumbrance on simulation codes that incorporate Ascent,
-i.e., a ``flyweight'' design, and
-(2) deliver diverse and powerful capabilities,
-especially for modern supercomputers.
+Ascent was ``born in situ,'' meaning that it was created for the 
+express purpose of performing in situ processing, and all implementation
+decisions follow this mandate.
 %
-Further,  while not a focus of this chapter, Ascent is built for production use by computational
+It was designed to deliver on two goals which are often in tension:
+ (1) minimizing encumbrance on simulation codes that incorporate Ascent,
+i.e., a ``flyweight'' design (discussed in \S\ref{sec:flyweight}), and
+(2) providing diverse and powerful capabilities,
+especially for modern supercomputers (discussed in \S\ref{sec:subcapabilities}).
+%
+In terms of the taxonomy presented in \fix{Intro chapter, section 3}:
+\begin{tightItemize}
+\item Ascent has an API for visualization and analysis that is directly
+used by a computational simulation.  It is primarily controlled by
+specifying the desired visualization and analyses a priori, but it
+also has an option to perform human-in-the-loop via Jupyter notebooks.
+\item Ascent can be run in multiple ways, but the primary usage is for
+Ascent to share the same resources as the simulation code (space division),
+with direct access to the simulation code's memory.
+\end{tightItemize}
+Finally,  while not a focus of this chapter, Ascent is built for production use by computational
 simulation codes --- it has documentation,
 examples, engages in modern software engineering practices, etc.
 
 \subsection{Flyweight Design}
+\label{sec:flyweight}
 
-Ascent aims to minimize execution time, memory usage, binary size, and integration effort.
+Since Ascent was designed to run on the same resources as a simulation code,
+it is critical that it minimizes its usage of those resources.
+%
+In particular, Ascent aims to minimize
+execution time, memory usage, binary size, and integration effort.
 
 The first two aims, minimizing execution time and memory usage, benefit from directly
 incorporating VTK-m~\cite{Moreland:CGA2016} into Ascent.
@@ -169,6 +195,7 @@ Integrations can be as short as ten lines of code.
 This topic is explored more in \S\ref{sec:API}.
 
 \subsection{Ascent Capabilities}
+\label{subsec:capabilities}
 
 Ascent takes multiple approaches to deliver diverse and powerful capabilities:
 integrating with many technologies,
