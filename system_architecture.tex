@@ -41,8 +41,7 @@ a flow filter.
 %
 Filters declare an interface, i.e., how many inputs a filter has and
 if there is an output, and filters are passed a set of parameters inside
-of a Conduit
-node.
+of a Conduit node (see \S\ref{Conduit}).
 %
 Filter inputs are tracked as arbitrary pointers and runtime features allow
 filters to identify and obtain concrete types for processing.
@@ -211,7 +210,7 @@ To support multiple data set representations, there must be a common
 set of supported features, but not all data models Ascent uses
 support the same set of features.
 %
-Since Ascent uses Blueprint as its data interface to simulations,
+Since Ascent uses Blueprint(see \S\ref{Blueprint}) as its data interface to simulations,
 all other data models must sometimes be adapted to support additional
 features.
 %
