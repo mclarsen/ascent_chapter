@@ -38,9 +38,11 @@ Fig.~\ref{fig:ascent_example} shows an example of this, specifically two pipelin
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{images/ascent_actions_diagram.pdf}
+\includegraphics[width=\textwidth]{images/ascent_actions_diagram_x2.pdf}
 \caption{\label{fig:ascent_example} An example of how Ascent actions can be combined.
-In this example, simulation data is acquired from Conduit/Blueprint (see \S\ref{sec:API}),
+%In this example, simulation data is acquired from Conduit/Blueprint (see \S\ref{sec:API}),
+%and that data is relayed into two pipelines (labeled \#1 and \#2).
+In this example, simulation data is published to ascent
 and that data is relayed into two pipelines (labeled \#1 and \#2).
 The first pipeline applies a contour operation, while the second
 applies threshold and clip operations.
@@ -401,7 +403,7 @@ value of the pressure field from the origin exceeds 20.
 Although some of the interactions between Ascent actions have been mentioned previously,
 this subsection formalizes and summarizes these interactions.
 %
-The key takeaway is that connectoins between actions in Ascent is important and well-supported.
+The key takeaway is that connections between actions in Ascent is important and well-supported.
 %
 This is not always the case; in some projects, interoperability between different types of actions
 can be difficult or impossible.
