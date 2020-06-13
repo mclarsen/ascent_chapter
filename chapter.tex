@@ -120,8 +120,8 @@ Ascent to share the same resources as the simulation code (space division),
 with direct access to the simulation code's memory.  In particular,
 Ascent typically does not make a copy of simulation data, but rather
 uses the simulation's in-memory representation directly.
-That said, Ascent can make a copy of the data and run on separate resources
-(e.g., a different GPU on the same compute node) if desired.
+That said, Ascent can make a copy of the data, if desired, 
+to enable the simulation to proceed while visualization is still occurring.
 \end{tightItemize}
 Finally,  while not a focus of this chapter, Ascent is built for production use by computational
 simulation codes --- it has documentation,
