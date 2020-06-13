@@ -107,14 +107,14 @@ It was designed to deliver on two goals which are often in tension:
  (1) minimizing encumbrance on simulation codes that incorporate Ascent,
 i.e., a ``flyweight'' design (discussed in \S\ref{sec:flyweight}), and
 (2) providing diverse and powerful capabilities,
-especially for modern supercomputers (discussed in \S\ref{sec:subcapabilities}).
+especially for modern supercomputers (discussed in \S\ref{subsec:capabilities}).
 %
-In terms of the taxonomy presented in \fix{Intro chapter, section 3}:
+In terms of the taxonomy for in situ systems presented in \fix{Intro chapter, section 3}:
 \begin{tightItemize}
 \item Ascent has an API for visualization and analysis that is directly
 used by a computational simulation.  It is primarily controlled by
 specifying the desired visualization and analyses a priori, but it
-also has an option to perform human-in-the-loop via Jupyter notebooks.
+also has an option to perform human-in-the-loop via Jupyter notebooks~\cite{CyrusISAV}.
 \item Ascent can be run in multiple ways, but the primary usage is for
 Ascent to share the same resources as the simulation code (space division),
 with direct access to the simulation code's memory.
@@ -245,7 +245,7 @@ surfaces areas, and integrated quantities (e.g., integrate the density field to 
 %
 Of course, Ascent supports typical visualization algorithms, such as
 slicing, isosurfacing, volume rendering, and multiple plot types.
-%
+
 With respect to algorithms specifically for in situ processing, Ascent
 has a significant investment in its ``trigger'' system~\cite{Larsen:ISAV18},
 which adapts when visualization and analysis routines are executed,
@@ -260,6 +260,9 @@ supercomputers in mind.
 %
 Especially because of the integration of VTK-m, Ascent is able to
 run efficiently on these architectures.
+%
+In particular, it is able to support GPUs (including multiple GPUs per node) 
+and multi-core CPUs.
 
 \subsection{Organization of This Chapter}
 
