@@ -35,6 +35,14 @@ data was accessed by Ascent directly from the GPU memory, eliminating any
 extra data copies.
 Fig.~\ref{img:icf} shows one of the many images generated in situ during
 this run.
+%
+For this visualization, we used an isovolume filter to isolate a subset of the
+mixing layer, and then we used a clip filter to expose the interior of the mesh
+before rendering an image.
+%
+For each visualization cycle, the total time used for the filters(i.e.,
+isovolume and clip) was approximately 340ms and the rendering time was
+approximately 350ms, while the overall simulation ran for several days.
 
 \subsection{MARBL Simulation Integration}
 Ascent has been integrated and released with LLNL's MARBL~\cite{marbl} simulation code,
