@@ -117,7 +117,11 @@ specifying the desired visualization and analyses a priori, but it
 also has an option to perform human-in-the-loop via Jupyter notebooks~\cite{CyrusISAV}.
 \item Ascent can be run in multiple ways, but the primary usage is for
 Ascent to share the same resources as the simulation code (space division),
-with direct access to the simulation code's memory.
+with direct access to the simulation code's memory.  In particular,
+Ascent typically does not make a copy of simulation data, but rather
+uses the simulation's in-memory representation directly.
+That said, Ascent can make a copy of the data and run on separate resources
+(e.g., a different GPU on the same compute node) if desired.
 \end{tightItemize}
 Finally,  while not a focus of this chapter, Ascent is built for production use by computational
 simulation codes --- it has documentation,
