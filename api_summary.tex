@@ -1,0 +1,26 @@
+Consistent with its flyweight approach, the typical experience integrating Ascent involves a
+relatively short amount of time and small amount of code.
+%
+While specifics vary based on the complexity of the simulation code and the
+amount of things to integrate, a typical integration would involve
+50 to 100 lines of code.
+%
+Build issues tend to be manageable, since the amount of API exposed to a simulation code
+is small, and since there is strong CMake support.  
+%
+(Native Makefile options are also available.)
+%
+If a single individual had expertise in both Ascent and a simulation code, then
+an integration can be done in a few hours or less.
+%
+Of course, the more typical situation is that an individual has expertise in either
+Ascent or the simulation code. 
+%
+In this case, additional time is needed to learn the other technology,
+increasing overall integration time.
+%
+Finally, reiterating discussion from \S\ref{ascent_control}, most integrations
+are smaller since they focus on only passing data, and leave the work for specifying
+Ascent controls to YAML files that can be specified at run-time.
+
+
