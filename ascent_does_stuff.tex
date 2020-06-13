@@ -42,7 +42,7 @@ Fig.~\ref{fig:ascent_example} shows an example of this, specifically two pipelin
 \caption{\label{fig:ascent_example} An example of how Ascent actions can be combined.
 %In this example, simulation data is acquired from Conduit/Blueprint (see \S\ref{sec:API}),
 %and that data is relayed into two pipelines (labeled \#1 and \#2).
-In this example, simulation data is published to ascent
+In this example, simulation data is published to Ascent
 and that data is relayed into two pipelines (labeled \#1 and \#2).
 The first pipeline applies a contour operation, while the second
 applies threshold and clip operations.
@@ -158,8 +158,7 @@ a hydrodynamics proxy-application included with Ascent.
 \end{figure}
 
 In terms of camera placement,
-Ascent creates a default camera based on the bounding box of the data set
-that faces the data set.
+Ascent uses the data set's bounding box to create a default camera that faces the data set.
 %
 Renders inherit the default camera parameters, simplifying creation of useful
 cameras positions.
@@ -258,7 +257,7 @@ The mechanism behind queries enables powerful operations.
 %
 Queries are formed via a Python-like language that
 enables expressions for math operations,
-call functions, and evaluating conditionals.
+calling functions, and evaluating conditionals.
 %
 Further, since the results of queries are stored into named identifiers, subsequent queries
 can build on the results of other queries, allowing for complex combinations.
@@ -318,7 +317,7 @@ and (2) minimizing costs.
 %
 On the one hand, performing visualization frequently maximizes the chances of having
 visualizations at the right times (and likely also some uninteresting times), but
-is costly,  e.g., adding a 50\% overhead on top of the simulation.
+is costly,  e.g., adding substantial overhead on top of the simulation.
 %
 On the other hand, performing visualization infrequently minimizes costs, but also makes it
 less likely that the visualizations will occur during important phenomena.
@@ -452,7 +451,7 @@ the simulation data or pipeline is one step removed.
 Finally, Fig.~\ref{fig:interactions} shows simulation data as only being at the tails of arrows,
 and never the heads, i.e., nothing is ever sent to the simulation.
 %
-In reality, Ascent does have pathing to send data back to the simulation.
+In reality, Ascent does have a mechanism to send data back to the simulation.
 %
 This is most useful for queries, but also applies to the other actions.
 %
