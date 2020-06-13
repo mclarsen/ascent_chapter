@@ -181,6 +181,7 @@ MPI communication, i.e., each block of data is processed independently,
 but other filters, such as particle advection, use MPI to pass particles
 from one rank to another.
 %
+Each MPI rank recieves data published by the simulation.Ascent does not change the distribution
 
 \paragraph{Shared-Memory Parallelism}
 Ascent's main components use portable performance abstraction layers to
