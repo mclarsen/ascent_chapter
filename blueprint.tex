@@ -47,7 +47,7 @@ EAVL~\cite{EAVL},
 MFEM~\cite{mfem-library},
 Silo,
 VTK~\cite{vtk},
-VTKm~\cite{Moreland:CGA2016},
+VTK-m~\cite{Moreland:CGA2016},
 and Xdmf~\cite{xdmf}.
 %
 In this way, lessons learned from previous taxonomies and concrete scientific data models
@@ -77,7 +77,7 @@ the process of adapting data to several existing mesh-aware APIs.
 Blueprint uses four concepts to describe meshes:
 \begin{itemize}
   \item \textbf{Coordinate Sets} describe coordinate systems in 1D, 2D, and 3D,
-using cartesian, spherical, or cylindrical frames of reference.
+using Cartesian, spherical, or cylindrical frames of reference.
 %
 Blueprint supports not only explicit coordinate sets, but also implicit representations,
 such as uniform and rectilinear.
@@ -96,7 +96,7 @@ topologies and fields, which are becoming increasingly common.
 In these cases, the mesh is typically distributed among MPI tasks, into ``domains,'' and
 many algorithms need information at the boundaries of the domains to proceed.
 %
-There are many ways to describe how domain's abut, and Blueprint's domain decomposition information
+There are many ways to describe how domains abut, and Blueprint's domain decomposition information
 allows for capturing the specifics.
 \end{itemize}
 A Blueprint data set minimally needs a topology and a coordinate system,

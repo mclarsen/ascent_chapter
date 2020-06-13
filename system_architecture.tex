@@ -85,7 +85,7 @@ graph, and once registered, a filter can be added to the graph by name.
 %
 Flow uses a topological sort to ensure proper filter execution order,
 to track all intermediate results, and to provide basic memory management capabilities.
-During execution the workspace provides the registry with reference counts that reflect graph connections, allowing intermediate results to be efficiently managed.
+During execution, the workspace provides the registry with reference counts that reflect graph connections, allowing intermediate results to be efficiently managed.
 
 %
 Multiple workspaces can co-exist, and in fact, Ascent uses a separate Flow workspace
@@ -181,7 +181,7 @@ MPI communication, i.e., each block of data is processed independently,
 but other filters, such as particle advection, use MPI to pass particles
 from one rank to another.
 %
-Each MPI rank recieves data published by the simulation.Ascent does not change the distribution
+Each MPI rank receives data published by the simulation.Ascent does not change the distribution
 
 \paragraph{Shared-Memory Parallelism}
 Ascent's main components use portable performance abstraction layers to
