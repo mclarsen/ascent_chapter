@@ -181,7 +181,13 @@ MPI communication, i.e., each block of data is processed independently,
 but other filters, such as particle advection, use MPI to pass particles
 from one rank to another.
 %
-Each MPI rank receives data published by the simulation.Ascent does not change the distribution
+Each MPI rank receives data published by the simulation, and
+Ascent does not redistribute the data.
+%
+That said, filters can change the data distribution (e.g., resampling
+an unstructured grid onto a uniform grid), although this can be a costly
+operation.
+%
 
 \paragraph{Shared-Memory Parallelism}
 Ascent's main components use portable performance abstraction layers to
