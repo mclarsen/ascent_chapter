@@ -52,7 +52,7 @@ ascent.close();
 The major work in an Ascent integration is setting up the data passed to ``publish'' and
 ``execute.''
 %
-The data passed to ``publish'' (``data\_set'' in the example) is in the Conduit-Blueprint form, which was discussed in \S\ref{Blueprint}.
+The data passed to ``publish'' (``data\_set'' in the example) is in the Conduit-Blueprint form, which was discussed in \S\ref{Blueprint}. To support distributed-memory processing using MPI, each MPI task describes local mesh data (one or more domains) and passes them to Ascent using a single ``publish'' call. Ascent operates on all domains published across all MPI Tasks as a larger coherent distributed-memory mesh. 
 %
 The format for the data passed to ``execute'' (``actions'' in the example) 
 is the subject of the remainder of this section.
@@ -124,4 +124,9 @@ add_act2["action"] = "add_scenes";
 add_act2["scenes"] = scenes;
 actions.append()["action"] = "execute";
 \end{lstlisting}
+
+
+Please see \S\ref{sec:information} for links to Ascent's documentation and more resources that
+provide details about getting started with Ascent and learning its APIs.
+
 

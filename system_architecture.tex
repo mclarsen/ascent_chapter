@@ -181,7 +181,8 @@ MPI communication, i.e., each block of data is processed independently,
 but other filters, such as particle advection, use MPI to pass particles
 from one rank to another.
 %
-Each MPI rank receives data published by the simulation, and
+For mesh data, as discussed in \S\ref{ascent_control},
+each MPI rank receives data published by the simulation, and
 Ascent does not redistribute the data.
 %
 That said, filters can change the data distribution (e.g., resampling
@@ -201,7 +202,7 @@ Devil Ray, while not itself a portable performance layer, uses RAJA to execute
 on different architectures, supporting OpenMP, CUDA, HIP, and TBB.
 
 \subsubsection{Data Set Representations}
-Ascent uses a data abstraction, called the data object, as the input
+Ascent uses an internal data abstraction, called the data object, as the input
 and outputs of filters.
 %
 The data object is responsible for transforming data from one in-memory format

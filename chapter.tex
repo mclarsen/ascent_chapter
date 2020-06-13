@@ -234,10 +234,14 @@ Python scripts and C/C++ code.
 This pathway also enables access to
 machine learning infrastructures, such as TensorFlow and PyTorch.
 %
-This is more than proof of concept,
-as Ascent recently utilized a distributed-memory Random Forest.
+%This is more than proof of concept,
+%as Ascent recently utilized a distributed-memory Random Forest.
 %
-A successful integration of code is described in \S\ref{sec:DevilRay}.
+To demonstrate this pathway concretely, Ascent was recently used in situ
+to train and leverage a distributed-memory Random Forest on simulation data.
+%
+%
+A successful integration of Ascent with a simulation code is described in \S\ref{sec:DevilRay}.
 %
 Specifically, this integration incorporated the Devil Ray code for ray-tracing
 higher order elements.
@@ -269,6 +273,7 @@ supercomputers in mind.
 %
 Especially because of the integration of VTK-m, Ascent is able to
 run efficiently on these architectures.
+\fix{Mention DRAY also?}
 %
 In particular, it is able to support GPUs (including multiple GPUs per node) 
 and multi-core CPUs.
